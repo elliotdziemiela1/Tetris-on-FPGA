@@ -1,0 +1,1 @@
+// RAM. 2KB to be exact. address range = 0x0000-0x07ff
