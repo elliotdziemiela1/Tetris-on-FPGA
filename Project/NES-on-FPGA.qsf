@@ -53,5 +53,5 @@ set_global_assignment -name SYSTEMVERILOG_FILE CPU.sv
 set_global_assignment -name SYSTEMVERILOG_FILE PPU.sv
 set_global_assignment -name SYSTEMVERILOG_FILE NES.sv
 set_global_assignment -name SYSTEMVERILOG_FILE control.sv
-set_global_assignment -name SYSTEMVERILOG_FILE datapath.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RAM.sv
+set_global_assignment -name SYSTEMVERILOG_FILE memory_mapper.sv
