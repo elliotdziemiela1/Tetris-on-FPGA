@@ -22,41 +22,6 @@ module DE10_LITE_SDRAM_RTL_Test(
 	output		          		DRAM_RAS_N,
 	output		          		DRAM_UDQM,
 	output		          		DRAM_WE_N,
-
-	//////////// SEG7 //////////
-	output		     [7:0]		HEX0,
-	output		     [7:0]		HEX1,
-	output		     [7:0]		HEX2,
-	output		     [7:0]		HEX3,
-	output		     [7:0]		HEX4,
-	output		     [7:0]		HEX5,
-
-	//////////// KEY //////////
-	input 		     [1:0]		KEY,
-
-	//////////// LED //////////
-	output		     [9:0]		LEDR,
-
-	//////////// SW //////////
-	input 		     [9:0]		SW,
-
-	//////////// VGA //////////
-	output		     [3:0]		VGA_B,
-	output		     [3:0]		VGA_G,
-	output		          		VGA_HS,
-	output		     [3:0]		VGA_R,
-	output		          		VGA_VS,
-
-	//////////// Accelerometer //////////
-	output		          		GSENSOR_CS_N,
-	input 		     [2:1]		GSENSOR_INT,
-	output		          		GSENSOR_SCLK,
-	inout 		          		GSENSOR_SDI,
-	inout 		          		GSENSOR_SDO,
-
-	//////////// Arduino //////////
-	inout 		    [15:0]		ARDUINO_IO,
-	inout 		          		ARDUINO_RESET_N
 );
 
 
@@ -139,41 +104,6 @@ pll_test u2(
 		.drv_status_test_complete(sdram_test_complete)
 		
 );			
-	
-// / //////////////////////////////////////////////
-// reset_n and start_n control
-reg [31:0]  cont;
-always@(posedge MAX10_CLK1_50)
-cont<=(cont==32'd4_000_001)?32'd0:cont+1'b1;
-
-reg[4:0] sample;
-always@(posedge MAX10_CLK1_50)
-begin
-	if(cont==32'd4_000_000)
-		sample[4:0]={sample[3:0],KEY[0]};
-	else 
-		sample[4:0]=sample[4:0];
-end
-
-
-assign test_software_reset_n=(sample[1:0]==2'b10)?1'b0:1'b1;
-assign test_global_reset_n   =(sample[3:2]==2'b10)?1'b0:1'b1;
-assign test_start_n         =(sample[4:3]==2'b01)?1'b0:1'b1;
-
-wire [2:0] test_result;
-assign test_result[0] =  KEY[0];
-assign test_result[1] =  sdram_test_complete? sdram_test_pass : heart_beat[23];
-assign test_result[2] =  heart_beat[23];
-
-
-assign LEDR[2:0] = KEY[0]?test_result:4'b1111;
-
-reg [23:0] heart_beat;
-always @ (posedge MAX10_CLK1_50)
-begin
-	heart_beat <= heart_beat + 1;
-end
-
 	
 	
 	
