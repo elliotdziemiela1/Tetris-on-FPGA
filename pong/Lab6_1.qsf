@@ -125,14 +125,6 @@ set_location_assignment PIN_A13 -to SW[6]
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-set_global_assignment -name QIP_FILE lab62_soc/synthesis/lab62_soc.qip
-set_global_assignment -name SYSTEMVERILOG_FILE VGA_controller.sv
-set_global_assignment -name SYSTEMVERILOG_FILE lab62.sv
-set_global_assignment -name SYSTEMVERILOG_FILE HexDriver.sv
-set_global_assignment -name SYSTEMVERILOG_FILE Color_Mapper.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ball.sv
-set_global_assignment -name SDC_FILE lab6.sdc
-set_global_assignment -name SYSTEMVERILOG_FILE lab61.sv
 set_location_assignment PIN_N5 -to ADC_CLK_10
 set_location_assignment PIN_N14 -to MAX10_CLK2_50
 set_location_assignment PIN_C14 -to HEX0[0]
@@ -261,3 +253,34 @@ set_location_assignment PIN_Y3 -to GPIO[33]
 set_location_assignment PIN_AB2 -to GPIO[34]
 set_location_assignment PIN_AA2 -to GPIO[35]
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name VERILOG_FILE v/sdram_pll0_bb.v
+set_global_assignment -name VERILOG_FILE v/sdram_pll0.v
+set_global_assignment -name QIP_FILE v/sdram_pll0.qip
+set_global_assignment -name VERILOG_FILE v/RW_Test.v
+set_global_assignment -name VERILOG_FILE v/pll_test_bb.v
+set_global_assignment -name VERILOG_FILE v/pll_test.v
+set_global_assignment -name QIP_FILE v/pll_test.qip
+set_global_assignment -name HTML_FILE v/Sdram_Control/Sdram_WR_FIFO_waveforms.html
+set_global_assignment -name SOURCE_FILE v/Sdram_Control/Sdram_WR_FIFO_wave1.jpg
+set_global_assignment -name SOURCE_FILE v/Sdram_Control/Sdram_WR_FIFO_wave0.jpg
+set_global_assignment -name VERILOG_FILE v/Sdram_Control/Sdram_WR_FIFO.v
+set_global_assignment -name QIP_FILE v/Sdram_Control/Sdram_WR_FIFO.qip
+set_global_assignment -name HTML_FILE v/Sdram_Control/Sdram_RD_FIFO_waveforms.html
+set_global_assignment -name SOURCE_FILE v/Sdram_Control/Sdram_RD_FIFO_wave1.jpg
+set_global_assignment -name SOURCE_FILE v/Sdram_Control/Sdram_RD_FIFO_wave0.jpg
+set_global_assignment -name VERILOG_FILE v/Sdram_Control/Sdram_RD_FIFO.v
+set_global_assignment -name QIP_FILE v/Sdram_Control/Sdram_RD_FIFO.qip
+set_global_assignment -name SOURCE_FILE v/Sdram_Control/Sdram_Params.h
+set_global_assignment -name VERILOG_FILE v/Sdram_Control/Sdram_Control.v
+set_global_assignment -name VERILOG_FILE v/Sdram_Control/sdr_data_path.v
+set_global_assignment -name VERILOG_FILE v/Sdram_Control/control_interface.v
+set_global_assignment -name VERILOG_FILE v/Sdram_Control/command.v
+set_global_assignment -name QIP_FILE lab62_soc/synthesis/lab62_soc.qip
+set_global_assignment -name SYSTEMVERILOG_FILE VGA_controller.sv
+set_global_assignment -name SYSTEMVERILOG_FILE lab62.sv
+set_global_assignment -name SYSTEMVERILOG_FILE HexDriver.sv
+set_global_assignment -name SYSTEMVERILOG_FILE Color_Mapper.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ball.sv
+set_global_assignment -name SDC_FILE lab6.sdc
+set_global_assignment -name SYSTEMVERILOG_FILE lab61.sv
+set_global_assignment -name VERILOG_FILE sdram/SDRAMmm.v

@@ -161,12 +161,25 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 
 //instantiate a vga_controller, ball, and color_mapper here with the ports.
 
+//module  ball ( input Reset, frame_clk,
+//					input [7:0] keycode,
+//               output [9:0]  BallX, BallY, BallS );
 ball _ball (.Reset(Reset_h), .frame_clk(~VGA_VS), .keycode(keycode), .BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig));
 
+//color_mapper ( input        [9:0] BallX, BallY, DrawX, DrawY, Ball_size,
+//                       output logic [7:0]  Red, Green, Blue )
 color_mapper colormap (.BallX(ballxsig), .BallY(ballysig), .DrawX(drawxsig), .DrawY(drawysig), .Ball_size(ballsizesig), .Red(Red), .Green(Green), .Blue(Blue));
-
+//
+//vga_controller ( input        Clk,       // 50 MHz clock
+//                                      Reset,     // reset signal
+//                         output logic hs,        // Horizontal sync pulse.  Active low
+//								              vs,        // Vertical sync pulse.  Active low
+//												  pixel_clk, // 25 MHz pixel clock output
+//												  blank,     // Blanking interval indicator.  Active low.
+//												  sync,      // Composite Sync signal.  Active low.  We don't use it in this lab,
+//												             //   but the video DAC on the DE2 board requires an inp ut for it.
+//								 output [9:0] DrawX,     // horizontal coordinate
+//								              DrawY );   // vertical coordinate
 vga_controller vga_ctrl (.Clk(MAX10_CLK1_50), .Reset(1'b0), .hs(VGA_HS), .vs(VGA_VS), .pixel_clk(), .blank(), .sync(), .DrawX(drawxsig), .DrawY(drawysig));
-
-
 
 endmodule
