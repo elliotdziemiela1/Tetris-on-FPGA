@@ -170,13 +170,21 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 
 //instantiate a vga_controller, ball, and color_mapper here with the ports.
 
+<<<<<<< HEAD
 sdram_pll0 u0 ( .areset (),
+=======
+sdram_pll0 pll ( .areset (),
+>>>>>>> 08fcb9af52f7885b1b0cacfbebbbab2be75e609d
 					 .inclk0(MAX10_CLK2_50),
 					 .c0(pll_clk),
 	             .c1(),
 	             .locked());
 
+<<<<<<< HEAD
 Sdram_Control u1 (	//	HOST Side
+=======
+Sdram_Control sdram_controller (	//	HOST Side
+>>>>>>> 08fcb9af52f7885b1b0cacfbebbbab2be75e609d
 						   .REF_CLK(MAX10_CLK1_50),
 					      .RESET_N(test_software_reset_n),
 							//	FIFO Write Side 
@@ -184,7 +192,11 @@ Sdram_Control u1 (	//	HOST Side
 							.WR(write),
 							.WR_ADDR(0),
 							.WR_MAX_ADDR(18'h3E800),		//	256K addresses
+<<<<<<< HEAD
 							.WR_LENGTH(5'd16), // length 16
+=======
+							.WR_LENGTH(5'h10), // length 16
+>>>>>>> 08fcb9af52f7885b1b0cacfbebbbab2be75e609d
 							.WR_LOAD(!test_global_reset_n ),
 							.WR_CLK(pll_clk),
 							//	FIFO Read Side 
@@ -192,7 +204,11 @@ Sdram_Control u1 (	//	HOST Side
 				        	.RD(read),
 				        	.RD_ADDR(0),			//	Read odd field and bypess blanking
 							.RD_MAX_ADDR(18'h3E800), // 256K addresses
+<<<<<<< HEAD
 							.RD_LENGTH(5'd16), // length 16
+=======
+							.RD_LENGTH(5'h10), // length 16
+>>>>>>> 08fcb9af52f7885b1b0cacfbebbbab2be75e609d
 				        	.RD_LOAD(!test_global_reset_n ),
 							.RD_CLK(pll_clk),
                      //	SDRAM Side
