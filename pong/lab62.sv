@@ -129,16 +129,18 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.key_external_connection_export    (KEY),            //key_external_connection.export
 
 		//SDRAM
-		.sdram_clk_clk(DRAM_CLK),                            //clk_sdram.clk
-		.sdram_wire_addr(DRAM_ADDR),                         //sdram_wire.addr
-		.sdram_wire_ba(DRAM_BA),                             //.ba
-		.sdram_wire_cas_n(DRAM_CAS_N),                       //.cas_n
-		.sdram_wire_cke(DRAM_CKE),                           //.cke
-		.sdram_wire_cs_n(DRAM_CS_N),                         //.cs_n
-		.sdram_wire_dq(DRAM_DQ),                             //.dq
-		.sdram_wire_dqm({DRAM_UDQM,DRAM_LDQM}),              //.dqm
-		.sdram_wire_ras_n(DRAM_RAS_N),                       //.ras_n
-		.sdram_wire_we_n(DRAM_WE_N),                         //.we_n
+		
+		
+//		.sdram_clk_clk(DRAM_CLK),                            //clk_sdram.clk
+//		.sdram_wire_addr(DRAM_ADDR),                         //sdram_wire.addr
+//		.sdram_wire_ba(DRAM_BA),                             //.ba
+//		.sdram_wire_cas_n(DRAM_CAS_N),                       //.cas_n
+//		.sdram_wire_cke(DRAM_CKE),                           //.cke
+//		.sdram_wire_cs_n(DRAM_CS_N),                         //.cs_n
+//		.sdram_wire_dq(DRAM_DQ),                             //.dq
+//		.sdram_wire_dqm({DRAM_UDQM,DRAM_LDQM}),              //.dqm
+//		.sdram_wire_ras_n(DRAM_RAS_N),                       //.ras_n
+//		.sdram_wire_we_n(DRAM_WE_N),                         //.we_n
 
 		//USB SPI	
 		.spi0_SS_n(SPI0_CS_N),

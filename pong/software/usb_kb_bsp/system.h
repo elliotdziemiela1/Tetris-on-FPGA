@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'lab62_soc'
  * SOPC Builder design path: ../../lab62_soc.sopcinfo
  *
- * Generated: Tue Apr 18 19:59:56 CDT 2023
+ * Generated: Thu Apr 20 16:14:56 CDT 2023
  */
 
 /*
@@ -365,8 +365,8 @@
 #define ONCHIP_MEMORY2_0_READ_DURING_WRITE_MODE "DONT_CARE"
 #define ONCHIP_MEMORY2_0_SINGLE_CLOCK_OP 0
 #define ONCHIP_MEMORY2_0_SIZE_MULTIPLE 1
-#define ONCHIP_MEMORY2_0_SIZE_VALUE 262144
-#define ONCHIP_MEMORY2_0_SPAN 262144
+#define ONCHIP_MEMORY2_0_SIZE_VALUE 131072
+#define ONCHIP_MEMORY2_0_SPAN 131072
 #define ONCHIP_MEMORY2_0_TYPE "altera_avalon_onchip_memory2"
 #define ONCHIP_MEMORY2_0_WRITABLE 1
 
@@ -414,7 +414,7 @@
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1681865509
+#define SYSID_QSYS_0_TIMESTAMP 1682024540
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 
