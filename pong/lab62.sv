@@ -9,7 +9,8 @@
 module lab62 (
 
       ///////// Clocks /////////
-      input     MAX10_CLK1_50, 
+      input     MAX10_CLK1_50,
+		input 	 MAX10_CLK2_50,
 
       ///////// KEY /////////
       input    [ 1: 0]   KEY,
@@ -71,6 +72,13 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	logic [9:0] drawxsig, drawysig, ballxsig, ballysig, ballsizesig;
 	logic [7:0] Red, Blue, Green;
 	logic [7:0] keycode;
+	
+	// SDRAM Wire Declaractions
+	logic pll_clk;
+	logic write;
+	logic read;
+	logic [15:0] writedata;
+	logic [15:0] readdata;
 
 //=======================================================
 //  Structural coding
@@ -123,22 +131,23 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	lab62_soc u0 (
 		.clk_clk                           (MAX10_CLK1_50),  //clk.clk
 		.reset_reset_n                     (1'b1),           //reset.reset_n
-		.altpll_0_locked_conduit_export    (),               //altpll_0_locked_conduit.export
-		.altpll_0_phasedone_conduit_export (),               //altpll_0_phasedone_conduit.export
-		.altpll_0_areset_conduit_export    (),               //altpll_0_areset_conduit.export
+		// PLL NOT IN USE!!
+//		.altpll_0_locked_conduit_export    (),               //altpll_0_locked_conduit.export
+//		.altpll_0_phasedone_conduit_export (),               //altpll_0_phasedone_conduit.export
+//		.altpll_0_areset_conduit_export    (),               //altpll_0_areset_conduit.export
 		.key_external_connection_export    (KEY),            //key_external_connection.export
 
-		//SDRAM
-		.sdram_clk_clk(DRAM_CLK),                            //clk_sdram.clk
-		.sdram_wire_addr(DRAM_ADDR),                         //sdram_wire.addr
-		.sdram_wire_ba(DRAM_BA),                             //.ba
-		.sdram_wire_cas_n(DRAM_CAS_N),                       //.cas_n
-		.sdram_wire_cke(DRAM_CKE),                           //.cke
-		.sdram_wire_cs_n(DRAM_CS_N),                         //.cs_n
-		.sdram_wire_dq(DRAM_DQ),                             //.dq
-		.sdram_wire_dqm({DRAM_UDQM,DRAM_LDQM}),              //.dqm
-		.sdram_wire_ras_n(DRAM_RAS_N),                       //.ras_n
-		.sdram_wire_we_n(DRAM_WE_N),                         //.we_n
+		//SDRAM NOT IN USE!!
+//		.sdram_clk_clk(DRAM_CLK),                            //clk_sdram.clk
+//		.sdram_wire_addr(DRAM_ADDR),                         //sdram_wire.addr
+//		.sdram_wire_ba(DRAM_BA),                             //.ba
+//		.sdram_wire_cas_n(DRAM_CAS_N),                       //.cas_n
+//		.sdram_wire_cke(DRAM_CKE),                           //.cke
+//		.sdram_wire_cs_n(DRAM_CS_N),                         //.cs_n
+//		.sdram_wire_dq(DRAM_DQ),                             //.dq
+//		.sdram_wire_dqm({DRAM_UDQM,DRAM_LDQM}),              //.dqm
+//		.sdram_wire_ras_n(DRAM_RAS_N),                       //.ras_n
+//		.sdram_wire_we_n(DRAM_WE_N),                         //.we_n
 
 		//USB SPI	
 		.spi0_SS_n(SPI0_CS_N),
@@ -161,12 +170,47 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 
 //instantiate a vga_controller, ball, and color_mapper here with the ports.
 
+sdram_pll0 pll ( .areset (),
+					 .inclk0(MAX10_CLK2_50),
+					 .c0(pll_clk),
+	             .c1(),
+	             .locked());
+
+Sdram_Control sdram_controller (	//	HOST Side
+						   .REF_CLK(MAX10_CLK1_50),
+					      .RESET_N(test_software_reset_n),
+							//	FIFO Write Side 
+						   .WR_DATA(writedata),
+							.WR(write),
+							.WR_ADDR(0),
+							.WR_MAX_ADDR(18'h3E800),		//	256K addresses
+							.WR_LENGTH(5'h10), // length 16
+							.WR_LOAD(!test_global_reset_n ),
+							.WR_CLK(pll_clk),
+							//	FIFO Read Side 
+						   .RD_DATA(readdata),
+				        	.RD(read),
+				        	.RD_ADDR(0),			//	Read odd field and bypess blanking
+							.RD_MAX_ADDR(18'h3E800), // 256K addresses
+							.RD_LENGTH(5'h10), // length 16
+				        	.RD_LOAD(!test_global_reset_n ),
+							.RD_CLK(pll_clk),
+                     //	SDRAM Side
+						   .SA(DRAM_ADDR),
+						   .BA(DRAM_BA),
+						   .CS_N(DRAM_CS_N),
+						   .CKE(DRAM_CKE),
+						   .RAS_N(DRAM_RAS_N),
+				         .CAS_N(DRAM_CAS_N),
+				         .WE_N(DRAM_WE_N),
+						   .DQ(DRAM_DQ),
+				         .DQM({DRAM_UDQM,DRAM_LDQM}),
+							.SDR_CLK(DRAM_CLK)	);
+
 ball _ball (.Reset(Reset_h), .frame_clk(~VGA_VS), .keycode(keycode), .BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig));
 
 color_mapper colormap (.BallX(ballxsig), .BallY(ballysig), .DrawX(drawxsig), .DrawY(drawysig), .Ball_size(ballsizesig), .Red(Red), .Green(Green), .Blue(Blue));
 
 vga_controller vga_ctrl (.Clk(MAX10_CLK1_50), .Reset(1'b0), .hs(VGA_HS), .vs(VGA_VS), .pixel_clk(), .blank(), .sync(), .DrawX(drawxsig), .DrawY(drawysig));
-
-
 
 endmodule
