@@ -69,7 +69,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	logic [3:0] hex_num_4, hex_num_3, hex_num_1, hex_num_0; //4 bit input hex digits
 	logic [1:0] signs;
 	logic [1:0] hundreds;
-	logic [9:0] drawxsig, drawysig, ballxsig, ballysig, ballsizesig;
+	logic [9:0] drawxsig, drawysig, blockxsig, blockysig;
 	logic [7:0] Red, Blue, Green;
 	logic [7:0] keycode;
 	
@@ -207,9 +207,14 @@ Sdram_Control sdram_controller (	//	HOST Side
 				         .DQM({DRAM_UDQM,DRAM_LDQM}),
 							.SDR_CLK(DRAM_CLK)	);
 
-ball _ball (.Reset(Reset_h), .frame_clk(~VGA_VS), .keycode(keycode), .BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig));
+							
 
-color_mapper colormap (.BallX(ballxsig), .BallY(ballysig), .DrawX(drawxsig), .DrawY(drawysig), .Ball_size(ballsizesig), .Red(Red), .Green(Green), .Blue(Blue));
+
+Game_Logic game (.Reset(Reset_h), .frame_clk(~VGA_VS), .keycode(keycode), .blockXPos(blockxsig), .blockYPos(blockysig), .blockColor());
+
+//ball _ball (.Reset(Reset_h), .frame_clk(~VGA_VS), .keycode(keycode), .BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig));
+
+color_mapper colormap (.ballx(blockxsig), .bally(blockysig), .DrawX(drawxsig), .DrawY(drawysig), .Ball_size(ballsizesig), .Red(Red), .Green(Green), .Blue(Blue));
 
 vga_controller vga_ctrl (.Clk(MAX10_CLK1_50), .Reset(1'b0), .hs(VGA_HS), .vs(VGA_VS), .pixel_clk(), .blank(), .sync(), .DrawX(drawxsig), .DrawY(drawysig));
 

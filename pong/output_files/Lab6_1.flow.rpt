@@ -1,9 +1,5 @@
 Flow report for Lab6_1
-<<<<<<< HEAD
-Thu Apr 20 16:03:56 2023
-=======
-Thu Apr 20 16:08:18 2023
->>>>>>> 994dcf48918fcacb7e5089273964577f83544dfd
+Fri Apr 21 08:52:12 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -44,42 +40,24 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-<<<<<<< HEAD
-; Flow Status                        ; Successful - Thu Apr 20 16:03:56 2023       ;
-=======
-; Flow Status                        ; Flow Failed - Thu Apr 20 16:08:18 2023      ;
->>>>>>> 994dcf48918fcacb7e5089273964577f83544dfd
+; Flow Status                        ; Successful - Fri Apr 21 08:52:12 2023       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; Lab6_1                                      ;
 ; Top-level Entity Name              ; lab62                                       ;
 ; Family                             ; MAX 10                                      ;
 ; Device                             ; 10M50DAF484C7G                              ;
 ; Timing Models                      ; Final                                       ;
-<<<<<<< HEAD
-; Total logic elements               ; 2,985 / 49,760 ( 6 % )                      ;
-;     Total combinational functions  ; 2,797 / 49,760 ( 6 % )                      ;
-;     Dedicated logic registers      ; 1,552 / 49,760 ( 3 % )                      ;
-; Total registers                    ; 1552                                        ;
-; Total pins                         ; 141 / 360 ( 39 % )                          ;
+; Total logic elements               ; 3,533 / 49,760 ( 7 % )                      ;
+;     Total combinational functions  ; 3,339 / 49,760 ( 7 % )                      ;
+;     Dedicated logic registers      ; 1,838 / 49,760 ( 4 % )                      ;
+; Total registers                    ; 1838                                        ;
+; Total pins                         ; 142 / 360 ( 39 % )                          ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 1,059,840 / 1,677,312 ( 63 % )              ;
+; Total memory bits                  ; 1,059,872 / 1,677,312 ( 63 % )              ;
 ; Embedded Multiplier 9-bit elements ; 4 / 288 ( 1 % )                             ;
-; Total PLLs                         ; 0 / 4 ( 0 % )                               ;
+; Total PLLs                         ; 2 / 4 ( 50 % )                              ;
 ; UFM blocks                         ; 0 / 1 ( 0 % )                               ;
 ; ADC blocks                         ; 0 / 2 ( 0 % )                               ;
-=======
-; Total logic elements               ; N/A until Partition Merge                   ;
-;     Total combinational functions  ; N/A until Partition Merge                   ;
-;     Dedicated logic registers      ; N/A until Partition Merge                   ;
-; Total registers                    ; N/A until Partition Merge                   ;
-; Total pins                         ; N/A until Partition Merge                   ;
-; Total virtual pins                 ; N/A until Partition Merge                   ;
-; Total memory bits                  ; N/A until Partition Merge                   ;
-; Embedded Multiplier 9-bit elements ; N/A until Partition Merge                   ;
-; Total PLLs                         ; N/A until Partition Merge                   ;
-; UFM blocks                         ; N/A until Partition Merge                   ;
-; ADC blocks                         ; N/A until Partition Merge                   ;
->>>>>>> 994dcf48918fcacb7e5089273964577f83544dfd
 +------------------------------------+---------------------------------------------+
 
 
@@ -88,11 +66,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-<<<<<<< HEAD
-; Start date & time ; 04/20/2023 16:02:51 ;
-=======
-; Start date & time ; 04/20/2023 16:07:44 ;
->>>>>>> 994dcf48918fcacb7e5089273964577f83544dfd
+; Start date & time ; 04/21/2023 08:50:56 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; Lab6_1              ;
 +-------------------+---------------------+
@@ -103,16 +77,16 @@ refer to the applicable agreement for further details.
 +-------------------------------------+-------------------------------------------------------------+---------------+-------------------+----------------+
 ; Assignment Name                     ; Value                                                       ; Default Value ; Entity Name       ; Section Id     ;
 +-------------------------------------+-------------------------------------------------------------+---------------+-------------------+----------------+
-<<<<<<< HEAD
-; COMPILER_SIGNATURE_ID               ; 154535786495760.168202457117440                             ; --            ; --                ; --             ;
-=======
-; COMPILER_SIGNATURE_ID               ; 54991824249049.168202486420892                              ; --            ; --                ; --             ;
->>>>>>> 994dcf48918fcacb7e5089273964577f83544dfd
+; COMPILER_SIGNATURE_ID               ; 154535786495760.168208505503856                             ; --            ; --                ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Systemverilog Hdl                                           ; --            ; --                ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (SystemVerilog)                             ; <None>        ; --                ; --             ;
 ; EDA_TIME_SCALE                      ; 1 ps                                                        ; --            ; --                ; eda_simulation ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                                          ; --            ; --                ; --             ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                                           ; --            ; --                ; --             ;
+; MISC_FILE                           ; v/sdram_pll0_bb.v                                           ; --            ; --                ; --             ;
+; MISC_FILE                           ; v/sdram_pll0.ppf                                            ; --            ; --                ; --             ;
+; MISC_FILE                           ; v/pll_test_bb.v                                             ; --            ; --                ; --             ;
+; MISC_FILE                           ; v/pll_test.ppf                                              ; --            ; --                ; --             ;
 ; MISC_FILE                           ; lab62_soc/synthesis/../lab62_soc.cmp                        ; --            ; --                ; --             ;
 ; MISC_FILE                           ; lab62_soc/synthesis/../../lab62_soc.qsys                    ; --            ; --                ; --             ;
 ; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                                           ; --            ; --                ; --             ;
@@ -130,11 +104,7 @@ refer to the applicable agreement for further details.
 ; PROJECT_OUTPUT_DIRECTORY            ; output_files                                                ; --            ; --                ; --             ;
 ; SLD_FILE                            ; lab62_soc/synthesis/lab62_soc.regmap                        ; --            ; --                ; --             ;
 ; SLD_FILE                            ; lab62_soc/synthesis/lab62_soc.debuginfo                     ; --            ; --                ; --             ;
-<<<<<<< HEAD
-; SLD_INFO                            ; QSYS_NAME lab62_soc HAS_SOPCINFO 1 GENERATION_ID 1682024540 ; --            ; lab62_soc         ; --             ;
-=======
-; SLD_INFO                            ; QSYS_NAME lab62_soc HAS_SOPCINFO 1 GENERATION_ID 1679513949 ; --            ; lab62_soc         ; --             ;
->>>>>>> 994dcf48918fcacb7e5089273964577f83544dfd
+; SLD_INFO                            ; QSYS_NAME lab62_soc HAS_SOPCINFO 1 GENERATION_ID 1682035900 ; --            ; lab62_soc         ; --             ;
 ; SOPCINFO_FILE                       ; lab62_soc/synthesis/../../lab62_soc.sopcinfo                ; --            ; --                ; --             ;
 ; SYNTHESIS_ONLY_QIP                  ; On                                                          ; --            ; --                ; --             ;
 ; TOP_LEVEL_ENTITY                    ; lab62                                                       ; Lab6_1        ; --                ; --             ;
@@ -146,17 +116,12 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-<<<<<<< HEAD
-; Analysis & Synthesis ; 00:00:29     ; 1.0                     ; 5006 MB             ; 00:00:47                           ;
-; Fitter               ; 00:00:18     ; 1.9                     ; 6667 MB             ; 00:00:48                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4705 MB             ; 00:00:03                           ;
-; Timing Analyzer      ; 00:00:05     ; 2.8                     ; 5020 MB             ; 00:00:12                           ;
-; EDA Netlist Writer   ; 00:00:02     ; 1.0                     ; 4720 MB             ; 00:00:02                           ;
-; Total                ; 00:00:57     ; --                      ; --                  ; 00:01:52                           ;
-=======
-; Analysis & Synthesis ; 00:00:34     ; 1.0                     ; 4916 MB             ; 00:00:28                           ;
-; Total                ; 00:00:34     ; --                      ; --                  ; 00:00:28                           ;
->>>>>>> 994dcf48918fcacb7e5089273964577f83544dfd
+; Analysis & Synthesis ; 00:00:38     ; 1.0                     ; 5028 MB             ; 00:01:02                           ;
+; Fitter               ; 00:00:19     ; 2.1                     ; 6678 MB             ; 00:00:53                           ;
+; Assembler            ; 00:00:03     ; 1.0                     ; 4706 MB             ; 00:00:03                           ;
+; Timing Analyzer      ; 00:00:05     ; 3.4                     ; 5028 MB             ; 00:00:12                           ;
+; EDA Netlist Writer   ; 00:00:03     ; 1.0                     ; 4725 MB             ; 00:00:03                           ;
+; Total                ; 00:01:08     ; --                      ; --                  ; 00:02:13                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -165,15 +130,11 @@ refer to the applicable agreement for further details.
 +----------------------+------------------+------------+------------+----------------+
 ; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
 +----------------------+------------------+------------+------------+----------------+
-<<<<<<< HEAD
 ; Analysis & Synthesis ; LAPTOP-F9F0DP5T  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Fitter               ; LAPTOP-F9F0DP5T  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Assembler            ; LAPTOP-F9F0DP5T  ; Windows 10 ; 10.0       ; x86_64         ;
 ; Timing Analyzer      ; LAPTOP-F9F0DP5T  ; Windows 10 ; 10.0       ; x86_64         ;
 ; EDA Netlist Writer   ; LAPTOP-F9F0DP5T  ; Windows 10 ; 10.0       ; x86_64         ;
-=======
-; Analysis & Synthesis ; Stinky           ; Windows 10 ; 10.0       ; x86_64         ;
->>>>>>> 994dcf48918fcacb7e5089273964577f83544dfd
 +----------------------+------------------+------------+------------+----------------+
 
 
@@ -181,13 +142,10 @@ refer to the applicable agreement for further details.
 ; Flow Log ;
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off 3D_Pong -c Lab6_1
-<<<<<<< HEAD
 quartus_fit --read_settings_files=off --write_settings_files=off 3D_Pong -c Lab6_1
 quartus_asm --read_settings_files=off --write_settings_files=off 3D_Pong -c Lab6_1
 quartus_sta 3D_Pong -c Lab6_1
 quartus_eda --read_settings_files=off --write_settings_files=off 3D_Pong -c Lab6_1
-=======
->>>>>>> 994dcf48918fcacb7e5089273964577f83544dfd
 
 
 

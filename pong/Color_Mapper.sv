@@ -12,33 +12,31 @@
 //    University of Illinois ECE Department                              --
 //-------------------------------------------------------------------------
 
+// VGA = 640*480
 
-module  color_mapper ( input        [9:0] BallX, BallY, DrawX, DrawY, Ball_size,
+module  color_mapper ( input        [9:0] ballx, bally, DrawX, DrawY, Ball_size,
                        output logic [7:0]  Red, Green, Blue );
     
     logic ball_on;
 	 
- /* Old Ball: Generated square box by checking if the current pixel is within a square of length
-    2*Ball_Size, centered at (BallX, BallY).  Note that this requires unsigned comparisons.
-	 
-    if ((DrawX >= BallX - Ball_size) &&
-       (DrawX <= BallX + Ball_size) &&
-       (DrawY >= BallY - Ball_size) &&
-       (DrawY <= BallY + Ball_size))
 
-     New Ball: Generates (pixelated) circle by using the standard circle formula.  Note that while 
-     this single line is quite powerful descriptively, it causes the synthesis tool to use up three
-     of the 12 available multipliers on the chip!  Since the multiplicants are required to be signed,
-	  we have to first cast them from logic to int (signed by default) before they are multiplied). */
-	  
+	 parameter squareSize = (640/2)/12; // half of the screen is the board, and divide that by
+	 // the # of squares in a row of the board
+	 logic [9:0] BallX, BallY;
+	 
+	 assign BallX = (ballx * squareSize) + (640/4); // start at second quarter of screen
+	 assign BallY = bally * squareSize;
+//	 assign BallX = ballx; // start at second quarter of screen
+//	 assign BallY = bally;
     int DistX, DistY, Size;
-	 assign DistX = DrawX - BallX;
-    assign DistY = DrawY - BallY;
-    assign Size = Ball_size;
+	 assign DistX = DrawX - BallX; // change to BallX
+    assign DistY = DrawY - BallY; // change to BallY
+//    assign Size = Ball_size;
+	assign Size = squareSize/2;
 	  
     always_comb
     begin:Ball_on_proc
-        if ( ( DistX*DistX + DistY*DistY) <= (Size * Size) ) 
+        if ( ( DistX*DistX + DistY*DistY) <= (Size * Size) || (DrawX <= (640/4) - (squareSize/2)) || (DrawX >= (3*640/4) + (squareSize/2))) 
             ball_on = 1'b1;
         else 
             ball_on = 1'b0;
@@ -51,7 +49,7 @@ module  color_mapper ( input        [9:0] BallX, BallY, DrawX, DrawY, Ball_size,
             Red = 8'hff;
             Green = 8'h55;
             Blue = 8'h00;
-        end       
+        end  
         else 
         begin 
             Red = 8'h00; 
