@@ -1,5 +1,5 @@
 Flow report for Lab6_1
-Fri Apr 21 08:52:12 2023
+Fri Apr 21 15:11:43 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,21 +40,21 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Fri Apr 21 08:52:12 2023       ;
+; Flow Status                        ; Successful - Fri Apr 21 15:11:43 2023       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; Lab6_1                                      ;
 ; Top-level Entity Name              ; lab62                                       ;
 ; Family                             ; MAX 10                                      ;
 ; Device                             ; 10M50DAF484C7G                              ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 3,533 / 49,760 ( 7 % )                      ;
-;     Total combinational functions  ; 3,339 / 49,760 ( 7 % )                      ;
-;     Dedicated logic registers      ; 1,838 / 49,760 ( 4 % )                      ;
-; Total registers                    ; 1838                                        ;
+; Total logic elements               ; 4,691 / 49,760 ( 9 % )                      ;
+;     Total combinational functions  ; 4,489 / 49,760 ( 9 % )                      ;
+;     Dedicated logic registers      ; 1,853 / 49,760 ( 4 % )                      ;
+; Total registers                    ; 1853                                        ;
 ; Total pins                         ; 142 / 360 ( 39 % )                          ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 1,059,872 / 1,677,312 ( 63 % )              ;
-; Embedded Multiplier 9-bit elements ; 4 / 288 ( 1 % )                             ;
+; Embedded Multiplier 9-bit elements ; 10 / 288 ( 3 % )                            ;
 ; Total PLLs                         ; 2 / 4 ( 50 % )                              ;
 ; UFM blocks                         ; 0 / 1 ( 0 % )                               ;
 ; ADC blocks                         ; 0 / 2 ( 0 % )                               ;
@@ -66,7 +66,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/21/2023 08:50:56 ;
+; Start date & time ; 04/21/2023 15:10:30 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; Lab6_1              ;
 +-------------------+---------------------+
@@ -77,7 +77,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------+-------------------------------------------------------------+---------------+-------------------+----------------+
 ; Assignment Name                     ; Value                                                       ; Default Value ; Entity Name       ; Section Id     ;
 +-------------------------------------+-------------------------------------------------------------+---------------+-------------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 154535786495760.168208505503856                             ; --            ; --                ; --             ;
+; COMPILER_SIGNATURE_ID               ; 154535786495760.168210783024204                             ; --            ; --                ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Systemverilog Hdl                                           ; --            ; --                ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (SystemVerilog)                             ; <None>        ; --                ; --             ;
 ; EDA_TIME_SCALE                      ; 1 ps                                                        ; --            ; --                ; eda_simulation ;
@@ -116,12 +116,12 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:38     ; 1.0                     ; 5028 MB             ; 00:01:02                           ;
-; Fitter               ; 00:00:19     ; 2.1                     ; 6678 MB             ; 00:00:53                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4706 MB             ; 00:00:03                           ;
-; Timing Analyzer      ; 00:00:05     ; 3.4                     ; 5028 MB             ; 00:00:12                           ;
-; EDA Netlist Writer   ; 00:00:03     ; 1.0                     ; 4725 MB             ; 00:00:03                           ;
-; Total                ; 00:01:08     ; --                      ; --                  ; 00:02:13                           ;
+; Analysis & Synthesis ; 00:00:33     ; 1.0                     ; 5018 MB             ; 00:00:50                           ;
+; Fitter               ; 00:00:20     ; 2.1                     ; 6690 MB             ; 00:00:54                           ;
+; Assembler            ; 00:00:03     ; 1.0                     ; 4711 MB             ; 00:00:03                           ;
+; Timing Analyzer      ; 00:00:05     ; 3.6                     ; 5033 MB             ; 00:00:13                           ;
+; EDA Netlist Writer   ; 00:00:03     ; 1.0                     ; 4733 MB             ; 00:00:02                           ;
+; Total                ; 00:01:04     ; --                      ; --                  ; 00:02:02                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

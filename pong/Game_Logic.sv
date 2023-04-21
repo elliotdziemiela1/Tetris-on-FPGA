@@ -3,8 +3,8 @@
 module Game_Logic (
 		input Reset, frame_clk,
 		input [7:0] keycode,
-		output logic [5:0] blockXPos, 
-		output logic [6:0] blockYPos,
+		output logic [5:0] blockX1Pos, blockX2Pos, blockX3Pos, blockX4Pos, 
+		output logic [6:0] blockY1Pos, blockY2Pos, blockY3Pos, blockY4Pos,
 		output logic [3:0] blockColor // index into palette
 	);
 	
@@ -14,8 +14,8 @@ module Game_Logic (
 	
 	logic [15:0] Blocks[board_height+1]; // each bit represents the presence of a block in that square
 	// of the screen
-	logic [5:0] blockX; // zero indexed
-	logic [6:0] blockY; // zero indexed
+	logic [5:0] blockX1, blockX2, blockX3, blockX4; // zero indexed
+	logic [6:0] blockY1, blockY2, blockY3, blockY4; // zero indexed
 	logic [6:0] blockXMotion;
 	logic [7:0] blockYMotion;
 	logic [3:0] color;
@@ -47,8 +47,15 @@ module Game_Logic (
         begin 
             blockXMotion <= 7'd0;
 				blockYMotion <= 8'd0; 
-				blockY <= 0;
-				blockX <= 7;
+				blockX1 <= 7;
+				blockY1 <= 0;
+				blockX2 <= 7;
+				blockY2 <= 1;
+				blockX3 <= 8;
+				blockY3 <= 1;
+				blockX4 <= 8;
+				blockY4 <= 2;
+
 				color <= 1;
 				Blocks <= '{default: 16'h0};
 
@@ -58,19 +65,19 @@ module Game_Logic (
 				blockYMotion <= 1;
 				case (keycode)
 					8'h04 : begin
-								if (blockX > 0)
+								if ((blockX1>0)&&(blockX2>0)&&(blockX3>0)&&(blockX4>0))
 									blockXMotion <= -1;//A
 							  end
 					        
 					8'h07 : begin
 								
-					        if (blockX < board_width)
+					        if ((blockX1<board_width)&&(blockX2<board_width)&&(blockX3<board_width)&&(blockX4<board_width))
 									blockXMotion <= 1;//D
 							  end
 
 							  
 					8'h16 : begin
-								if (blockY < board_height)
+								if ((blockY1<board_height)&&(blockY2<board_height)&&(blockY3<board_height)&&(blockY4<board_height))
 									blockYMotion <= 2;//S
 							 end
 							  
@@ -78,55 +85,49 @@ module Game_Logic (
 					default: ;
 			   endcase
 				
-				if (Blocks[blockY + blockYMotion][blockX + blockXMotion] == 1'b1 || (blockY + blockYMotion >= board_height)) begin // collision with other block or bottom of screen
+				if (
+				Blocks[blockY1+blockYMotion][blockX1+blockXMotion]==1'b1 || (blockY1+blockYMotion>=board_height) ||
+				Blocks[blockY2+blockYMotion][blockX2+blockXMotion]==1'b1 || (blockY2+blockYMotion>=board_height) ||
+				Blocks[blockY3+blockYMotion][blockX3+blockXMotion]==1'b1 || (blockY3+blockYMotion>=board_height) ||
+				Blocks[blockY4+blockYMotion][blockX4+blockXMotion]==1'b1 || (blockY4+blockYMotion>=board_height)
+				) begin // collision with other block or bottom of screen
 					// new block generated
-					Blocks[blockY][blockX] <= 1'b1;
-					blockX <= 7; // middle of screen
-					blockY <= 0;
+					Blocks[blockY1][blockX1] <= 1'b1;
+					Blocks[blockY2][blockX2] <= 1'b1;
+					Blocks[blockY3][blockX3] <= 1'b1;
+					Blocks[blockY4][blockX4] <= 1'b1;
+					blockX1 <= 7; // middle of screen
+					blockY1 <= 0;
+					blockX2 <= 7; // middle of screen
+					blockY2 <= 1;
+					blockX3 <= 8; // middle of screen
+					blockY3 <= 1;
+					blockX4 <= 8; // middle of screen
+					blockY4 <= 2;
 					color <= color+1;
 				end
 				else begin
-					blockX <= blockX + blockXMotion;
-					blockY <= blockY + blockYMotion;
+					blockX1 <= blockX1 + blockXMotion;
+					blockX2 <= blockX2 + blockXMotion;
+					blockX3 <= blockX3 + blockXMotion;
+					blockX4 <= blockX4 + blockXMotion;
+					blockY1 <= blockY1 + blockYMotion;
+					blockY2 <= blockY2 + blockYMotion;
+					blockY3 <= blockY3 + blockYMotion;
+					blockY4 <= blockY4 + blockYMotion;
 				end
-// DEBUG
-//				case (keycode)
-//					8'h04 : begin
-//								if (blockX > 0)
-//									blockXMotion <= -1;//A
-//								else
-//									blockXMotion <= 0;
-//								blockYMotion<= 0;
-//							  end
-//					        
-//					8'h07 : begin
-//								
-//					        if (blockX < board_width)
-//									blockXMotion <= 1;//D
-//								else
-//									blockXMotion <= 0;
-//							  blockYMotion <= 0;
-//							  end
-//
-//							  
-//					8'h16 : begin
-//								
-//							 end
-//							  
-////					8'h1A : begin //W
-//					default: begin
-//						blockXMotion <= 0;
-//						blockYMotion <= 0;
-//						end
-//			   endcase
-//				blockX <= blockX + blockXMotion;
-//				blockY <= blockY + blockYMotion;
 		end
 	end	
 
 	always_comb begin
-		blockXPos = blockX;
-		blockYPos = blockY;
+		blockX1Pos = blockX1;
+		blockY1Pos = blockY1;
+		blockX2Pos = blockX2;
+		blockY2Pos = blockY2;
+		blockX3Pos = blockX3;
+		blockY3Pos = blockY3;
+		blockX4Pos = blockX4;
+		blockY4Pos = blockY4;
 		blockColor = color;
 	end
 

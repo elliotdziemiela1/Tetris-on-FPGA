@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Apr 21, 2023 8:35:53 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1682084153613</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Apr 21, 2023 2:08:47 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1682104127479</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\user1\Desktop\NES-on-FPGA\pong\software\usb_kb_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\lab62_soc.sopcinfo</SopcDesignFile>
