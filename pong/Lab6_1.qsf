@@ -252,6 +252,7 @@ set_location_assignment PIN_AB3 -to GPIO[32]
 set_location_assignment PIN_Y3 -to GPIO[33]
 set_location_assignment PIN_AB2 -to GPIO[34]
 set_location_assignment PIN_AA2 -to GPIO[35]
+set_global_assignment -name SYSTEMVERILOG_FILE tetris.sv
 set_global_assignment -name VERILOG_FILE v/Sdram_Control/Sdram_WR_FIFO.v
 set_global_assignment -name QIP_FILE v/Sdram_Control/Sdram_WR_FIFO.qip
 set_global_assignment -name VERILOG_FILE v/Sdram_Control/Sdram_RD_FIFO.v

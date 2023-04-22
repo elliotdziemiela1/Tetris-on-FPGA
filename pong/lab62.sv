@@ -81,8 +81,8 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	logic wr_full;
 	logic [15:0] writedata;
 	logic [15:0] readdata;
-	logic [24:0] writeaddr;
-	logic [24:0] readaddr;
+	logic [15:0] writeaddr;
+	logic [15:0] readaddr;
 
 //=======================================================
 //  Structural coding
@@ -220,9 +220,11 @@ Sdram_Control sdram_controller (	//	HOST Side
 Game_Logic game (.Reset(Reset_h), .frame_clk(~VGA_VS), .keycode(keycode), .blockX1Pos(blockx1sig), .blockY1Pos(blocky1sig), .blockX2Pos(blockx2sig), 
 	.blockY2Pos(blocky2sig), .blockX3Pos(blockx3sig), .blockY3Pos(blocky3sig), .blockX4Pos(blockx4sig), .blockY4Pos(blocky4sig), .blockColor());
 
+//tetris tet (.*, .clk(MAX10_CLK1_50), .vs(VGA_VS), .hs(VGA_HS), .DrawX(drawxsig), .DrawY(drawysig), .Red(Red), .Green(Green), .Blue(Blue)); // Tetris instantiation
+tetris tet (.DrawX(drawxsig), .DrawY(drawysig), .Red(Red), .Green(Green), .Blue(Blue)); // Tetris instantiation
 
 color_mapper colormap (.blockx1(blockx1sig), .blocky1(blocky1sig), .blockx2(blockx2sig), .blocky2(blocky2sig), .blockx3(blockx3sig), 
-	.blocky3(blocky3sig), .blockx4(blockx4sig), .blocky4(blocky4sig), .DrawX(drawxsig), .DrawY(drawysig), .Ball_size(ballsizesig), .Red(Red), .Green(Green), .Blue(Blue));
+	.blocky3(blocky3sig), .blockx4(blockx4sig), .blocky4(blocky4sig), .DrawX(drawxsig), .DrawY(drawysig), .Ball_size(ballsizesig), .Red(), .Green(), .Blue());
 
 vga_controller vga_ctrl (.Clk(MAX10_CLK1_50), .Reset(1'b0), .hs(VGA_HS), .vs(VGA_VS), .pixel_clk(), .blank(), .sync(), .DrawX(drawxsig), .DrawY(drawysig));
 

@@ -1,4 +1,20 @@
 
+State Machine - |lab62|tetris:tet|state
+Name state.RB state.RA state.WDF state.WD state.WCF state.WC state.WBF state.WB state.WAF state.WA state.PR2 state.PR1 state.Hold 
+state.Hold 0 0 0 0 0 0 0 0 0 0 0 0 0 
+state.PR1 0 0 0 0 0 0 0 0 0 0 0 1 1 
+state.PR2 0 0 0 0 0 0 0 0 0 0 1 0 1 
+state.WA 0 0 0 0 0 0 0 0 0 1 0 0 1 
+state.WAF 0 0 0 0 0 0 0 0 1 0 0 0 1 
+state.WB 0 0 0 0 0 0 0 1 0 0 0 0 1 
+state.WBF 0 0 0 0 0 0 1 0 0 0 0 0 1 
+state.WC 0 0 0 0 0 1 0 0 0 0 0 0 1 
+state.WCF 0 0 0 0 1 0 0 0 0 0 0 0 1 
+state.WD 0 0 0 1 0 0 0 0 0 0 0 0 1 
+state.WDF 0 0 1 0 0 0 0 0 0 0 0 0 1 
+state.RA 0 1 0 0 0 0 0 0 0 0 0 0 1 
+state.RB 1 0 0 0 0 0 0 0 0 0 0 0 1 
+
 State Machine - |lab62|lab62_soc:u0|lab62_soc_nios2_gen2_0:nios2_gen2_0|lab62_soc_nios2_gen2_0_cpu:cpu|lab62_soc_nios2_gen2_0_cpu_nios2_oci:the_lab62_soc_nios2_gen2_0_cpu_nios2_oci|lab62_soc_nios2_gen2_0_cpu_debug_slave_wrapper:the_lab62_soc_nios2_gen2_0_cpu_debug_slave_wrapper|lab62_soc_nios2_gen2_0_cpu_debug_slave_tck:the_lab62_soc_nios2_gen2_0_cpu_debug_slave_tck|DRsize
 Name DRsize.101 DRsize.100 DRsize.011 DRsize.010 DRsize.001 DRsize.000 
 DRsize.000 0 0 0 0 0 0 

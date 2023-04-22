@@ -63,18 +63,28 @@ module  color_mapper ( input        [9:0] blockx1, blocky1, blockx2, blocky2, bl
        
     always_comb
     begin:RGB_Display
-        if ((ball_on == 1'b1)) 
-        begin 
-            Red = 8'hff;
-            Green = 8'h55;
-            Blue = 8'h00;
-        end  
-        else 
-        begin 
-            Red = 8'h00; 
-            Green = 8'h00;
-            Blue = 8'h7f - DrawX[9:3];
-        end      
+//        if ((ball_on == 1'b1)) 
+//        begin 
+//            Red = 8'hff;
+//            Green = 8'h55;
+//            Blue = 8'h00;
+//        end  
+//        else 
+//        begin 
+//            Red = 8'h00; 
+//            Green = 8'h00;
+//            Blue = 8'h7f - DrawX[9:3];
+//        end   
+		  if (DrawX > 300) begin
+			  Red = 8'hff;
+			  Green = 8'h55;
+			  Blue = 8'h00;
+		  end 
+		  else begin
+			  Red = 8'h00;
+			  Green = 8'h55;
+			  Blue = 8'hff;
+		  end 
     end 
     
 endmodule

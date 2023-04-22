@@ -11,13 +11,15 @@ create_clock -period "50.0 MHz" [get_ports MAX10_CLK1_50]
 create_clock -period "50.0 MHz" [get_ports MAX10_CLK2_50]
 
 
-
-
 # SDRAM CLK
-create_generated_clock -source [get_pins { u0|altpll_0|sd1|pll7|clk[1] }] \
+create_generated_clock -source [get_pins { u0|sdram_pll|sd1|pll7|clk[1] }] \
                       -name clk_dram_ext [get_ports {DRAM_CLK}]
 
+create_generated_clock -divide_by 2 -source [get_ports {MAX10_CLK1_50}] \
+                       -name clk_vga_ext [get_nets {vga_controller:vga_ctrl|clkdiv}]
 
+#create_generated_clock -divide_by 980 -source [get_ports {MAX10_CLK1_50}] \
+#                                            -name clk_vga_vs [get_nets {vga_controller:vga_ctrl|vs}]
 #**************************************************************
 # Create Generated Clock
 #**************************************************************
@@ -50,9 +52,9 @@ set_input_delay -min -clock clk_dram_ext 3.0 [get_ports DRAM_DQ*]
 
 #shift-window
 set_multicycle_path -from [get_clocks {clk_dram_ext}] \
-                    -to [get_clocks { u0|altpll_0|sd1|pll7|clk[0] }] \
-						  -setup 2
-						  
+                    -to [get_clocks { u0|sdram_pll|sd1|pll7|clk[0] }] \
+                                      -setup 2
+
 #**************************************************************
 # Set Output Delay
 #**************************************************************
@@ -76,7 +78,26 @@ set_output_delay -min -clock clk_dram_ext -0.9 [get_ports {DRAM_ADDR* DRAM_BA* D
 #**************************************************************
 # Set False Path
 #**************************************************************
-
+set_false_path -from [get_ports {KEY*}] -to *
+set_false_path -from * -to [get_ports {LEDR*}]
+set_false_path -from * -to [get_ports {HEX0*}]
+set_false_path -from * -to [get_ports {HEX1*}]
+set_false_path -from * -to [get_ports {HEX2*}]
+set_false_path -from * -to [get_ports {HEX3*}]
+set_false_path -from * -to [get_ports {HEX4*}]
+set_false_path -from * -to [get_ports {HEX5*}]
+set_false_path -from * -to [get_ports {ARDUINO*}]
+set_false_path -from [get_ports {ARDUINO*}] -to *
+set_false_path -from * -to [get_ports {VGA_R*}]
+set_false_path -from * -to [get_ports {VGA_G*}]
+set_false_path -from * -to [get_ports {VGA_B*}]
+set_false_path -from * -to [get_ports {VGA_VS*}]
+set_false_path -from * -to [get_ports {VGA_HS*}]
+set_false_path -from [get_ports {altera*}] -to *
+set_false_path -from * -to [get_ports {altera*}]
+set_false_path -from [get_ports {DRAM_DQ*}] -to *
+set_false_path -from * -to [get_ports {DRAM_CLK}]
+set_false_path -from * -to [get_ports {DRAM_DQ*}]
 
 
 #**************************************************************
@@ -106,6 +127,3 @@ set_output_delay -min -clock clk_dram_ext -0.9 [get_ports {DRAM_ADDR* DRAM_BA* D
 #**************************************************************
 # Set Load
 #**************************************************************
-
-
-

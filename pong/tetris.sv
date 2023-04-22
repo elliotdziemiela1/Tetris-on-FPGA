@@ -11,13 +11,13 @@
 //	logic readld;
 module tetris ( input clk,
 					 input vs, hs,
-					 input DrawX, DrawY,
+					 input logic [9:0] DrawX, DrawY,
 					 input wr_full, rd_empty,
 					 input [15:0] readdata,
 					 output write, read,
 					 output [15:0] writeaddr, readaddr,
 					 output [15:0] writedata,
-					 output [7:0] Red, Green, Blue
+					 output logic [7:0] Red, Green, Blue
 					 );
 
 // Local Declarations					 
@@ -123,21 +123,33 @@ end
 
 always_comb
 begin
-//	if(read_reg1 == 16'h03)
-//		begin
-//		Red = 8'h5f;
-//      Green = 8'hf5;
-//      Blue = 8'h00;
-//		end
-//	else
-//		begin
-//		Red = 8'hff;
-//	   Green = 8'h55;
-//	   Blue = 8'h00;
-//		end
-		Red = 8'hff;
-	   Green = 8'h55;
-	   Blue = 8'h00;
+	if(read_reg1 == 16'h03)
+		begin
+			if (DrawX > 300) begin // red
+			  Red = 8'hff;
+			  Green = 8'h00;
+			  Blue = 8'h00;
+		  end 
+		  else begin
+			  Red = 8'h00;
+			  Green = 8'h55;
+			  Blue = 8'hff;
+		  end 
+		end
+	else
+		begin
+		if (DrawX > 300) begin // green
+			  Red = 8'h00;
+			  Green = 8'hff;
+			  Blue = 8'h00;
+		  end 
+		  else begin
+			  Red = 8'h55;
+			  Green = 8'h00;
+			  Blue = 8'hff;
+		  end 
+		end
+
 end
 
 // BlockX and BlockY assumed to be position of block		 
