@@ -1,5 +1,5 @@
 Timing Analyzer report for Lab6_1
-Fri Apr 21 15:11:39 2023
+Sat Apr 22 16:28:41 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -94,15 +94,15 @@ refer to the applicable agreement for further details.
 ; Number detected on machine ; 16          ;
 ; Maximum allowed            ; 16          ;
 ;                            ;             ;
-; Average used               ; 3.64        ;
+; Average used               ; 3.59        ;
 ; Maximum used               ; 16          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;  20.7%      ;
-;     Processor 3            ;  17.6%      ;
-;     Processor 4            ;  17.5%      ;
-;     Processors 5-16        ;  17.3%      ;
+;     Processor 2            ;  20.2%      ;
+;     Processor 3            ;  17.2%      ;
+;     Processor 4            ;  17.2%      ;
+;     Processors 5-16        ;  17.0%      ;
 +----------------------------+-------------+
 
 
@@ -111,9 +111,9 @@ refer to the applicable agreement for further details.
 +---------------------------------------------------------------+--------+--------------------------+
 ; SDC File Path                                                 ; Status ; Read at                  ;
 +---------------------------------------------------------------+--------+--------------------------+
-; lab62_soc/synthesis/submodules/altera_reset_controller.sdc    ; OK     ; Fri Apr 21 15:11:36 2023 ;
-; lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu.sdc ; OK     ; Fri Apr 21 15:11:36 2023 ;
-; lab6.sdc                                                      ; OK     ; Fri Apr 21 15:11:36 2023 ;
+; lab62_soc/synthesis/submodules/altera_reset_controller.sdc    ; OK     ; Sat Apr 22 16:28:38 2023 ;
+; lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu.sdc ; OK     ; Sat Apr 22 16:28:38 2023 ;
+; lab6.sdc                                                      ; OK     ; Sat Apr 22 16:28:38 2023 ;
 +---------------------------------------------------------------+--------+--------------------------+
 
 
@@ -1293,7 +1293,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus Prime Timing Analyzer
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Fri Apr 21 15:11:34 2023
+    Info: Processing started: Sat Apr 22 16:28:36 2023
 Info: Command: quartus_sta 3D_Pong -c Lab6_1
 Info: qsta_default_script.tcl version: #1
 Warning (20013): Ignored 24 assignments for entity "DE10_LITE_Default" -- entity does not exist in design
@@ -1565,8 +1565,8 @@ Info (332114): Report Metastability: Found 9 synchronizer chains.
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus Prime Timing Analyzer was successful. 0 errors, 57 warnings
-    Info: Peak virtual memory: 5033 megabytes
-    Info: Processing ended: Fri Apr 21 15:11:39 2023
+    Info: Peak virtual memory: 5031 megabytes
+    Info: Processing ended: Sat Apr 22 16:28:41 2023
     Info: Elapsed time: 00:00:05
     Info: Total CPU time (on all processors): 00:00:14
 

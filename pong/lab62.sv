@@ -77,8 +77,12 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	logic pll_clk;
 	logic write;
 	logic read;
+	logic rd_empty;
+	logic wr_full;
 	logic [15:0] writedata;
 	logic [15:0] readdata;
+	logic [24:0] writeaddr;
+	logic [24:0] readaddr;
 
 //=======================================================
 //  Structural coding
@@ -176,25 +180,28 @@ sdram_pll0 pll ( .areset (),
 	             .c1(),
 	             .locked());
 
+
 Sdram_Control sdram_controller (	//	HOST Side
 						   .REF_CLK(MAX10_CLK1_50),
-					      .RESET_N(test_software_reset_n),
+					      .RESET_N(1'b0),
 							//	FIFO Write Side 
 						   .WR_DATA(writedata),
 							.WR(write),
-							.WR_ADDR(0),
+							.WR_ADDR(writeaddr),
 							.WR_MAX_ADDR(18'h3E800),		//	256K addresses
 							.WR_LENGTH(5'h10), // length 16
-							.WR_LOAD(!test_global_reset_n ),
+							.WR_LOAD(1'b1),
 							.WR_CLK(pll_clk),
+							.WR_FULL(wr_full),
 							//	FIFO Read Side 
 						   .RD_DATA(readdata),
 				        	.RD(read),
-				        	.RD_ADDR(0),			//	Read odd field and bypess blanking
+				        	.RD_ADDR(readaddr),			
 							.RD_MAX_ADDR(18'h3E800), // 256K addresses
 							.RD_LENGTH(5'h10), // length 16
-				        	.RD_LOAD(!test_global_reset_n ),
+				        	.RD_LOAD(1'b1),
 							.RD_CLK(pll_clk),
+							.RD_EMPTY(rd_empty),
                      //	SDRAM Side
 						   .SA(DRAM_ADDR),
 						   .BA(DRAM_BA),

@@ -1,5 +1,5 @@
 Flow report for Lab6_1
-Fri Apr 21 15:11:43 2023
+Sat Apr 22 16:28:45 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,7 +40,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Fri Apr 21 15:11:43 2023       ;
+; Flow Status                        ; Successful - Sat Apr 22 16:28:45 2023       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; Lab6_1                                      ;
 ; Top-level Entity Name              ; lab62                                       ;
@@ -66,7 +66,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/21/2023 15:10:30 ;
+; Start date & time ; 04/22/2023 16:27:29 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; Lab6_1              ;
 +-------------------+---------------------+
@@ -77,7 +77,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------+-------------------------------------------------------------+---------------+-------------------+----------------+
 ; Assignment Name                     ; Value                                                       ; Default Value ; Entity Name       ; Section Id     ;
 +-------------------------------------+-------------------------------------------------------------+---------------+-------------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 154535786495760.168210783024204                             ; --            ; --                ; --             ;
+; COMPILER_SIGNATURE_ID               ; 154535786495760.168219884822044                             ; --            ; --                ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Systemverilog Hdl                                           ; --            ; --                ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (SystemVerilog)                             ; <None>        ; --                ; --             ;
 ; EDA_TIME_SCALE                      ; 1 ps                                                        ; --            ; --                ; eda_simulation ;
@@ -116,12 +116,12 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:33     ; 1.0                     ; 5018 MB             ; 00:00:50                           ;
-; Fitter               ; 00:00:20     ; 2.1                     ; 6690 MB             ; 00:00:54                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4711 MB             ; 00:00:03                           ;
-; Timing Analyzer      ; 00:00:05     ; 3.6                     ; 5033 MB             ; 00:00:13                           ;
-; EDA Netlist Writer   ; 00:00:03     ; 1.0                     ; 4733 MB             ; 00:00:02                           ;
-; Total                ; 00:01:04     ; --                      ; --                  ; 00:02:02                           ;
+; Analysis & Synthesis ; 00:00:37     ; 1.0                     ; 5034 MB             ; 00:00:57                           ;
+; Fitter               ; 00:00:21     ; 2.1                     ; 6690 MB             ; 00:00:54                           ;
+; Assembler            ; 00:00:03     ; 1.0                     ; 4710 MB             ; 00:00:03                           ;
+; Timing Analyzer      ; 00:00:05     ; 3.6                     ; 5031 MB             ; 00:00:14                           ;
+; EDA Netlist Writer   ; 00:00:03     ; 1.0                     ; 4732 MB             ; 00:00:02                           ;
+; Total                ; 00:01:09     ; --                      ; --                  ; 00:02:10                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
