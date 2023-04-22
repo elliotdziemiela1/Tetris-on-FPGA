@@ -33,11 +33,11 @@ parameter	SC_BL		=	1;
 ////////////	100 MHz	///////////////
 parameter	INIT_PER	=	24000;
 parameter	REF_PER		=	1024;
-parameter	SC_CL		=	2; // Default: 3, 2 specifies a cas latency of 2 clock cycles
+parameter	SC_CL		=	3;
 parameter	SC_RCD		=	3;
 parameter	SC_RRD		=	7;
-parameter	SC_PM		=	0; // Default: 1, 0 specifies programmed burst length mode
-parameter	SC_BL		=	2; // Default: 1, 2 specifies programmed burst length of 2
+parameter	SC_PM		=	1;
+parameter	SC_BL		=	1;
 ///////////////////////////////////////
 ////////////	50 MHz	///////////////
 /*
