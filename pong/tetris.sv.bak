@@ -1,0 +1,26 @@
+//
+//	// SDRAM Wire Declaractions
+//	logic pll_clk;
+//	logic write;
+//	logic read;
+//	logic [15:0] writedata;
+//	logic [15:0] readdata;
+//	logic [15:0] writeaddr;
+//	logic [15:0] readaddr;
+//	logic writeld;
+//	logic readld;
+module tetris ( input clk
+					 input [15:0] readdata,
+					 output writeld, readld, // Sends a request to SDRAM to read/write memory
+					 output write, read, // Handles Write/Read register loads and fifos, normally should be set high?
+					 output [15:0] writeaddr, readaddr,
+					 output [15:0] writedata
+					 output [7:0] Red, Green, Blue
+					 );
+				 
+
+// BlockX and BlockY assumed to be position of block		 
+// Color mapper will decide when to write colors of block to vram					 
+color_mapper colormap (.towrite(writeld), .color(writedata) );
+
+vga_controller vga_ctrl (.Clk(MAX10_CLK1_50), .Reset(1'b0), .hs(VGA_HS), .vs(VGA_VS), .pixel_clk(), .blank(), .sync(), .DrawX(drawxsig), .DrawY(drawysig));
