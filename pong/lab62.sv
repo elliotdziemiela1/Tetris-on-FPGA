@@ -223,6 +223,8 @@ Sdram_Control sdram_controller (	//	HOST Side
 							
 tetris tet (.*, .clk(MAX10_CLK1_50), .vs(VGA_VS), .hs(VGA_HS)); // Tetris instantiation
 
+vga_controller vga_ctrl (.Clk(MAX10_CLK1_50), .Reset(1'b0), .hs(VGA_HS), .vs(VGA_VS), .pixel_clk(), .blank(), .sync(), .DrawX(DrawX), .DrawY(DrawY));
+
 
 
 endmodule

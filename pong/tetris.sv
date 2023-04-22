@@ -10,13 +10,14 @@
 //	logic writeld;
 //	logic readld;
 module tetris ( input clk,
+					 input vs, hs,
+					 input DrawX, DrawY,
 					 input wr_full, rd_empty,
 					 input [15:0] readdata,
 					 output write, read,
 					 output [15:0] writeaddr, readaddr,
 					 output [15:0] writedata,
-					 output [7:0] Red, Green, Blue,
-					 output vs, hs
+					 output [7:0] Red, Green, Blue
 					 );
 
 // Local Declarations					 
@@ -140,6 +141,6 @@ end
 // Color mapper will decide when to write colors of block to vram					 
 //color_mapper colormap (.towrite(writeld), .color(writedata) );
 
-vga_controller vga_ctrl (.Clk(clk), .Reset(1'b0), .hs(hs), .vs(vs), .pixel_clk(), .blank(), .sync(), .DrawX(DrawX), .DrawY(DrawY));
+
 
 endmodule
