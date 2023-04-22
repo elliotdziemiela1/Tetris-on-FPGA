@@ -5,7 +5,6 @@
 //      UIUC ECE Department                                              --
 //-------------------------------------------------------------------------
 
-
 module lab62 (
 
       ///////// Clocks /////////
@@ -77,8 +76,12 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	logic pll_clk;
 	logic write;
 	logic read;
+	logic rd_empty;
+	logic wr_full;
 	logic [15:0] writedata;
 	logic [15:0] readdata;
+	logic [15:0] writeaddr;
+	logic [15:0] readaddr;
 
 //=======================================================
 //  Structural coding
@@ -170,31 +173,33 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 
 //instantiate a vga_controller, ball, and color_mapper here with the ports.
 
-sdram_pll0 u0 ( .areset (),
+sdram_pll0 pll ( .areset (),
 					 .inclk0(MAX10_CLK2_50),
 					 .c0(pll_clk),
 	             .c1(),
 	             .locked());
 
-Sdram_Control u1 (	//	HOST Side
+Sdram_Control sdram_controller (	//	HOST Side
 						   .REF_CLK(MAX10_CLK1_50),
 					      .RESET_N(test_software_reset_n),
 							//	FIFO Write Side 
 						   .WR_DATA(writedata),
 							.WR(write),
-							.WR_ADDR(0),
+							.WR_ADDR(writeaddr),
 							.WR_MAX_ADDR(18'h3E800),		//	256K addresses
-							.WR_LENGTH(5'd16), // length 16
-							.WR_LOAD(!test_global_reset_n ),
+							.WR_LENGTH(5'h10), // length 16
+							.WR_LOAD(1'b1),
 							.WR_CLK(pll_clk),
+							.WR_FULL(wr_full),
 							//	FIFO Read Side 
 						   .RD_DATA(readdata),
 				        	.RD(read),
-				        	.RD_ADDR(0),			//	Read odd field and bypess blanking
+				        	.RD_ADDR(readaddr),			
 							.RD_MAX_ADDR(18'h3E800), // 256K addresses
-							.RD_LENGTH(5'd16), // length 16
-				        	.RD_LOAD(!test_global_reset_n ),
+							.RD_LENGTH(5'h10), // length 16
+				        	.RD_LOAD(1'b1),
 							.RD_CLK(pll_clk),
+							.RD_EMPTY(rd_empty),
                      //	SDRAM Side
 						   .SA(DRAM_ADDR),
 						   .BA(DRAM_BA),
@@ -207,10 +212,17 @@ Sdram_Control u1 (	//	HOST Side
 				         .DQM({DRAM_UDQM,DRAM_LDQM}),
 							.SDR_CLK(DRAM_CLK)	);
 
-ball _ball (.Reset(Reset_h), .frame_clk(~VGA_VS), .keycode(keycode), .BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig));
+//module tetris ( input clk,
+//					 inout vs,
+//					 input [15:0] readdata,
+//					 output write, read,
+//					 output [15:0] writeaddr, readaddr,
+//					 output [15:0] writedata,
+//					 output [7:0] Red, Green, Blue
+//					 );							
+							
+tetris tet (.*, .clk(MAX10_CLK1_50), .vs(VGA_VS), .hs(VGA_HS)); // Tetris instantiation
 
-color_mapper colormap (.BallX(ballxsig), .BallY(ballysig), .DrawX(drawxsig), .DrawY(drawysig), .Ball_size(ballsizesig), .Red(Red), .Green(Green), .Blue(Blue));
 
-vga_controller vga_ctrl (.Clk(MAX10_CLK1_50), .Reset(1'b0), .hs(VGA_HS), .vs(VGA_VS), .pixel_clk(), .blank(), .sync(), .DrawX(drawxsig), .DrawY(drawysig));
 
 endmodule
