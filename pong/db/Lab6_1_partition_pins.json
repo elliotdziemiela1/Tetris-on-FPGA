@@ -48,6 +48,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "HEX0[1]",
+					"strict" : false
+				},
+				{
 					"name" : "HEX0[2]",
 					"strict" : false
 				},
@@ -57,6 +61,10 @@
 				},
 				{
 					"name" : "HEX0[4]",
+					"strict" : false
+				},
+				{
+					"name" : "HEX0[5]",
 					"strict" : false
 				},
 				{
@@ -76,6 +84,34 @@
 					"strict" : false
 				},
 				{
+					"name" : "HEX3[0]",
+					"strict" : false
+				},
+				{
+					"name" : "HEX3[1]",
+					"strict" : false
+				},
+				{
+					"name" : "HEX3[2]",
+					"strict" : false
+				},
+				{
+					"name" : "HEX3[3]",
+					"strict" : false
+				},
+				{
+					"name" : "HEX3[4]",
+					"strict" : false
+				},
+				{
+					"name" : "HEX3[5]",
+					"strict" : false
+				},
+				{
+					"name" : "HEX3[6]",
+					"strict" : false
+				},
+				{
 					"name" : "HEX5[1]",
 					"strict" : false
 				},
@@ -85,6 +121,86 @@
 				},
 				{
 					"name" : "HEX5[6]",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_ADDR[0]",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_ADDR[1]",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_ADDR[2]",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_ADDR[3]",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_ADDR[4]",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_ADDR[5]",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_ADDR[6]",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_ADDR[7]",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_ADDR[8]",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_ADDR[9]",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_ADDR[10]",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_ADDR[11]",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_ADDR[12]",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_BA[0]",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_BA[1]",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_LDQM",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_UDQM",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_WE_N",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_CAS_N",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_RAS_N",
 					"strict" : false
 				},
 				{

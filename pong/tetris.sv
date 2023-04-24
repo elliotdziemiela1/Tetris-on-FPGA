@@ -27,7 +27,7 @@ logic [15:0] read_reg1;
 logic [15:0] read_reg2;
 					 
 // State machine for writing to VRAM					 
-enum logic [15:0] {Hold, PR1,PR2, WA, WAF, WB, WBF, WC, WCF, WD, WDF, RA, RB, RC, RD} state;
+enum logic [15:0] {Hold, PR1, PR2, WA, WAF, WB, WBF, WC, WCF, WD, WDF, RA, RB, RC, RD} state;
 
 // State machine logic with reset for correct default values of regs
 always_ff @(posedge clk or posedge reset)
@@ -47,7 +47,8 @@ begin
 			Hold: if(vs)
 						state <= WA; // Perform writes on vertical sync
 					else if (DrawX == 10'b0 && DrawY == 10'b0)
-						state <= RA; // Perform reads at top left (For now)
+						state <= PR1; // Perform reads at top left (For now)
+			// Start of the writes
 			WA: begin
 					 write <= 1'b1; // Send a write request with addr and data
 					 writeaddr <= 25'h00;
@@ -56,7 +57,7 @@ begin
 				 end
 			WAF: begin
 					 write <= 1'b0; // Finish write request
-					 if(!wr_full)
+					 if(!wr_full) // Checks for the write buffer not being full
 							state <= WB; // Go to next write once write buffer empties
 				  end
 			WB: begin
@@ -92,6 +93,7 @@ begin
 					 if(!wr_full)
 							state <= Hold;
 				 end
+			// Start of the reads
 			PR1: begin
 				  read <= 1'b1; // Send a read request with addr
 				  readaddr <= 25'h03;
@@ -123,17 +125,11 @@ begin
 		end	
 end
 		 
-// Test read block
+// Output read registers to the hex displays
 always_comb
 begin
-	if(read_reg1 == 25'h03)
-		begin
-		hex_num_0 = 4'h1; // Return 1 on successful read
-		end
-	else
-		begin
-		hex_num_0 = 4'h2; // Return 2 on failed read
-		end
+	hex_num_0 = read_reg1[3:0];
+	hex_num_3 = read_reg2[3:0];
 end
 
 // BlockX and BlockY assumed to be position of block		 
