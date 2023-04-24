@@ -80,8 +80,8 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	logic wr_full;
 	logic [15:0] writedata;
 	logic [15:0] readdata;
-	logic [15:0] writeaddr;
-	logic [15:0] readaddr;
+	logic [24:0] writeaddr;
+	logic [24:0] readaddr;
 
 //=======================================================
 //  Structural coding
@@ -186,8 +186,8 @@ Sdram_Control sdram_controller (	//	HOST Side
 						   .WR_DATA(writedata),
 							.WR(write),
 							.WR_ADDR(writeaddr),
-							.WR_MAX_ADDR(24'h00ffff),		//	65535 is max addr
-							.WR_LENGTH(8'h10), // length 16
+							.WR_MAX_ADDR(25'h00ffff),		//	65535 is max addr
+							.WR_LENGTH(9'h100), // length 16
 							.WR_LOAD(1'b1),
 							.WR_CLK(pll_clk),
 							.WR_FULL(wr_full),
@@ -195,8 +195,8 @@ Sdram_Control sdram_controller (	//	HOST Side
 						   .RD_DATA(readdata),
 				        	.RD(read),
 				        	.RD_ADDR(readaddr),			
-							.RD_MAX_ADDR(24'h00ffff), // 65535 is max addr
-							.RD_LENGTH(8'h10), // length 16
+							.RD_MAX_ADDR(25'h00ffff), // 65535 is max addr
+							.RD_LENGTH(9'h100), // length 16
 				        	.RD_LOAD(1'b1),
 							.RD_CLK(pll_clk),
 							.RD_EMPTY(rd_empty),
