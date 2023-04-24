@@ -181,14 +181,14 @@ sdram_pll0 pll ( .areset (),
 
 Sdram_Control sdram_controller (	//	HOST Side
 						   .REF_CLK(MAX10_CLK1_50),
-					      .RESET_N(1'b0),
+					      .RESET_N(1'b1),
 							//	FIFO Write Side 
 						   .WR_DATA(writedata),
 							.WR(write),
 							.WR_ADDR(writeaddr),
 							.WR_MAX_ADDR(25'h00ffff),		//	65535 is max addr
 							.WR_LENGTH(9'h100), // length 16
-							.WR_LOAD(1'b1),
+							.WR_LOAD(1'b0),
 							.WR_CLK(pll_clk),
 							.WR_FULL(wr_full),
 							//	FIFO Read Side 
@@ -197,7 +197,7 @@ Sdram_Control sdram_controller (	//	HOST Side
 				        	.RD_ADDR(readaddr),			
 							.RD_MAX_ADDR(25'h00ffff), // 65535 is max addr
 							.RD_LENGTH(9'h100), // length 16
-				        	.RD_LOAD(1'b1),
+				        	.RD_LOAD(1'b0),
 							.RD_CLK(pll_clk),
 							.RD_EMPTY(rd_empty),
                      //	SDRAM Side

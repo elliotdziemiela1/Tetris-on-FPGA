@@ -1,5 +1,5 @@
 Fitter report for Lab6_1
-Mon Apr 24 16:07:21 2023
+Mon Apr 24 16:20:44 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -74,7 +74,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Mon Apr 24 16:07:21 2023       ;
+; Fitter Status                      ; Successful - Mon Apr 24 16:20:44 2023       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; Lab6_1                                      ;
 ; Top-level Entity Name              ; lab62                                       ;
@@ -160,19 +160,19 @@ refer to the applicable agreement for further details.
 ; Number detected on machine ; 16          ;
 ; Maximum allowed            ; 16          ;
 ;                            ;             ;
-; Average used               ; 1.68        ;
+; Average used               ; 1.70        ;
 ; Maximum used               ; 16          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   5.1%      ;
-;     Processor 3            ;   4.9%      ;
-;     Processor 4            ;   4.8%      ;
-;     Processor 5            ;   4.7%      ;
-;     Processor 6            ;   4.6%      ;
-;     Processor 7            ;   4.6%      ;
-;     Processor 8            ;   4.5%      ;
-;     Processors 9-16        ;   4.3%      ;
+;     Processor 2            ;   5.2%      ;
+;     Processor 3            ;   5.1%      ;
+;     Processor 4            ;   5.0%      ;
+;     Processor 5            ;   4.9%      ;
+;     Processor 6            ;   4.8%      ;
+;     Processor 7            ;   4.7%      ;
+;     Processor 8            ;   4.7%      ;
+;     Processors 9-16        ;   4.5%      ;
 +----------------------------+-------------+
 
 
@@ -2887,12 +2887,12 @@ Info (170195): Router estimated average interconnect usage is 2% of the availabl
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:12
-Info (11888): Total time spent on timing analysis during the Fitter is 7.01 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 6.95 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
-Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:08
+Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:07
 Warning (171167): Found invalid Fitter assignments. See the Ignored Assignments panel in the Fitter Compilation Report for more information.
 Warning (169064): Following 33 pins have no output enable or a GND or VCC output enable - later changes to this connectivity may change fitting results
     Info (169065): Pin ARDUINO_IO[0] has a permanently disabled output enable File: C:/Users/tyler/OneDrive/Documents/3D_Pong/pong/lab62.sv Line: 53
@@ -2930,10 +2930,10 @@ Warning (169064): Following 33 pins have no output enable or a GND or VCC output
     Info (169065): Pin ARDUINO_RESET_N has a permanently enabled output enable File: C:/Users/tyler/OneDrive/Documents/3D_Pong/pong/lab62.sv Line: 56
 Info (144001): Generated suppressed messages file C:/Users/tyler/OneDrive/Documents/3D_Pong/pong/output_files/Lab6_1.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 70 warnings
-    Info: Peak virtual memory: 6691 megabytes
-    Info: Processing ended: Mon Apr 24 16:07:23 2023
-    Info: Elapsed time: 00:01:04
-    Info: Total CPU time (on all processors): 00:00:59
+    Info: Peak virtual memory: 6742 megabytes
+    Info: Processing ended: Mon Apr 24 16:20:47 2023
+    Info: Elapsed time: 00:01:02
+    Info: Total CPU time (on all processors): 00:00:57
 
 
 +----------------------------+
