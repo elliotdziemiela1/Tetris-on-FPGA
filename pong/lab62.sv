@@ -164,7 +164,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.usb_gpx_export(USB_GPX),
 		
 		//LEDs and HEX
-		.hex_digits_export({hex_num_4, hex_num_3, hex_num_1, hex_num_0}),
+		//.hex_digits_export({hex_num_4, hex_num_3, hex_num_1, hex_num_0}), //Hex currently wired to tetris
 		.leds_export({hundreds, signs, LEDR}),
 		.keycode_export(keycode)
 		
@@ -181,13 +181,13 @@ sdram_pll0 pll ( .areset (),
 
 Sdram_Control sdram_controller (	//	HOST Side
 						   .REF_CLK(MAX10_CLK1_50),
-					      .RESET_N(test_software_reset_n),
+					      .RESET_N(1'b0),
 							//	FIFO Write Side 
 						   .WR_DATA(writedata),
 							.WR(write),
 							.WR_ADDR(writeaddr),
-							.WR_MAX_ADDR(18'h3E800),		//	256K addresses
-							.WR_LENGTH(5'h10), // length 16
+							.WR_MAX_ADDR(24'h00ffff),		//	65535 is max addr
+							.WR_LENGTH(8'h10), // length 16
 							.WR_LOAD(1'b1),
 							.WR_CLK(pll_clk),
 							.WR_FULL(wr_full),
@@ -195,8 +195,8 @@ Sdram_Control sdram_controller (	//	HOST Side
 						   .RD_DATA(readdata),
 				        	.RD(read),
 				        	.RD_ADDR(readaddr),			
-							.RD_MAX_ADDR(18'h3E800), // 256K addresses
-							.RD_LENGTH(5'h10), // length 16
+							.RD_MAX_ADDR(24'h00ffff), // 65535 is max addr
+							.RD_LENGTH(8'h10), // length 16
 				        	.RD_LOAD(1'b1),
 							.RD_CLK(pll_clk),
 							.RD_EMPTY(rd_empty),
@@ -221,9 +221,9 @@ Sdram_Control sdram_controller (	//	HOST Side
 //					 output [7:0] Red, Green, Blue
 //					 );							
 							
-tetris tet (.*, .clk(MAX10_CLK1_50), .vs(VGA_VS), .hs(VGA_HS)); // Tetris instantiation
+tetris tet (.*, .clk(MAX10_CLK1_50), .vs(VGA_VS), .hs(VGA_HS), .reset(Reset_h), .DrawX(drawxsig), .DrawY(drawysig)); // Tetris instantiation
 
-vga_controller vga_ctrl (.Clk(MAX10_CLK1_50), .Reset(1'b0), .hs(VGA_HS), .vs(VGA_VS), .pixel_clk(), .blank(), .sync(), .DrawX(DrawX), .DrawY(DrawY));
+vga_controller vga_ctrl (.Clk(MAX10_CLK1_50), .Reset(1'b0), .hs(VGA_HS), .vs(VGA_VS), .pixel_clk(), .blank(), .sync(), .DrawX(drawxsig), .DrawY(drawysig));
 
 
 

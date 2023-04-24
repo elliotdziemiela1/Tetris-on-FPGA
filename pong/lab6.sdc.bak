@@ -95,9 +95,6 @@ set_false_path -from * -to [get_ports {VGA_VS*}]
 set_false_path -from * -to [get_ports {VGA_HS*}]
 set_false_path -from [get_ports {altera*}] -to *
 set_false_path -from * -to [get_ports {altera*}]
-set_false_path -from [get_ports {DRAM_DQ*}] -to *
-set_false_path -from * -to [get_ports {DRAM_CLK}]
-set_false_path -from * -to [get_ports {DRAM_DQ*}]
 
 
 #**************************************************************

@@ -1,11 +1,11 @@
-Fitter Status : Successful - Sat Apr 22 15:16:44 2023
+Fitter Status : Successful - Sat Apr 22 17:08:05 2023
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : Lab6_1
 Top-level Entity Name : lab62
 Family : MAX 10
 Device : 10M50DAF484C7G
 Timing Models : Final
-Total logic elements : 3,882 / 49,760 ( 8 % )
+Total logic elements : 3,875 / 49,760 ( 8 % )
     Total combinational functions : 3,283 / 49,760 ( 7 % )
     Dedicated logic registers : 2,454 / 49,760 ( 5 % )
 Total registers : 2454
