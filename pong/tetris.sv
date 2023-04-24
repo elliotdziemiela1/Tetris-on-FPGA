@@ -17,7 +17,8 @@ module tetris ( input clk,
 					 output write, read,
 					 output [15:0] writeaddr, readaddr,
 					 output [15:0] writedata,
-					 output logic [7:0] Red, Green, Blue
+					 output logic [7:0] Red, Green, Blue,
+					 output logic [3:0] hex0, hex1, hex2, hex3
 					 );
 
 // Local Declarations					 
@@ -125,29 +126,11 @@ always_comb
 begin
 	if(read_reg1 == 16'h03)
 		begin
-			if (DrawX > 300) begin // red
-			  Red = 8'hff;
-			  Green = 8'h00;
-			  Blue = 8'h00;
-		  end 
-		  else begin
-			  Red = 8'h00;
-			  Green = 8'h55;
-			  Blue = 8'hff;
-		  end 
+		hex0 = 4'h3;
 		end
 	else
 		begin
-		if (DrawX > 300) begin // green
-			  Red = 8'h00;
-			  Green = 8'hff;
-			  Blue = 8'h00;
-		  end 
-		  else begin
-			  Red = 8'h55;
-			  Green = 8'h00;
-			  Blue = 8'hff;
-		  end 
+		hex0 = 4'h5;
 		end
 
 end
