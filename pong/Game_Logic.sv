@@ -12,13 +12,22 @@ module Game_Logic (
 	parameter [6:0] board_height =18; // number of rows (starting at 0)
 	parameter [7:0] frames_per_move = 13;
 	
-	logic [15:0] Blocks[board_height+1]; // each bit represents the presence of a block in that square
-	// of the screen
+	logic [15:0] Board[board_height+1]; // each bit represents the presence of a block in that square of the screen
 	logic [5:0] blockX1, blockX2, blockX3, blockX4; // zero indexed
 	logic [6:0] blockY1, blockY2, blockY3, blockY4; // zero indexed
 	logic [6:0] blockXMotion;
 	logic [7:0] blockYMotion;
 	logic [3:0] color;
+	
+	logic [5:0] Pieces[3][2][4]; // each peice's block positions for two rotations
+	assign Pieces = '{
+		'{'{6'b000000,6'b001000,6'b001001,6'b010001},'{6'b001000,6'b001001,6'b000001,6'b000010}}, // piece 1
+		'{'{6'b000000,6'b000001,6'b001000,6'b001001},'{6'b000000,6'b000001,6'b001000,6'b001001}}, // piece 2
+		'{'{6'b000000,6'b001000,6'b001001,6'b010001},'{6'b001000,6'b001001,6'b000001,6'b000010}}  // piece 3
+	}; // array of 3 different peices. each register in the array contains the coordinates
+	// for a block of the peice in the format [5:3]=Y [2:0]=X, relative to (0,0)
+	logic [2:0] piece_count;
+	logic piece_rotation;
 	
 	logic move_clk;
 	logic [5:0] frame_count;
@@ -47,17 +56,19 @@ module Game_Logic (
         begin 
             blockXMotion <= 7'd0;
 				blockYMotion <= 8'd0; 
-				blockX1 <= 7;
-				blockY1 <= 0;
-				blockX2 <= 7;
-				blockY2 <= 1;
-				blockX3 <= 8;
-				blockY3 <= 1;
-				blockX4 <= 8;
-				blockY4 <= 2;
-
+				blockX1 <= Pieces[0][0][2:0] + (board_width>>1); // divided by 2
+				blockY1 <= Pieces[0][0][5:3];
+				blockX2 <= Pieces[0][1][2:0] + (board_width>>1);
+				blockY2 <= Pieces[0][1][5:3];
+				blockX3 <= Pieces[0][2][2:0] + (board_width>>1);
+				blockY3 <= Pieces[0][2][5:3];
+				blockX4 <= Pieces[0][3][2:0] + (board_width>>1);
+				blockY4 <= Pieces[0][3][5:3];
+				
+				piece_count <= 0;
+				piece_rotation <= 0;
 				color <= 1;
-				Blocks <= '{default: 16'h0};
+				Board <= '{default: 16'h0};
 
         end
 		else begin
@@ -86,25 +97,29 @@ module Game_Logic (
 			   endcase
 				
 				if (
-				Blocks[blockY1+blockYMotion][blockX1+blockXMotion]==1'b1 || (blockY1+blockYMotion>=board_height) ||
-				Blocks[blockY2+blockYMotion][blockX2+blockXMotion]==1'b1 || (blockY2+blockYMotion>=board_height) ||
-				Blocks[blockY3+blockYMotion][blockX3+blockXMotion]==1'b1 || (blockY3+blockYMotion>=board_height) ||
-				Blocks[blockY4+blockYMotion][blockX4+blockXMotion]==1'b1 || (blockY4+blockYMotion>=board_height)
+				Board[blockY1+blockYMotion][blockX1+blockXMotion]==1'b1 || (blockY1+blockYMotion>=board_height) ||
+				Board[blockY2+blockYMotion][blockX2+blockXMotion]==1'b1 || (blockY2+blockYMotion>=board_height) ||
+				Board[blockY3+blockYMotion][blockX3+blockXMotion]==1'b1 || (blockY3+blockYMotion>=board_height) ||
+				Board[blockY4+blockYMotion][blockX4+blockXMotion]==1'b1 || (blockY4+blockYMotion>=board_height)
 				) begin // collision with other block or bottom of screen
 					// new block generated
-					Blocks[blockY1][blockX1] <= 1'b1;
-					Blocks[blockY2][blockX2] <= 1'b1;
-					Blocks[blockY3][blockX3] <= 1'b1;
-					Blocks[blockY4][blockX4] <= 1'b1;
-					blockX1 <= 7; // middle of screen
-					blockY1 <= 0;
-					blockX2 <= 7; // middle of screen
-					blockY2 <= 1;
-					blockX3 <= 8; // middle of screen
-					blockY3 <= 1;
-					blockX4 <= 8; // middle of screen
-					blockY4 <= 2;
+					Board[blockY1][blockX1] <= 1'b1;
+					Board[blockY2][blockX2] <= 1'b1;
+					Board[blockY3][blockX3] <= 1'b1;
+					Board[blockY4][blockX4] <= 1'b1;
+					blockX1 <= Pieces[piece_count][0][2:0] + (board_width>>1); // divided by 2
+					blockY1 <= Pieces[piece_count][0][5:3];
+					blockX2 <= Pieces[piece_count][1][2:0] + (board_width>>1); // divided by 2
+					blockY2 <= Pieces[piece_count][1][5:3];
+					blockX3 <= Pieces[piece_count][2][2:0] + (board_width>>1); // divided by 2
+					blockY3 <= Pieces[piece_count][2][5:3];
+					blockX4 <= Pieces[piece_count][3][2:0] + (board_width>>1); // divided by 2
+					blockY4 <= Pieces[piece_count][3][5:3];
 					color <= color+1;
+					if (piece_count == 3'h2)
+						piece_count <= 0;
+					else
+						piece_count <= piece_count + 1;
 				end
 				else begin
 					blockX1 <= blockX1 + blockXMotion;
