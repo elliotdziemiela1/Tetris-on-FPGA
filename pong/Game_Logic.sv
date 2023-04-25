@@ -52,6 +52,13 @@ module Game_Logic (
 	
 	always_ff @ (posedge frame_clk )
 		begin: MoveX_Block
+			if (Reset)  // Asynchronous Reset
+			  begin 
+					blockX1 <= Pieces[0][0][0][2:0] + (board_width>>1); // divided by 2
+					blockX2 <= Pieces[0][0][1][2:0] + (board_width>>1);
+					blockX3 <= Pieces[0][0][2][2:0] + (board_width>>1);
+					blockX4 <= Pieces[0][0][3][2:0] + (board_width>>1);
+			  end
 			blockX1 <= blockX1 + blockXMotion;
 			blockX2 <= blockX2 + blockXMotion;
 			blockX3 <= blockX3 + blockXMotion;
@@ -62,15 +69,13 @@ module Game_Logic (
 		begin: MoveY_Block
 		if (Reset)  // Asynchronous Reset
         begin 
-            blockXMotion <= 7'd0;
-				blockYMotion <= 8'd0; 
-				blockX1 <= Pieces[0][0][0][2:0] + (board_width>>1); // divided by 2
+//				blockX1 <= Pieces[0][0][0][2:0] + (board_width>>1); // divided by 2
 				blockY1 <= Pieces[0][0][0][5:3];
-				blockX2 <= Pieces[0][0][1][2:0] + (board_width>>1);
+//				blockX2 <= Pieces[0][0][1][2:0] + (board_width>>1);
 				blockY2 <= Pieces[0][0][1][5:3];
-				blockX3 <= Pieces[0][0][2][2:0] + (board_width>>1);
+//				blockX3 <= Pieces[0][0][2][2:0] + (board_width>>1);
 				blockY3 <= Pieces[0][0][2][5:3];
-				blockX4 <= Pieces[0][0][3][2:0] + (board_width>>1);
+//				blockX4 <= Pieces[0][0][3][2:0] + (board_width>>1);
 				blockY4 <= Pieces[0][0][3][5:3];
 				
 				piece_count <= 0;
@@ -90,13 +95,13 @@ module Game_Logic (
 					Board[blockY2][blockX2] <= 1'b1;
 					Board[blockY3][blockX3] <= 1'b1;
 					Board[blockY4][blockX4] <= 1'b1;
-					blockX1 <= Pieces[piece_count][0][0][2:0] + (board_width>>1); // divided by 2
+//					blockX1 <= Pieces[piece_count][0][0][2:0] + (board_width>>1); // divided by 2
 					blockY1 <= Pieces[piece_count][0][0][5:3];
-					blockX2 <= Pieces[piece_count][0][1][2:0] + (board_width>>1); // divided by 2
+//					blockX2 <= Pieces[piece_count][0][1][2:0] + (board_width>>1); // divided by 2
 					blockY2 <= Pieces[piece_count][0][1][5:3];
-					blockX3 <= Pieces[piece_count][0][2][2:0] + (board_width>>1); // divided by 2
+//					blockX3 <= Pieces[piece_count][0][2][2:0] + (board_width>>1); // divided by 2
 					blockY3 <= Pieces[piece_count][0][2][5:3];
-					blockX4 <= Pieces[piece_count][0][3][2:0] + (board_width>>1); // divided by 2
+//					blockX4 <= Pieces[piece_count][0][3][2:0] + (board_width>>1); // divided by 2
 					blockY4 <= Pieces[piece_count][0][3][5:3];
 					color <= color+1;
 					if (piece_count == 3'h2)
