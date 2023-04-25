@@ -130,12 +130,21 @@ begin
 				  end
 			RA:  begin
 				  read_ld <= 1'b0; // Finish read load
-				  if(!rd_empty)
+				  if(write_counter[3])
+					begin
+				    if(!rd_empty)
 						begin
+						write_counter <= 5'b0;
 						read_req <= 1'b1; // Call read request to buffer
 						state <= FRA; // Go
 						end
-				  end
+					 end
+					else
+					 begin
+					 write_counter <= write_counter + 1'b1;
+					 end
+					end
+
 			FRA: begin
 				  read_req <= 1'b0; // Finish single read
 				  read_reg1 <= readdata; // Capture data
@@ -144,7 +153,7 @@ begin
 			PRB: begin
 				  read_ld <= 1'b1; // Clear fifo buffer and load read address
 				  readaddr <= 25'h03;
-				  state <= RA;
+				  state <= RB;
 				  end
 			RB:  begin
 				  read_ld <= 1'b0; // Finish read load
