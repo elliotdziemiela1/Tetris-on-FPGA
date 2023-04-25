@@ -26,6 +26,7 @@ module tetris ( input clk,
 // Local Declarations					 
 logic [15:0] read_reg1;
 logic [15:0] read_reg2;
+logic [4:0] write_counter;
 					 
 // State machine for writing to VRAM					 
 enum logic [15:0] {Hold, PWA, WA, FWA, PWB, WB, FWB, PWC, WC, FWC, PWD, WD, FWD, PRA, PRB, RA, RB, FRA, FRB} state;
@@ -35,6 +36,7 @@ always_ff @(posedge clk or posedge reset)
 begin
 	if(reset)
 		begin	// Default values
+		write_counter <= 5'b0;
 		read_req <= 1'b0;
 		read_ld <= 1'b0;
 		readaddr <= 25'b0;
@@ -104,9 +106,17 @@ begin
 				  end
 			WD: begin
 					 write_ld <= 1'b0;
-					 write_req <= 1'b1; 
-					 writedata <= 16'h03;
-					 state <= FWD;
+					 if(write_counter[3])
+						begin
+							write_counter <= 5'b0;
+							write_req <= 1'b1; 
+							writedata <= 16'h03;
+							state <= FWD;
+						end
+					  else
+					   begin
+						write_counter <= write_counter + 1'b1;
+						end
 				 end
 			FWD: begin
 					 write_req <= 1'b0;
@@ -146,7 +156,7 @@ begin
 				  end
 			FRB: begin
 				  read_req <= 1'b0; // Finish single read
-				  read_reg1 <= readdata; // Capture data
+				  read_reg2 <= readdata; // Capture data
 				  state <= Hold;
 				  end
 			default: ;
