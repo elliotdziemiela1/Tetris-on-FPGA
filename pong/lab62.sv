@@ -74,8 +74,8 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	
 	// SDRAM Wire Declaractions
 	logic pll_clk;
-	logic write;
-	logic read;
+	logic write_req, read_req;
+	logic write_ld, read_ld;
 	logic rd_empty;
 	logic wr_full;
 	logic [15:0] writedata;
@@ -184,20 +184,20 @@ Sdram_Control sdram_controller (	//	HOST Side
 					      .RESET_N(1'b1),
 							//	FIFO Write Side 
 						   .WR_DATA(writedata),
-							.WR(write),
+							.WR(write_req),
 							.WR_ADDR(writeaddr),
 							.WR_MAX_ADDR(25'h00ffff),		//	65535 is max addr
 							.WR_LENGTH(9'h100), // length 16
-							.WR_LOAD(1'b0),
+							.WR_LOAD(write_ld),
 							.WR_CLK(pll_clk),
 							.WR_FULL(wr_full),
 							//	FIFO Read Side 
 						   .RD_DATA(readdata),
-				        	.RD(read),
+				        	.RD(read_req),
 				        	.RD_ADDR(readaddr),			
 							.RD_MAX_ADDR(25'h00ffff), // 65535 is max addr
 							.RD_LENGTH(9'h100), // length 16
-				        	.RD_LOAD(1'b0),
+				        	.RD_LOAD(read_ld),
 							.RD_CLK(pll_clk),
 							.RD_EMPTY(rd_empty),
                      //	SDRAM Side

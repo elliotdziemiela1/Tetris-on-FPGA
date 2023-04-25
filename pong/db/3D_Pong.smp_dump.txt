@@ -1,19 +1,25 @@
 
 State Machine - |lab62|tetris:tet|state
-Name state.RB state.RA state.WDF state.WD state.WCF state.WC state.WBF state.WB state.WAF state.WA state.PR2 state.PR1 state.Hold 
-state.Hold 0 0 0 0 0 0 0 0 0 0 0 0 0 
-state.PR1 0 0 0 0 0 0 0 0 0 0 0 1 1 
-state.PR2 0 0 0 0 0 0 0 0 0 0 1 0 1 
-state.WA 0 0 0 0 0 0 0 0 0 1 0 0 1 
-state.WAF 0 0 0 0 0 0 0 0 1 0 0 0 1 
-state.WB 0 0 0 0 0 0 0 1 0 0 0 0 1 
-state.WBF 0 0 0 0 0 0 1 0 0 0 0 0 1 
-state.WC 0 0 0 0 0 1 0 0 0 0 0 0 1 
-state.WCF 0 0 0 0 1 0 0 0 0 0 0 0 1 
-state.WD 0 0 0 1 0 0 0 0 0 0 0 0 1 
-state.WDF 0 0 1 0 0 0 0 0 0 0 0 0 1 
-state.RA 0 1 0 0 0 0 0 0 0 0 0 0 1 
-state.RB 1 0 0 0 0 0 0 0 0 0 0 0 1 
+Name state.FRB state.FRA state.RB state.RA state.PRB state.PRA state.FWD state.WD state.PWD state.FWC state.WC state.PWC state.FWB state.WB state.PWB state.FWA state.WA state.PWA state.Hold 
+state.Hold 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+state.PWA 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+state.WA 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+state.FWA 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+state.PWB 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+state.WB 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+state.FWB 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+state.PWC 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+state.WC 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+state.FWC 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+state.PWD 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+state.WD 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+state.FWD 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+state.PRA 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.PRB 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.RA 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.RB 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.FRA 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.FRB 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
 
 State Machine - |lab62|lab62_soc:u0|lab62_soc_sdram:sdram|m_next
 Name m_next.010000000 m_next.000010000 m_next.000001000 m_next.000000001 

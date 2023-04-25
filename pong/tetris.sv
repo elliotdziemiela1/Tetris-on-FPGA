@@ -15,7 +15,8 @@ module tetris ( input clk,
 					 input [9:0] DrawX, DrawY,
 					 input wr_full, rd_empty,
 					 input logic [15:0] readdata,
-					 output logic write, read,
+					 output logic write_req, read_req,
+					 output logic write_ld, read_ld,
 					 output logic [24:0] writeaddr, readaddr,
 					 output logic [15:0] writedata,
 					 output [7:0] Red, Green, Blue,
@@ -27,16 +28,18 @@ logic [15:0] read_reg1;
 logic [15:0] read_reg2;
 					 
 // State machine for writing to VRAM					 
-enum logic [15:0] {Hold, PR1, PR2, WA, WAF, WB, WBF, WC, WCF, WD, WDF, RA, RB, RC, RD} state;
+enum logic [15:0] {Hold, PWA, WA, FWA, PWB, WB, FWB, PWC, WC, FWC, PWD, WD, FWD, PRA, PRB, RA, RB, FRA, FRB} state;
 
 // State machine logic with reset for correct default values of regs
 always_ff @(posedge clk or posedge reset)
 begin
 	if(reset)
 		begin	// Default values
-		read <= 1'b0;
+		read_req <= 1'b0;
+		read_ld <= 1'b0;
 		readaddr <= 25'b0;
-		write <= 1'b0;
+		write_req <= 1'b0;
+		write_ld <= 1'b0;
 		writeaddr <= 25'b0;
 		writedata <= 16'b0;
 		state <= Hold;
@@ -45,80 +48,106 @@ begin
 		begin
 		unique case (state)
 			Hold: if(vs)
-						state <= WA; // Perform writes on vertical sync
+						state <= PWA; // Perform writes on vertical sync
 					else if (DrawX == 10'b0 && DrawY == 10'b0)
-						state <= PR1; // Perform reads at top left (For now)
+						state <= PRA; // Perform reads at top left (For now)
 			// Start of the writes
+			PWA: begin
+			     write_ld <= 1'b1;
+				  writeaddr <= 25'h00; // Clear fifo buffer and load write address
+				  state <= WA;
+				  end
 			WA: begin
-					 write <= 1'b1; // Send a write request with addr and data
-					 writeaddr <= 25'h00;
-					 writedata <= 16'h00; 
-					 state <= WAF;
+					 write_ld <= 1'b0;
+					 write_req <= 1'b1;
+					 writedata <= 16'h00; // Send a write request with along with write data
+					 state <= FWA;
 				 end
-			WAF: begin
-					 write <= 1'b0; // Finish write request
-					 if(!wr_full) // Checks for the write buffer not being full
-							state <= WB; // Go to next write once write buffer empties
+			FWA: begin
+					 write_req <= 1'b0; // Finish write request
+					 state <= PWB; // Go to next write, takes two clock cyles after write request to capture data
+				  end
+			PWB: begin
+			     write_ld <= 1'b1;
+				  writeaddr <= 25'h01;
+				  state <= WB;
 				  end
 			WB: begin
-					 write <= 1'b1; // Send a write request with addr and data
-					 writeaddr <= 25'h01; 
+					 write_ld <= 1'b0;
+					 write_req <= 1'b1;
 					 writedata <= 16'h01;
-					 state <= WBF;
+					 state <= FWB;
 				 end
-			WBF: begin
-					 write <= 1'b0; // Finish write request
-					 if(!wr_full)
-							state <= WC; // Go to next write once write buffer empties
+			FWB: begin
+					 write_req <= 1'b0;
+					 state <= PWC;
+				  end
+			PWC: begin
+			     write_ld <= 1'b1;
+				  writeaddr <= 25'h02;
+				  state <= WC;
 				  end
 			WC: begin
-					 write <= 1'b1; // Similar logic to previous writes
-					 writeaddr <= 25'h02;
+					 write_ld <= 1'b0;
+					 write_req <= 1'b1;
 					 writedata <= 16'h02;
-					 state <= WCF;
+					 state <= FWC;
 				 end
-			WCF: begin
-					 write <= 1'b0;
-					 if(!wr_full)
-							state <= WD;
+			FWC: begin
+					 write_req <= 1'b0;
+					 state <= PWD;
+				  end
+			PWD: begin
+			     write_ld <= 1'b1;
+				  writeaddr <= 25'h03;
+				  state <= WD;
 				  end
 			WD: begin
-					 write <= 1'b1;
-					 writeaddr <= 25'h03; 
+					 write_ld <= 1'b0;
+					 write_req <= 1'b1; 
 					 writedata <= 16'h03;
-					 state <= WDF;
+					 state <= FWD;
 				 end
-			WDF: begin
-					 write <= 1'b0;
-					 if(!wr_full)
-							state <= Hold;
+			FWD: begin
+					 write_req <= 1'b0;
+					 state <= Hold;
 				 end
 			// Start of the reads
-			PR1: begin
-				  read <= 1'b1; // Send a read request with addr
+			PRA: begin
+				  read_ld <= 1'b1; // Clear fifo buffer and load read address
 				  readaddr <= 25'h03;
 				  state <= RA;
 				  end
 			RA:  begin
-				  read <= 1'b0; // Finish read request
+				  read_ld <= 1'b0; // Finish read load
 				  if(!rd_empty)
 						begin
-						read_reg1 <= readdata; // Capture read data and go to next read
-						state <= PR2;
+						read_req <= 1'b1; // Call read request to buffer
+						state <= FRA; // Go
 						end
 				  end
-			PR2: begin
-				  read <= 1'b1; // Similar logic to previous read
-				  readaddr <= 25'h04;
-				  state <= RB;
+			FRA: begin
+				  read_req <= 1'b0; // Finish single read
+				  read_reg1 <= readdata; // Capture data
+				  state <= PRB;
+				  end
+			PRB: begin
+				  read_ld <= 1'b1; // Clear fifo buffer and load read address
+				  readaddr <= 25'h03;
+				  state <= RA;
 				  end
 			RB:  begin
-				  read <= 1'b0;
+				  read_ld <= 1'b0; // Finish read load
 				  if(!rd_empty)
 						begin
-						read_reg2 <= readdata;
-						state <= Hold;
+						read_req <= 1'b1; // Call read request to buffer
+						state <= FRB; // Go
 						end
+				  end
+			FRB: begin
+				  read_req <= 1'b0; // Finish single read
+				  read_reg1 <= readdata; // Capture data
+				  state <= Hold;
 				  end
 			default: ;
 			endcase
