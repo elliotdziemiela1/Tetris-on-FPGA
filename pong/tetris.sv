@@ -62,7 +62,7 @@ begin
 			WA: begin
 					 write_ld <= 1'b0;
 					 write_req <= 1'b1;
-					 writedata <= 16'h00; // Send a write request with along with write data
+					 writedata <= 16'hff; // Send a write request with along with write data
 					 state <= FWA;
 				 end
 			FWA: begin
@@ -77,7 +77,7 @@ begin
 			WB: begin
 					 write_ld <= 1'b0;
 					 write_req <= 1'b1;
-					 writedata <= 16'h01;
+					 writedata <= 16'hff;
 					 state <= FWB;
 				 end
 			FWB: begin
@@ -92,7 +92,7 @@ begin
 			WC: begin
 					 write_ld <= 1'b0;
 					 write_req <= 1'b1;
-					 writedata <= 16'h02;
+					 writedata <= 16'hff;
 					 state <= FWC;
 				 end
 			FWC: begin
@@ -110,7 +110,7 @@ begin
 						begin
 							write_counter <= 5'b0;
 							write_req <= 1'b1; 
-							writedata <= 16'h03;
+							writedata <= 16'hff;
 							state <= FWD;
 						end
 					  else
@@ -152,7 +152,7 @@ begin
 				  end
 			PRB: begin
 				  read_ld <= 1'b1; // Clear fifo buffer and load read address
-				  readaddr <= 25'h03;
+				  readaddr <= 25'h00;
 				  state <= RB;
 				  end
 			RB:  begin

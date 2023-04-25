@@ -185,18 +185,18 @@ Sdram_Control sdram_controller (	//	HOST Side
 							//	FIFO Write Side 
 						   .WR_DATA(writedata),
 							.WR(write_req),
-							.WR_ADDR(writeaddr),
+							.WR_ADDR(0),
 							.WR_MAX_ADDR(25'h00ffff),		//	65535 is max addr
-							.WR_LENGTH(9'h100), // length 16
+							.WR_LENGTH(9'h010), // length 16
 							.WR_LOAD(write_ld),
 							.WR_CLK(pll_clk),
 							.WR_FULL(wr_full),
 							//	FIFO Read Side 
 						   .RD_DATA(readdata),
 				        	.RD(read_req),
-				        	.RD_ADDR(readaddr),			
+				        	.RD_ADDR(0),			
 							.RD_MAX_ADDR(25'h00ffff), // 65535 is max addr
-							.RD_LENGTH(9'h100), // length 16
+							.RD_LENGTH(9'h010), // length 16
 				        	.RD_LOAD(read_ld),
 							.RD_CLK(pll_clk),
 							.RD_EMPTY(rd_empty),
