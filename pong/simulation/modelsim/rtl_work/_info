@@ -1,0 +1,338 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/simulation/modelsim
+vcommand
+Z1 !s110 1682560766
+!i10b 1
+!s100 aRRLkVM<<M^4h^O9HSV721
+I;;azN6AcRb`K2[D>6LLa83
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+Z3 w1466035698
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/command.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/command.v
+Z4 FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/Sdram_Params.h
+L0 1
+Z5 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z6 !s108 1682560766.000000
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/Sdram_Params.h|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/command.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/command.v|
+!i113 1
+Z7 o-vlog01compat -work work
+Z8 !s92 -vlog01compat -work work +incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control
+Z9 tCvgOpt 0
+vcontrol_interface
+R1
+!i10b 1
+!s100 XSDnTAa^4mFgeM4dn484G3
+IA?AB@@<`lZc;1PM?VT`Mm1
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/control_interface.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/control_interface.v
+R4
+L0 1
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/Sdram_Params.h|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/control_interface.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/control_interface.v|
+!i113 1
+R7
+R8
+R9
+vHexDriver
+Z10 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+Z11 !s110 1682560769
+!i10b 1
+!s100 hKBo4zbCRmY3[Ac9JZP;<0
+IkmLf3eN5?=9Yh<ddo;Ak43
+R2
+!s105 HexDriver_sv_unit
+S1
+R0
+Z12 w1682548096
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/HexDriver.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/HexDriver.sv
+L0 1
+R5
+r1
+!s85 0
+31
+Z13 !s108 1682560769.000000
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/HexDriver.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/HexDriver.sv|
+!i113 1
+Z14 o-sv -work work
+Z15 !s92 -sv -work work +incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong
+R9
+n@hex@driver
+vlab62
+R10
+Z16 !s110 1682560771
+!i10b 1
+!s100 kdT7bdhC^gcMHzjoL0e^a2
+Iio0hlz9DlN0KkbR2UEaX62
+R2
+!s105 lab62_sv_unit
+S1
+R0
+w1682558439
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62.sv
+L0 8
+R5
+r1
+!s85 0
+31
+Z17 !s108 1682560771.000000
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62.sv|
+!i113 1
+R14
+R15
+R9
+vpll_test
+R1
+!i10b 1
+!s100 ZDf4TYokf^8h8I9OEPVQ02
+I35YO:K@?d6Gceen4mZ;GF3
+R2
+R0
+w1485994451
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/pll_test.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/pll_test.v
+Z18 L0 40
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/pll_test.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/pll_test.v|
+!i113 1
+R7
+Z19 !s92 -vlog01compat -work work +incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v
+R9
+vsdr_data_path
+R1
+!i10b 1
+!s100 ?[il;o91C@jHoneiN`0=l2
+I3S5kGkj1N7iSQGMzNUOih3
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/sdr_data_path.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/sdr_data_path.v
+R4
+L0 1
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/Sdram_Params.h|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/sdr_data_path.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/sdr_data_path.v|
+!i113 1
+R7
+R8
+R9
+vSdram_Control
+R1
+!i10b 1
+!s100 PeZ6=_E7aQaIz33B7cD>X3
+I;VTfV>Z^9Q`fOT;<V4<OP3
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/Sdram_Control.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/Sdram_Control.v
+R4
+L0 1
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/Sdram_Params.h|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/Sdram_Control.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/Sdram_Control.v|
+!i113 1
+R7
+R8
+R9
+n@sdram_@control
+vsdram_pll0
+R1
+!i10b 1
+!s100 >Xz6b339k@k<01?lPQWT02
+Ilb9ZH?9fTC?gX^nV0Blm90
+R2
+R0
+w1485994452
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/sdram_pll0.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/sdram_pll0.v
+R18
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/sdram_pll0.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/sdram_pll0.v|
+!i113 1
+R7
+R19
+R9
+vsdram_pll0_altpll
+R1
+!i10b 1
+!s100 =fz5HKajSJd:RURKNY<K<3
+I?jYbR<SN=R57Uz0[`1OOf3
+R2
+R0
+R12
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/db/sdram_pll0_altpll.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/db/sdram_pll0_altpll.v
+L0 30
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/db/sdram_pll0_altpll.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/db|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/db/sdram_pll0_altpll.v|
+!i113 1
+R7
+!s92 -vlog01compat -work work +incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/db
+R9
+vSdram_RD_FIFO
+R1
+!i10b 1
+!s100 =?m?`;]4>`fS3;zC;Mf@>0
+IK5Ro8F>Z>7;A=1f<GBTFA0
+R2
+R0
+w1485994449
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/Sdram_RD_FIFO.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/Sdram_RD_FIFO.v
+R18
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/Sdram_RD_FIFO.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/Sdram_RD_FIFO.v|
+!i113 1
+R7
+R8
+R9
+n@sdram_@r@d_@f@i@f@o
+vSdram_WR_FIFO
+R1
+!i10b 1
+!s100 FM>:<nKJIb`@Rn5LHJS@72
+I2O^ZhSkJl]2VI7ETcPG8N2
+R2
+R0
+w1485994447
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/Sdram_WR_FIFO.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/Sdram_WR_FIFO.v
+R18
+R5
+r1
+!s85 0
+31
+!s108 1682560765.000000
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/Sdram_WR_FIFO.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/v/Sdram_Control/Sdram_WR_FIFO.v|
+!i113 1
+R7
+R8
+R9
+n@sdram_@w@r_@f@i@f@o
+vtestbench_controller
+R16
+!i10b 1
+!s100 l0;34NKJ8@F?z_mjk4mN<2
+IWM04Oif@JJkWE1Ld2GBKQ1
+R2
+R0
+w1682560497
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/testbench_controller.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/testbench_controller.v
+L0 56
+R5
+r1
+!s85 0
+31
+R17
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/testbench_controller.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/testbench_controller.v|
+!i113 1
+R7
+!s92 -vlog01compat -work work +incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong
+R9
+vtetris
+R10
+R11
+!i10b 1
+!s100 iJ3F1Rz>V20W4J_i5U=<l1
+ILnT7hg2EdFbNf1nO?do:o2
+R2
+!s105 tetris_sv_unit
+S1
+R0
+w1682558799
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/tetris.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/tetris.sv
+L0 12
+R5
+r1
+!s85 0
+31
+R13
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/tetris.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/tetris.sv|
+!i113 1
+R14
+R15
+R9
+vvga_controller
+R10
+R11
+!i10b 1
+!s100 PJJOcFccdZOKRcczIX[X?3
+I2e0d?AB]z@Jg]aKV1]=Uf3
+R2
+!s105 VGA_controller_sv_unit
+S1
+R0
+R12
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/VGA_controller.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/VGA_controller.sv
+L0 25
+R5
+r1
+!s85 0
+31
+R13
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/VGA_controller.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/VGA_controller.sv|
+!i113 1
+R14
+R15
+R9

@@ -76,8 +76,8 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	logic pll_clk;
 	logic write_req, read_req;
 	logic write_ld, read_ld;
-	logic rd_empty;
-	logic wr_full;
+	logic [15:0] rd_buffer;
+	logic [15:0] wr_buffer;
 	logic [15:0] writedata;
 	logic [15:0] readdata;
 	logic [24:0] writeaddr;
@@ -129,6 +129,10 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	assign VGA_R = Red[7:4];
 	assign VGA_B = Blue[7:4];
 	assign VGA_G = Green[7:4];
+	
+	// Key 1 for testing sdram	
+	logic key;
+	assign {key}=~ (KEY[1]);
 	
 	
 	lab62_soc u0 (
@@ -182,24 +186,25 @@ sdram_pll0 pll ( .areset (),
 Sdram_Control sdram_controller (	//	HOST Side
 						   .REF_CLK(MAX10_CLK1_50),
 					      .RESET_N(1'b1),
+							//.CLK(pll_clk),
 							//	FIFO Write Side 
 						   .WR_DATA(writedata),
 							.WR(write_req),
-							.WR_ADDR(0),
-							.WR_MAX_ADDR(25'h00ffff),		//	65535 is max addr
-							.WR_LENGTH(9'h010), // length 16
+							.WR_ADDR(writeaddr),
+							.WR_MAX_ADDR(25'h1ffffff),		
+							.WR_LENGTH(9'h01), // write one word
 							.WR_LOAD(write_ld),
 							.WR_CLK(pll_clk),
-							.WR_FULL(wr_full),
+							.WR_USE(wr_buffer),
 							//	FIFO Read Side 
 						   .RD_DATA(readdata),
 				        	.RD(read_req),
-				        	.RD_ADDR(0),			
-							.RD_MAX_ADDR(25'h00ffff), // 65535 is max addr
-							.RD_LENGTH(9'h010), // length 16
+				        	.RD_ADDR(readaddr),			
+							.RD_MAX_ADDR(25'h1ffffff), 
+							.RD_LENGTH(9'h01), // write one word
 				        	.RD_LOAD(read_ld),
 							.RD_CLK(pll_clk),
-							.RD_EMPTY(rd_empty),
+							.RD_USE(rd_buffer),
                      //	SDRAM Side
 						   .SA(DRAM_ADDR),
 						   .BA(DRAM_BA),

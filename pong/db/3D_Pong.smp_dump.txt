@@ -1,25 +1,26 @@
 
 State Machine - |lab62|tetris:tet|state
-Name state.FRB state.FRA state.RB state.RA state.PRB state.PRA state.FWD state.WD state.PWD state.FWC state.WC state.PWC state.FWB state.WB state.PWB state.FWA state.WA state.PWA state.Hold 
-state.Hold 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-state.PWA 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
-state.WA 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
-state.FWA 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
-state.PWB 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
-state.WB 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
-state.FWB 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
-state.PWC 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
-state.WC 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
-state.FWC 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
-state.PWD 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
-state.WD 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
-state.FWD 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
-state.PRA 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
-state.PRB 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
-state.RA 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
-state.RB 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
-state.FRA 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
-state.FRB 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+Name state.FRB state.FRA state.RB state.RA state.PRB state.PRA state.FWD state.WD state.PWD state.FWC state.WC state.PWC state.FWB state.WB state.PWB state.FWA state.WA state.PWA state.Hold2 state.Hold1 
+state.Hold1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+state.Hold2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+state.PWA 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+state.WA 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+state.FWA 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+state.PWB 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+state.WB 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+state.FWB 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+state.PWC 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+state.WC 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+state.FWC 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+state.PWD 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+state.WD 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+state.FWD 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.PRA 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.PRB 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.RA 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.RB 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.FRA 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.FRB 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
 
 State Machine - |lab62|lab62_soc:u0|lab62_soc_sdram:sdram|m_next
 Name m_next.010000000 m_next.000010000 m_next.000001000 m_next.000000001 

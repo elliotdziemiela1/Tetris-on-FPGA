@@ -1,0 +1,1839 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/simulation/modelsim
+valtera_avalon_sc_fifo
+Z1 !s110 1682560767
+!i10b 1
+!s100 4mK@em][G=j]om3zJIhOc0
+IPEmg=Y14`kXf@i<`Tk>A=3
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+Z3 w1682548096
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_avalon_sc_fifo.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_avalon_sc_fifo.v
+Z4 L0 21
+Z5 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z6 !s108 1682560767.000000
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_avalon_sc_fifo.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_avalon_sc_fifo.v|
+!i113 1
+Z7 o-vlog01compat -work lab62_soc
+Z8 !s92 -vlog01compat -work lab62_soc +incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules
+Z9 tCvgOpt 0
+valtera_avalon_st_clock_crosser
+Z10 !s110 1682560769
+!i10b 1
+!s100 YbU`iK^TYJ_9Hz`CZekjQ3
+I<4M1ojeZ_DQoQc_g7P^]F1
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_avalon_st_clock_crosser.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_avalon_st_clock_crosser.v
+L0 22
+R5
+r1
+!s85 0
+31
+Z11 !s108 1682560769.000000
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_avalon_st_clock_crosser.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_avalon_st_clock_crosser.v|
+!i113 1
+R7
+R8
+R9
+valtera_avalon_st_handshake_clock_crosser
+R10
+!i10b 1
+!s100 3f<J9K;e[9FU@JKn0^PK?0
+I:RP^GXSfRNK5H0F2J=c5^1
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_avalon_st_handshake_clock_crosser.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_avalon_st_handshake_clock_crosser.v
+Z12 L0 24
+R5
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_avalon_st_handshake_clock_crosser.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_avalon_st_handshake_clock_crosser.v|
+!i113 1
+R7
+R8
+R9
+valtera_merlin_arb_adder
+Z13 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+Z14 !s110 1682560770
+!i10b 1
+!s100 1Jn[a;@5nZmTN?DFKQNzj2
+I99iN3>ASU8B;a59=?P?Xi1
+R2
+Z15 !s105 altera_merlin_arbitrator_sv_unit
+S1
+R0
+R3
+Z16 8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_arbitrator.sv
+Z17 FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_arbitrator.sv
+L0 228
+R5
+r1
+!s85 0
+31
+Z18 !s108 1682560770.000000
+Z19 !s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_arbitrator.sv|
+Z20 !s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_arbitrator.sv|
+!i113 1
+Z21 o-sv -work lab62_soc
+Z22 !s92 -sv -work lab62_soc +incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules
+R9
+valtera_merlin_arbitrator
+R13
+R14
+!i10b 1
+!s100 NQTehjm2fNQROUMUzShGa1
+ISCU]FK<X=oE85?^Y]O2jO1
+R2
+R15
+S1
+R0
+R3
+R16
+R17
+L0 103
+R5
+r1
+!s85 0
+31
+R18
+R19
+R20
+!i113 1
+R21
+R22
+R9
+valtera_merlin_burst_adapter
+R13
+R14
+!i10b 1
+!s100 OCc70X^k:B?GW6i71n`L_3
+Ib3g0@eVCeWm0R@YIVg>340
+R2
+!s105 altera_merlin_burst_adapter_sv_unit
+S1
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_burst_adapter.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_burst_adapter.sv
+R4
+R5
+r1
+!s85 0
+31
+R18
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_burst_adapter.sv|
+!s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_burst_adapter.sv|
+!i113 1
+R21
+R22
+R9
+valtera_merlin_burst_adapter_uncompressed_only
+R13
+R14
+!i10b 1
+!s100 STH]BdUM[JDMJZNJGXCd>0
+IFhJ^d6]2;6Lf_PONEgfZ32
+R2
+!s105 altera_merlin_burst_adapter_uncmpr_sv_unit
+S1
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_burst_adapter_uncmpr.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_burst_adapter_uncmpr.sv
+L0 39
+R5
+r1
+!s85 0
+31
+R18
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_burst_adapter_uncmpr.sv|
+!s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_burst_adapter_uncmpr.sv|
+!i113 1
+R21
+R22
+R9
+valtera_merlin_burst_uncompressor
+R13
+R14
+!i10b 1
+!s100 f1?Rb<=9U?R9LJoHl;7>T3
+IeFAj[ePZzgXEHdW7Kg3mI1
+R2
+!s105 altera_merlin_burst_uncompressor_sv_unit
+S1
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_burst_uncompressor.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_burst_uncompressor.sv
+L0 40
+R5
+r1
+!s85 0
+31
+R18
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_burst_uncompressor.sv|
+!s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_burst_uncompressor.sv|
+!i113 1
+R21
+R22
+R9
+valtera_merlin_master_agent
+R13
+Z23 !s110 1682560771
+!i10b 1
+!s100 _CJm:YX=>U2LQKH;8=@cb0
+IRSPgme^HfbS[8ea@5zc`^2
+R2
+!s105 altera_merlin_master_agent_sv_unit
+S1
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_master_agent.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_master_agent.sv
+L0 28
+R5
+r1
+!s85 0
+31
+Z24 !s108 1682560771.000000
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_master_agent.sv|
+!s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_master_agent.sv|
+!i113 1
+R21
+R22
+R9
+valtera_merlin_master_translator
+R13
+R23
+!i10b 1
+!s100 NdRk@]3fC2C@V7Rm;dQM31
+IE2m;OfUcJJ<0_80L[k8UK1
+R2
+!s105 altera_merlin_master_translator_sv_unit
+S1
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_master_translator.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_master_translator.sv
+L0 32
+R5
+r1
+!s85 0
+31
+R24
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_master_translator.sv|
+!s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_master_translator.sv|
+!i113 1
+R21
+R22
+R9
+valtera_merlin_slave_agent
+R13
+R23
+!i10b 1
+!s100 ePZN1d?B062J`OBb?blff3
+IX7cRG49?K2VgHEiPhIR^32
+R2
+!s105 altera_merlin_slave_agent_sv_unit
+S1
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_slave_agent.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_slave_agent.sv
+Z25 L0 34
+R5
+r1
+!s85 0
+31
+R24
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_slave_agent.sv|
+!s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_slave_agent.sv|
+!i113 1
+R21
+R22
+R9
+valtera_merlin_slave_translator
+R13
+R23
+!i10b 1
+!s100 k`9[YAn_dLTkg;GE`mOb61
+IdVkBkNPCI;nChO9]4PBT^0
+R2
+!s105 altera_merlin_slave_translator_sv_unit
+S1
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_slave_translator.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_slave_translator.sv
+L0 35
+R5
+r1
+!s85 0
+31
+R24
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_slave_translator.sv|
+!s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_slave_translator.sv|
+!i113 1
+R21
+R22
+R9
+valtera_merlin_width_adapter
+R13
+R14
+!i10b 1
+!s100 QzdA5DP6CReOTH<9QzODa3
+IUIhaNT8icBV=Ag?XIWkBF0
+R2
+!s105 altera_merlin_width_adapter_sv_unit
+S1
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_width_adapter.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_width_adapter.sv
+L0 25
+R5
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_width_adapter.sv|
+!s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_merlin_width_adapter.sv|
+!i113 1
+R21
+R22
+R9
+valtera_reset_controller
+Z26 !s110 1682560766
+!i10b 1
+!s100 z[H_hRO9gO=:^2E3_jWH03
+Ik2dC2z]@L0=mm[TLSQ5]X0
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_reset_controller.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_reset_controller.v
+L0 42
+R5
+r1
+!s85 0
+31
+Z27 !s108 1682560766.000000
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_reset_controller.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_reset_controller.v|
+!i113 1
+R7
+R8
+R9
+valtera_reset_synchronizer
+R26
+!i10b 1
+!s100 oWLYmSO[EOX[G0PgQhZ2=0
+IS3PchH0YYza_Qbkib5OYi0
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_reset_synchronizer.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_reset_synchronizer.v
+R12
+R5
+r1
+!s85 0
+31
+R27
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_reset_synchronizer.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_reset_synchronizer.v|
+!i113 1
+R7
+R8
+R9
+valtera_std_synchronizer_nocut
+R10
+!i10b 1
+!s100 b8zV2<79GgkNg0GC<P[GJ2
+IaS]kjWO350n4BV?BhUNd^0
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_std_synchronizer_nocut.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_std_synchronizer_nocut.v
+L0 44
+R5
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_std_synchronizer_nocut.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/altera_std_synchronizer_nocut.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc
+R26
+!i10b 1
+!s100 25?SW[fB7GRS5[HcQ66;a0
+I6;I>lnSg^dPG[ZE<l;^k01
+R2
+R0
+Z28 w1682548301
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/lab62_soc.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/lab62_soc.v
+L0 6
+R5
+r1
+!s85 0
+31
+R27
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/lab62_soc.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/lab62_soc.v|
+!i113 1
+R7
+!s92 -vlog01compat -work lab62_soc +incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis
+R9
+vlab62_soc_hex_digits_pio
+R10
+!i10b 1
+!s100 ?`04Bhh3>CA4@>In<?0AN3
+IM_WFCIVzj@1[ZYDjN6eXT0
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_hex_digits_pio.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_hex_digits_pio.v
+R4
+R5
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_hex_digits_pio.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_hex_digits_pio.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_irq_mapper
+R13
+R10
+!i10b 1
+!s100 I7BPc``fB0I681=A7OVHO3
+I>JCEemfL?BPb1z;j5DRKG2
+R2
+!s105 lab62_soc_irq_mapper_sv_unit
+S1
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_irq_mapper.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_irq_mapper.sv
+L0 31
+R5
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_irq_mapper.sv|
+!s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_irq_mapper.sv|
+!i113 1
+R21
+R22
+R9
+vlab62_soc_jtag_uart_0
+R10
+!i10b 1
+!s100 eDI:Nk_M?R`]56^k7@UAU3
+ImdB;n=F4??kC_72JH@@f>1
+R2
+R0
+R3
+Z29 8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_jtag_uart_0.v
+Z30 FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_jtag_uart_0.v
+L0 331
+R5
+r1
+!s85 0
+31
+R11
+Z31 !s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_jtag_uart_0.v|
+Z32 !s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_jtag_uart_0.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_jtag_uart_0_scfifo_r
+R10
+!i10b 1
+!s100 M<ONLZe77OVd=LLnbg7M>2
+I;_5O]b_j:Fcc=VI0XgZRV2
+R2
+R0
+R3
+R29
+R30
+L0 243
+R5
+r1
+!s85 0
+31
+R11
+R31
+R32
+!i113 1
+R7
+R8
+R9
+vlab62_soc_jtag_uart_0_scfifo_w
+R10
+!i10b 1
+!s100 YcVe?P<_=g[W@m474@iUM2
+IzKKB1OX95]Ko:dmUN4G3G0
+R2
+R0
+R3
+R29
+R30
+L0 78
+R5
+r1
+!s85 0
+31
+R11
+R31
+R32
+!i113 1
+R7
+R8
+R9
+vlab62_soc_jtag_uart_0_sim_scfifo_r
+R10
+!i10b 1
+!s100 VzG2K;BINOjTJli9UnP:<0
+IF9:A`X<XIURR:IW1`_`Gl3
+R2
+R0
+R3
+R29
+R30
+L0 164
+R5
+r1
+!s85 0
+31
+R11
+R31
+R32
+!i113 1
+R7
+R8
+R9
+vlab62_soc_jtag_uart_0_sim_scfifo_w
+R10
+!i10b 1
+!s100 eB_`HFRMWaz7l7lZP<kEL0
+IaAM=][00JXda_0U>NLJLJ2
+R2
+R0
+R3
+R29
+R30
+R4
+R5
+r1
+!s85 0
+31
+R11
+R31
+R32
+!i113 1
+R7
+R8
+R9
+vlab62_soc_key
+Z33 !s110 1682560768
+!i10b 1
+!s100 6bLbOAKl]CDNLRR0lSAEZ1
+IzJ07k^]Z9PECec;;R?GZ[1
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_key.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_key.v
+R4
+R5
+r1
+!s85 0
+31
+Z34 !s108 1682560768.000000
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_key.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_key.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_keycode
+R33
+!i10b 1
+!s100 Tc`<h:;k_<[fi3WbIU8`n2
+IWhD`@RZ0L:Y39M`P`7EGl3
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_keycode.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_keycode.v
+R4
+R5
+r1
+!s85 0
+31
+R34
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_keycode.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_keycode.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_leds_pio
+R33
+!i10b 1
+!s100 I^^F?[S44MGZ5kgdHi0QA1
+Inbk^IB;Oi=RiIIN7iZ;C<0
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_leds_pio.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_leds_pio.v
+R4
+R5
+r1
+!s85 0
+31
+R34
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_leds_pio.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_leds_pio.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_mm_interconnect_0
+R1
+!i10b 1
+!s100 R7UTX@YQ>K4c[E<7Jc7lX1
+I3b>]ool1bjf=2KgTKMGcT0
+R2
+R0
+R28
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0.v
+L0 9
+R5
+r1
+!s85 0
+31
+R27
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_mm_interconnect_0_avalon_st_adapter
+R1
+!i10b 1
+!s100 6nomGWUAM0j`lJVg6SV<o3
+IPI>==z=RmoUmVB?M8EamR1
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_avalon_st_adapter.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_avalon_st_adapter.v
+L0 9
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_avalon_st_adapter.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_avalon_st_adapter.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_mm_interconnect_0_avalon_st_adapter_005
+R1
+!i10b 1
+!s100 aIW^]G^V6;W?A1;4=T8P22
+IM5K=m]W02ikLYU0]1beM;2
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_avalon_st_adapter_005.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_avalon_st_adapter_005.v
+L0 9
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_avalon_st_adapter_005.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_avalon_st_adapter_005.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_mm_interconnect_0_avalon_st_adapter_005_error_adapter_0
+R13
+R10
+!i10b 1
+!s100 6bbF>8d_]<S;DzS79<hkF3
+I>zR6GYodfB8Z6YI`^m@he0
+R2
+!s105 lab62_soc_mm_interconnect_0_avalon_st_adapter_005_error_adapter_0_sv_unit
+S1
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_avalon_st_adapter_005_error_adapter_0.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_avalon_st_adapter_005_error_adapter_0.sv
+Z35 L0 66
+R5
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_avalon_st_adapter_005_error_adapter_0.sv|
+!s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_avalon_st_adapter_005_error_adapter_0.sv|
+!i113 1
+R21
+R22
+R9
+vlab62_soc_mm_interconnect_0_avalon_st_adapter_error_adapter_0
+R13
+R10
+!i10b 1
+!s100 ^lK7o7ZizLIZZzVPMZ>eU1
+Ifjooka0Ha>bNN4Zf;UUNU3
+R2
+!s105 lab62_soc_mm_interconnect_0_avalon_st_adapter_error_adapter_0_sv_unit
+S1
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_avalon_st_adapter_error_adapter_0.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_avalon_st_adapter_error_adapter_0.sv
+R35
+R5
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_avalon_st_adapter_error_adapter_0.sv|
+!s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_avalon_st_adapter_error_adapter_0.sv|
+!i113 1
+R21
+R22
+R9
+vlab62_soc_mm_interconnect_0_cmd_demux
+R13
+R14
+!i10b 1
+!s100 45G3e=kcF_3ZPg@Fk`i080
+IMV`JIn3K4gTzAlDhAd;Ui3
+R2
+!s105 lab62_soc_mm_interconnect_0_cmd_demux_sv_unit
+S1
+R0
+R28
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_cmd_demux.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_cmd_demux.sv
+Z36 L0 43
+R5
+r1
+!s85 0
+31
+R18
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_cmd_demux.sv|
+!s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_cmd_demux.sv|
+!i113 1
+R21
+R22
+R9
+vlab62_soc_mm_interconnect_0_cmd_mux
+R13
+R14
+!i10b 1
+!s100 KdPMiHKKSAT>c^WN_D:zS3
+I2Rcf9i]Xz9m28HQn`4<:j3
+R2
+!s105 lab62_soc_mm_interconnect_0_cmd_mux_sv_unit
+S1
+R0
+R28
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_cmd_mux.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_cmd_mux.sv
+Z37 L0 51
+R5
+r1
+!s85 0
+31
+R18
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_cmd_mux.sv|
+!s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_cmd_mux.sv|
+!i113 1
+R21
+R22
+R9
+vlab62_soc_mm_interconnect_0_router
+R13
+R14
+!i10b 1
+!s100 2D75D>AEFR;9;TZknnhn>3
+IRY6m`lUn;_5S6QN;a?[zI1
+R2
+Z38 !s105 lab62_soc_mm_interconnect_0_router_sv_unit
+S1
+R0
+R28
+Z39 8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_router.sv
+Z40 FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_router.sv
+Z41 L0 84
+R5
+r1
+!s85 0
+31
+R18
+Z42 !s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_router.sv|
+Z43 !s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_router.sv|
+!i113 1
+R21
+R22
+R9
+vlab62_soc_mm_interconnect_0_router_002
+R13
+R14
+!i10b 1
+!s100 WMRj3a>_<^9AmGjUWSdEb3
+I^oN_eaf41nY?c<bPhF0o`1
+R2
+Z44 !s105 lab62_soc_mm_interconnect_0_router_002_sv_unit
+S1
+R0
+R28
+Z45 8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_router_002.sv
+Z46 FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_router_002.sv
+R41
+R5
+r1
+!s85 0
+31
+R18
+Z47 !s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_router_002.sv|
+Z48 !s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_router_002.sv|
+!i113 1
+R21
+R22
+R9
+vlab62_soc_mm_interconnect_0_router_002_default_decode
+R13
+R14
+!i10b 1
+!s100 P:_n0DO:[`61N?Z=Eh@dV0
+IE43KENQ2DMV9N49EaeVeF1
+R2
+R44
+S1
+R0
+R28
+R45
+R46
+Z49 L0 45
+R5
+r1
+!s85 0
+31
+R18
+R47
+R48
+!i113 1
+R21
+R22
+R9
+vlab62_soc_mm_interconnect_0_router_007
+R13
+R14
+!i10b 1
+!s100 Ti0_:YR]6EGD7@9Ze<7cR1
+I]idQVgFQYMEjQ3m9kXjJ>0
+R2
+Z50 !s105 lab62_soc_mm_interconnect_0_router_007_sv_unit
+S1
+R0
+R3
+Z51 8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_router_007.sv
+Z52 FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_router_007.sv
+R41
+R5
+r1
+!s85 0
+31
+R18
+Z53 !s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_router_007.sv|
+Z54 !s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_router_007.sv|
+!i113 1
+R21
+R22
+R9
+vlab62_soc_mm_interconnect_0_router_007_default_decode
+R13
+R14
+!i10b 1
+!s100 QDFRHEF0EUGShCYMX<I`80
+IVD0]OT;OKoGR=]H8W7?hm2
+R2
+R50
+S1
+R0
+R3
+R51
+R52
+R49
+R5
+r1
+!s85 0
+31
+R18
+R53
+R54
+!i113 1
+R21
+R22
+R9
+vlab62_soc_mm_interconnect_0_router_default_decode
+R13
+R14
+!i10b 1
+!s100 4@<`?h`az<_5nZ=K^l7jk1
+I@BiJB_Kj?1W5z7UY3d1`T2
+R2
+R38
+S1
+R0
+R28
+R39
+R40
+R49
+R5
+r1
+!s85 0
+31
+R18
+R42
+R43
+!i113 1
+R21
+R22
+R9
+vlab62_soc_mm_interconnect_0_rsp_demux
+R13
+R14
+!i10b 1
+!s100 RBiG2JN`OiYoLmneXM>Kz1
+IY0F:2BLBQQ3[8d9>`Yi3H3
+R2
+!s105 lab62_soc_mm_interconnect_0_rsp_demux_sv_unit
+S1
+R0
+R28
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_rsp_demux.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_rsp_demux.sv
+R36
+R5
+r1
+!s85 0
+31
+R18
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_rsp_demux.sv|
+!s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_rsp_demux.sv|
+!i113 1
+R21
+R22
+R9
+vlab62_soc_mm_interconnect_0_rsp_mux
+R13
+R14
+!i10b 1
+!s100 8X^SC5<KXXB1dkAJIkb@P0
+Ig`7k]j2V]]<HnW?5A8ZZa2
+R2
+!s105 lab62_soc_mm_interconnect_0_rsp_mux_sv_unit
+S1
+R0
+R28
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_rsp_mux.sv
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_rsp_mux.sv
+R37
+R5
+r1
+!s85 0
+31
+R18
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_rsp_mux.sv|
+!s90 -reportprogress|300|-sv|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_mm_interconnect_0_rsp_mux.sv|
+!i113 1
+R21
+R22
+R9
+vlab62_soc_nios2_gen2_0
+R33
+!i10b 1
+!s100 @X>N:3277U`7WVA3ZJkif1
+IF:E[9R@@77`lfEGFe6Y[j1
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0.v
+L0 9
+R5
+r1
+!s85 0
+31
+R34
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu
+R33
+!i10b 1
+!s100 FH<_dMRN4bQTD[?Vb6^Kn1
+I5bgS;eOC`OGklkKnMc<Xa1
+R2
+R0
+R28
+Z55 8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu.v
+Z56 FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu.v
+L0 2834
+R5
+r1
+!s85 0
+31
+R34
+Z57 !s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu.v|
+Z58 !s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_debug_slave_sysclk
+R33
+!i10b 1
+!s100 jCF>n:UMiAfL;;:^j6[OB3
+I4ohY8C@mjX2e:SBH85mo73
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu_debug_slave_sysclk.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu_debug_slave_sysclk.v
+R4
+R5
+r1
+!s85 0
+31
+R34
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu_debug_slave_sysclk.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu_debug_slave_sysclk.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_debug_slave_tck
+R33
+!i10b 1
+!s100 `BcC:B`YVjd[bcKe4Wo;@3
+IF[<8=U02ZEIa0]dX7gFc50
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu_debug_slave_tck.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu_debug_slave_tck.v
+R4
+R5
+r1
+!s85 0
+31
+R34
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu_debug_slave_tck.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu_debug_slave_tck.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_debug_slave_wrapper
+R33
+!i10b 1
+!s100 A6V4`;@MUSlTVbeZm>3Kh1
+IdSlfE43FiBbmEl^dP;>5U0
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu_debug_slave_wrapper.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu_debug_slave_wrapper.v
+R4
+R5
+r1
+!s85 0
+31
+R34
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu_debug_slave_wrapper.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu_debug_slave_wrapper.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_nios2_avalon_reg
+R33
+!i10b 1
+!s100 a9_QcTM8d[VNafVB0kao50
+IjII]c<6HoiY9M[P;C?2k01
+R2
+R0
+R28
+R55
+R56
+L0 2023
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_nios2_oci
+R33
+!i10b 1
+!s100 ;A>08_5]:_8j9JkjO7:0]1
+I1Q`fz@4EFYDK2T<1GdHo:3
+R2
+R0
+R28
+R55
+R56
+L0 2362
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_nios2_oci_break
+R33
+!i10b 1
+!s100 S4HnVeQDgNK<3nZQd8neW2
+I[g^i3[F96YOJP7UZo4gAn3
+R2
+R0
+R28
+R55
+R56
+L0 295
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_nios2_oci_compute_input_tm_cnt
+R33
+!i10b 1
+!s100 l1VhgKz2`A1?@3Lf6zTEP3
+IzO<gg2IESUH_ElE3=ZlnZ3
+R2
+R0
+R28
+R55
+R56
+L0 1265
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_nios2_oci_dbrk
+R33
+!i10b 1
+!s100 C7bo:iMRco26WF?fU4Om^1
+ILlZP3>>2_2?aA9]SMg5kf3
+R2
+R0
+R28
+R55
+R56
+L0 795
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_nios2_oci_debug
+R33
+!i10b 1
+!s100 c2RbW?L:f2D8c3B2J3DFj0
+I5i`16`7PXfHKG?OkAei2P0
+R2
+R0
+R28
+R55
+R56
+L0 153
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_nios2_oci_dtrace
+R33
+!i10b 1
+!s100 W85dCYE]^QKOQYlc;z5G_1
+Io9i14cFYhI:L8<lU9MdPf2
+R2
+R0
+R28
+R55
+R56
+L0 1183
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_nios2_oci_fifo
+R33
+!i10b 1
+!s100 iHzPVi:0gJ>T^7S2VmBC92
+I54A2<@n9JRV[2HbAZ9SP>3
+R2
+R0
+R28
+R55
+R56
+L0 1427
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_nios2_oci_fifo_cnt_inc
+R33
+!i10b 1
+!s100 dg?AO7MeG5mP23MdMSJb41
+Iz<G<S=_ZC1Lc5zW`:n3K=2
+R2
+R0
+R28
+R55
+R56
+L0 1380
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_nios2_oci_fifo_wrptr_inc
+R33
+!i10b 1
+!s100 gKU;1`H34dQRWHbk^BoNb1
+I7IbPI>bKe<eH3^PY6`Mzb1
+R2
+R0
+R28
+R55
+R56
+L0 1337
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_nios2_oci_im
+R33
+!i10b 1
+!s100 OJ[5BDo>kjbXFijI]38ET1
+IS7hNOzzM[B2LzRjMVX8@82
+R2
+R0
+R28
+R55
+R56
+L0 1936
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_nios2_oci_itrace
+R33
+!i10b 1
+!s100 VY<TeiR2FLH1@G?5XJ8b_1
+IalK6<VkZLIQ?SKgmT>n<21
+R2
+R0
+R28
+R55
+R56
+L0 982
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_nios2_oci_pib
+R33
+!i10b 1
+!s100 laD^Z5d5_HO>L;H5z4RCA3
+Icj@bThWSb3n0_4J4Ech]g3
+R2
+R0
+R28
+R55
+R56
+L0 1913
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_nios2_oci_td_mode
+R33
+!i10b 1
+!s100 71gTDzL1Ho336cO7;]Nj53
+IA>BfF1X5MhGoK7F<52B^00
+R2
+R0
+R28
+R55
+R56
+L0 1115
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_nios2_oci_xbrk
+R33
+!i10b 1
+!s100 8Z2OL?H11iECPfXc8zEdJ1
+INoIhP:]Bni@WJ`[dELcN[2
+R2
+R0
+R28
+R55
+R56
+L0 588
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_nios2_ocimem
+R33
+!i10b 1
+!s100 Ng1]_[8;SA@cAl<1^mCde3
+I]X3Zgai@oZhdCkGW?T^a=0
+R2
+R0
+R28
+R55
+R56
+L0 2181
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_nios2_performance_monitors
+R33
+!i10b 1
+!s100 89b[mDK;Z7zO[i]f]U?6`1
+IUn<4?5b]];kjD`69I^^JV0
+R2
+R0
+R28
+R55
+R56
+L0 2006
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_ociram_sp_ram_module
+R33
+!i10b 1
+!s100 Fd?l^U;7G:PS[SgY]_SGQ2
+I;`BSNGg]lA]]f7P]0OX843
+R2
+R0
+R28
+R55
+R56
+L0 2116
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_register_bank_a_module
+R33
+!i10b 1
+!s100 KHo?h?QR_KFSL9Hc:E8>n2
+IFiH9AT0hjhOh:=^fOhGmB0
+R2
+R0
+R28
+R55
+R56
+R4
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_register_bank_b_module
+R33
+!i10b 1
+!s100 A<bS5JNB`3mo;jcC_5^UC1
+IUJQQjKAjEcFVRo32:z=oS3
+R2
+R0
+R28
+R55
+R56
+L0 87
+R5
+r1
+!s85 0
+31
+R34
+R57
+R58
+!i113 1
+R7
+R8
+R9
+vlab62_soc_nios2_gen2_0_cpu_test_bench
+R33
+!i10b 1
+!s100 YbM>Hj>a<_B>@]RhaNU933
+I55l08QbFK=;mdoB@>?L<i3
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu_test_bench.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu_test_bench.v
+R4
+R5
+r1
+!s85 0
+31
+R34
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu_test_bench.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_nios2_gen2_0_cpu_test_bench.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_onchip_memory2_0
+R33
+!i10b 1
+!s100 eOSzk@P>bWnf_dj[9Md?A2
+ICPXkiBk>F=IRkWeOIPVkN1
+R2
+R0
+R28
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_onchip_memory2_0.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_onchip_memory2_0.v
+R4
+R5
+r1
+!s85 0
+31
+R34
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_onchip_memory2_0.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_onchip_memory2_0.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_sdram
+R1
+!i10b 1
+!s100 dAjTS]FmK^3eRFMfM<ZLM0
+I3RV53WZ`H@?mcm3imfSCT2
+R2
+R0
+R3
+Z59 8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_sdram.v
+Z60 FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_sdram.v
+L0 159
+R5
+r1
+!s85 0
+31
+R6
+Z61 !s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_sdram.v|
+Z62 !s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_sdram.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_sdram_input_efifo_module
+R1
+!i10b 1
+!s100 _03kZT[J1BVcnVdGiEGo42
+IeQ:eWiL^=NoodI:JECAl=2
+R2
+R0
+R3
+R59
+R60
+R4
+R5
+r1
+!s85 0
+31
+R6
+R61
+R62
+!i113 1
+R7
+R8
+R9
+vlab62_soc_sdram_pll
+R1
+!i10b 1
+!s100 47MbJ5cld938d4SdK4;@F2
+IdNVRb90di0[O;6YR`ao7>3
+R2
+R0
+R3
+Z63 8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_sdram_pll.v
+Z64 FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_sdram_pll.v
+L0 217
+R5
+r1
+!s85 0
+31
+R6
+Z65 !s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_sdram_pll.v|
+Z66 !s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_sdram_pll.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_sdram_pll_altpll_vg92
+R1
+!i10b 1
+!s100 iiSG05Ch33]aVaShnC8OQ2
+IDJ4`0k^S5S1k5O20dnA9V1
+R2
+R0
+R3
+R63
+R64
+L0 130
+R5
+r1
+!s85 0
+31
+R6
+R65
+R66
+!i113 1
+R7
+R8
+R9
+vlab62_soc_sdram_pll_dffpipe_l2c
+R1
+!i10b 1
+!s100 ]AgAX_;f;Bjl64JGM[7?f3
+IQJ`5L6:8gWo;C4i7mK1BI3
+R2
+R0
+R3
+R63
+R64
+L0 37
+R5
+r1
+!s85 0
+31
+R6
+R65
+R66
+!i113 1
+R7
+R8
+R9
+vlab62_soc_sdram_pll_stdsync_sv6
+R1
+!i10b 1
+!s100 H?UzKL`=<aoE0Ga16D?U;3
+I?_1c83j<9a>D0z[`65dL^0
+R2
+R0
+R3
+R63
+R64
+L0 98
+R5
+r1
+!s85 0
+31
+R6
+R65
+R66
+!i113 1
+R7
+R8
+R9
+vlab62_soc_spi_0
+R1
+!i10b 1
+!s100 QL=gE`gZH9NP2PFNSJkMI0
+ILZIjJHA[>eeG9:8MM;]ZD3
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_spi_0.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_spi_0.v
+L0 41
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_spi_0.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_spi_0.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_sysid_qsys_0
+R1
+!i10b 1
+!s100 AZ8F@_[TcB<7i<E569JO<1
+IYcGZc7]YG4I?l=Jm[i5]e2
+R2
+R0
+R28
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_sysid_qsys_0.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_sysid_qsys_0.v
+R25
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_sysid_qsys_0.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_sysid_qsys_0.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_timer_0
+R1
+!i10b 1
+!s100 JX=HGMUz5fgTm<OndHnBR3
+I=87Oi^@ii26CI`09lDeMh3
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_timer_0.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_timer_0.v
+R4
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_timer_0.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_timer_0.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_usb_gpx
+R1
+!i10b 1
+!s100 GULeeJo[_X`=QGkJ1bdHB0
+I=of?EI823K6TjeglHaOSd1
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_usb_gpx.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_usb_gpx.v
+R4
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_usb_gpx.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_usb_gpx.v|
+!i113 1
+R7
+R8
+R9
+vlab62_soc_usb_rst
+R1
+!i10b 1
+!s100 eJCCQH4Bd34M<T@n9YJ2^1
+I4dWH[KoH2=6`hAMJ_CeIP2
+R2
+R0
+R3
+8C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_usb_rst.v
+FC:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_usb_rst.v
+R4
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_usb_rst.v|
+!s90 -reportprogress|300|-vlog01compat|-work|lab62_soc|+incdir+C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules|C:/Users/tjurc/Documents/ECE385/3D_Pong/pong/lab62_soc/synthesis/submodules/lab62_soc_usb_rst.v|
+!i113 1
+R7
+R8
+R9
