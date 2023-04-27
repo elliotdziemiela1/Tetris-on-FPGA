@@ -148,9 +148,15 @@ begin
 				  state <= PRB;
 				  end
 			PRB: begin
+				  if(write_counter[2])
+				  begin
+				  write_counter <= 5'b0;
 				  read_ld <= 1'b1; // Clear fifo buffer and load read address
 				  readaddr <= 25'h81DE;
 				  state <= RB;
+				  end
+				  else
+				  write_counter <= write_counter + 1'b1;
 				  end
 			RB:  begin
 				  read_ld <= 1'b0; // Finish read load
