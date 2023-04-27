@@ -3,18 +3,24 @@
 module Game_Logic (
 		input Reset, frame_clk, Clk,
 		input [7:0] keycode,
-		output logic [5:0] blockX1Pos, blockX2Pos, blockX3Pos, blockX4Pos, 
-		output logic [6:0] blockY1Pos, blockY2Pos, blockY3Pos, blockY4Pos,
+		output logic [6:0] blockXPos [4], 
+		output logic [6:0] blockYPos [4],
+		output logic [6:0] blockXPrev [4], 
+		output logic [6:0] blockYPrev [4],
 		output logic [3:0] blockColor // index into palette
 	);
 	
-	parameter [5:0] board_width =9; // number of squares in each row (starting at 0)
+	parameter [6:0] board_width =9; // number of squares in each row (starting at 0)
 	parameter [6:0] board_height =19; // number of rows (starting at 0)
 	parameter [7:0] frames_per_move = 13;
 	
 	logic [15:0] Board[board_height+1]; // each bit represents the presence of a block in that square of the screen
-	logic [5:0] blockX1, blockX2, blockX3, blockX4; // zero indexed
+	logic [6:0] blockX1, blockX2, blockX3, blockX4; // zero indexed
 	logic [6:0] blockY1, blockY2, blockY3, blockY4; // zero indexed
+	
+	logic [6:0] blockXPrevious [4];
+	logic [6:0] blockYPrevious [4];
+	
 	logic [6:0] blockXMotion;
 	logic [7:0] blockYMotion;
 	logic [3:0] color;
@@ -32,7 +38,7 @@ module Game_Logic (
 	logic move_clk;
 	logic [5:0] frame_count;
 	
-	always_ff @ (posedge Reset or posedge frame_clk ) begin
+	always_ff @ (posedge frame_clk ) begin
 	    if (Reset)
 			frame_count <= 0;
 		 else begin
@@ -63,6 +69,11 @@ module Game_Logic (
 			blockX2 <= blockX2 + blockXMotion;
 			blockX3 <= blockX3 + blockXMotion;
 			blockX4 <= blockX4 + blockXMotion;
+			
+			blockXPrevious[0] <= blockX1;
+			blockXPrevious[1] <= blockX2;
+			blockXPrevious[2] <= blockX3;
+			blockXPrevious[3] <= blockX4;
 		end
 	 
 	always_ff @ (posedge move_clk )
@@ -77,6 +88,11 @@ module Game_Logic (
 				blockY3 <= Pieces[0][0][2][5:3];
 //				blockX4 <= Pieces[0][0][3][2:0] + (board_width>>1);
 				blockY4 <= Pieces[0][0][3][5:3];
+				
+				blockYPrevious[0] <= blockY1;
+				blockYPrevious[1] <= blockY2;
+				blockYPrevious[2] <= blockY3;
+				blockYPrevious[3] <= blockY4;
 				
 				piece_count <= 0;
 				piece_rotation <= 0;
@@ -149,14 +165,16 @@ module Game_Logic (
 	  end	
 
 	always_comb begin
-		blockX1Pos = blockX1;
-		blockY1Pos = blockY1;
-		blockX2Pos = blockX2;
-		blockY2Pos = blockY2;
-		blockX3Pos = blockX3;
-		blockY3Pos = blockY3;
-		blockX4Pos = blockX4;
-		blockY4Pos = blockY4;
+		blockXPos[0] = blockX1;
+		blockYPos[0] = blockY1;
+		blockXPos[1] = blockX2;
+		blockYPos[1] = blockY2;
+		blockXPos[2] = blockX3;
+		blockYPos[2] = blockY3;
+		blockXPos[3] = blockX4;
+		blockYPos[3] = blockY4;
+		blockXPrev = blockXPrevious;
+		blockYPrev = blockYPrevious;
 		blockColor = color;
 	end
 
