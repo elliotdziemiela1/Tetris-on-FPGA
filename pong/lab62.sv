@@ -5,7 +5,6 @@
 //      UIUC ECE Department                                              --
 //-------------------------------------------------------------------------
 
-
 module lab62 (
 
       ///////// Clocks /////////
@@ -69,20 +68,20 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	logic [3:0] hex_num_4, hex_num_3, hex_num_1, hex_num_0; //4 bit input hex digits
 	logic [1:0] signs;
 	logic [1:0] hundreds;
-	logic [9:0] drawxsig, drawysig, blockx1sig, blocky1sig, blockx2sig, blocky2sig, blockx3sig, blocky3sig, blockx4sig, blocky4sig;
+	logic [9:0] drawxsig, drawysig, ballxsig, ballysig, ballsizesig;
 	logic [7:0] Red, Blue, Green;
 	logic [7:0] keycode;
 	
 	// SDRAM Wire Declaractions
 	logic pll_clk;
-	logic write;
-	logic read;
-	logic rd_empty;
-	logic wr_full;
+	logic write_req, read_req;
+	logic write_ld, read_ld;
+	logic [15:0] rd_buffer;
+	logic [15:0] wr_buffer;
 	logic [15:0] writedata;
 	logic [15:0] readdata;
-	logic [15:0] writeaddr;
-	logic [15:0] readaddr;
+	logic [24:0] writeaddr;
+	logic [24:0] readaddr;
 
 //=======================================================
 //  Structural coding
@@ -131,6 +130,10 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	assign VGA_B = Blue[7:4];
 	assign VGA_G = Green[7:4];
 	
+	// Key 1 for testing sdram	
+	logic key;
+	assign {key}=~ (KEY[1]);
+	
 	
 	lab62_soc u0 (
 		.clk_clk                           (MAX10_CLK1_50),  //clk.clk
@@ -165,7 +168,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.usb_gpx_export(USB_GPX),
 		
 		//LEDs and HEX
-//		.hex_digits_export({hex_num_4, hex_num_3, hex_num_1, hex_num_0}),
+		//.hex_digits_export({hex_num_4, hex_num_3, hex_num_1, hex_num_0}), //Hex currently wired to tetris
 		.leds_export({hundreds, signs, LEDR}),
 		.keycode_export(keycode)
 		
@@ -180,28 +183,28 @@ sdram_pll0 pll ( .areset (),
 	             .c1(),
 	             .locked());
 
-
 Sdram_Control sdram_controller (	//	HOST Side
 						   .REF_CLK(MAX10_CLK1_50),
-					      .RESET_N(1'b0),
+					      .RESET_N(1'b1),
+							//.CLK(pll_clk),
 							//	FIFO Write Side 
 						   .WR_DATA(writedata),
-							.WR(write),
+							.WR(write_req),
 							.WR_ADDR(writeaddr),
-							.WR_MAX_ADDR(18'h3E800),		//	256K addresses
-							.WR_LENGTH(5'h10), // length 16
-							.WR_LOAD(1'b1),
+							.WR_MAX_ADDR(25'h1ffffff),		
+							.WR_LENGTH(9'h01), // write one word
+							.WR_LOAD(write_ld),
 							.WR_CLK(pll_clk),
-							.WR_FULL(wr_full),
+							.WR_USE(wr_buffer),
 							//	FIFO Read Side 
 						   .RD_DATA(readdata),
-				        	.RD(read),
+				        	.RD(read_req),
 				        	.RD_ADDR(readaddr),			
-							.RD_MAX_ADDR(18'h3E800), // 256K addresses
-							.RD_LENGTH(5'h10), // length 16
-				        	.RD_LOAD(1'b1),
+							.RD_MAX_ADDR(25'h1ffffff), 
+							.RD_LENGTH(9'h01), // write one word
+				        	.RD_LOAD(read_ld),
 							.RD_CLK(pll_clk),
-							.RD_EMPTY(rd_empty),
+							.RD_USE(rd_buffer),
                      //	SDRAM Side
 						   .SA(DRAM_ADDR),
 						   .BA(DRAM_BA),
@@ -214,14 +217,19 @@ Sdram_Control sdram_controller (	//	HOST Side
 				         .DQM({DRAM_UDQM,DRAM_LDQM}),
 							.SDR_CLK(DRAM_CLK)	);
 
+//module tetris ( input clk,
+//					 inout vs,
+//					 input [15:0] readdata,
+//					 output write, read,
+//					 output [15:0] writeaddr, readaddr,
+//					 output [15:0] writedata,
+//					 output [7:0] Red, Green, Blue
+//					 );							
 							
-
+tetris tet (.*, .clk(MAX10_CLK1_50), .vs(VGA_VS), .hs(VGA_HS), .reset(Reset_h), .DrawX(drawxsig), .DrawY(drawysig), .Red(), .Green(), .Blue()); // Tetris instantiation
 
 Game_Logic game (.Reset(Reset_h), .frame_clk(~VGA_VS), .keycode(keycode), .blockX1Pos(blockx1sig), .blockY1Pos(blocky1sig), .blockX2Pos(blockx2sig), 
 	.blockY2Pos(blocky2sig), .blockX3Pos(blockx3sig), .blockY3Pos(blocky3sig), .blockX4Pos(blockx4sig), .blockY4Pos(blocky4sig), .blockColor());
-
-//tetris tet (.*, .clk(MAX10_CLK1_50), .vs(VGA_VS), .hs(VGA_HS), .DrawX(drawxsig), .DrawY(drawysig), .Red(Red), .Green(Green), .Blue(Blue)); // Tetris instantiation
-tetris tet (.DrawX(drawxsig), .DrawY(drawysig), .Red(), .Green(), .Blue(), .hex0(hex_num_0), .hex1(hex_num_1), .hex2(hex_num_2), .hex3(hex_num_3)); // Tetris instantiation
 
 color_mapper colormap (.blockx1(blockx1sig), .blocky1(blocky1sig), .blockx2(blockx2sig), .blocky2(blocky2sig), .blockx3(blockx3sig), 
 	.blocky3(blocky3sig), .blockx4(blockx4sig), .blocky4(blocky4sig), .DrawX(drawxsig), .DrawY(drawysig), .Ball_size(ballsizesig), .Red(Red), .Green(Green), .Blue(Blue));
