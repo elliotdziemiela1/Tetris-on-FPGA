@@ -14,7 +14,8 @@
 
 // VGA = 640*480
 
-module  color_mapper (  input logic [15:0] Row [10],
+module  color_mapper (  input Clk, hs,
+								input logic [15:0] Row [10],
 								input logic rowReady,
 								input logic [9:0] DrawX, DrawY,
 								output logic [7:0] rowNum,
@@ -50,21 +51,23 @@ module  color_mapper (  input logic [15:0] Row [10],
 	 enum logic [15:0] {S1, S2, Wait} state;
 
 	// State machine logic with reset for correct default values of regs
-	always_ff @(posedge clk)
+	always_ff @(posedge Clk)
 	begin
 		unique case (state)
 			Wait: begin
 				if (hs == 1'b1 && ((DrawY+1) % squareSize == 0)) begin // at the end of a block row fetch the next row
-					state <= S1
+					state <= S1;
 				end
 				end 
 			S1: begin
-				state <= Wait
+				state <= Wait;
 				end 
 //			S2: begin
 //				
 //				state <= Wait
 //				end 
+			default: ;
+		endcase
 	end
 	
 	always_comb 
@@ -88,6 +91,8 @@ module  color_mapper (  input logic [15:0] Row [10],
 //			S2: begin
 //				LD_Row = 1'b0;
 //				end 
+			default: ;
+		endcase
 	end
 endmodule
 
