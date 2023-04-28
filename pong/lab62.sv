@@ -231,13 +231,19 @@ logic [6:0] blockYPos [4];
 logic [6:0] blockXPrev [4];
 logic [6:0] blockYPrev [4];
 logic [3:0] blockColor;
+logic LD_Row, rowReady;
+
+logic [15:0] Row [10];
+logic [7:0] rowNum;
 							
 tetris tet (.*, .clk(MAX10_CLK1_50), .vs(VGA_VS), .hs(VGA_HS), .reset(Reset_h), .DrawX(drawxsig), .DrawY(drawysig), .Red(), .Green(), .Blue()); // Tetris instantiation
 
 Game_Logic game (.Reset(Reset_h), .frame_clk(~VGA_VS), .keycode(keycode), .blockXPos(blockXPos), .blockYPos(blockYPos), .blockXPrev(blockXPrev), .blockYPrev(blockYPrev), .blockColor(blockColor));
 
-//color_mapper colormap (.blockx1(blockx1sig), .blocky1(blocky1sig), .blockx2(blockx2sig), .blocky2(blocky2sig), .blockx3(blockx3sig), 
-//	.blocky3(blocky3sig), .blockx4(blockx4sig), .blocky4(blocky4sig), .DrawX(drawxsig), .DrawY(drawysig), .Ball_size(ballsizesig), .Red(Red), .Green(Green), .Blue(Blue));
+//color_mapper colormap (.blockx1(blockXPos[0]), .blocky1(blockYPos[0]), .blockx2(blockXPos[1]), .blocky2(blockYPos[1]), .blockx3(blockXPos[2]), 
+//	.blocky3(blockYPos[2]), .blockx4(blockXPos[3]), .blocky4(blockYPos[3]), .DrawX(drawxsig), .DrawY(drawysig), .Ball_size(ballsizesig), .Red(Red), .Green(Green), .Blue(Blue));
+
+color_mapper colormap (.LD_Row(LD_Row), .rowReady(rowReady), .Row(Row), .rowNum(rowNum), .DrawX(drawxsig), .DrawY(drawysig), .Ball_size(ballsizesig), .Red(Red), .Green(Green), .Blue(Blue));
 
 vga_controller vga_ctrl (.Clk(MAX10_CLK1_50), .Reset(1'b0), .hs(VGA_HS), .vs(VGA_VS), .pixel_clk(), .blank(), .sync(), .DrawX(drawxsig), .DrawY(drawysig));
 
