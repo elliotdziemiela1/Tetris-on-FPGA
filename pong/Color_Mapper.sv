@@ -34,9 +34,9 @@ module  color_mapper (  input logic [15:0] Row [10],
     begin:RGB_Display
         if ((DrawX >= (640/4)) && (DrawX < (3*640/4)))  // if drawing in board
         begin 
-            Red = 8'h00; 
-            Green = 8'h00;
-            Blue = 8'h7c;
+				Red = Row[(DrawX-(640/4))/(squareSize)][3:0];
+            Green = Row[(DrawX-(640/4))/(squareSize)][7:4];
+            Blue = Row[(DrawX-(640/4))/(squareSize)][11:8];
         end  
         else 
         begin // draw side bars
@@ -82,7 +82,7 @@ module  color_mapper (  input logic [15:0] Row [10],
 					LD_Row = 1'b1;
 				end
 			end
-			S1: begin  // send load signal
+			S1: begin  
 				LD_Row = 1'b0;
 				end 
 //			S2: begin
