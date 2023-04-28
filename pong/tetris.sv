@@ -33,11 +33,12 @@ module tetris ( input clk,
 					 output logic [24:0] writeaddr, readaddr,
 					 output logic [15:0] writedata,
 					 output [7:0] Red, Green, Blue,
-					 output [3:0] hex_num_4, hex_num_3, hex_num_1, hex_num_0
+	       output [3:0] hex_num_4, hex_num_3, hex_num_1, hex_num_0,
+	       output logic [15:0] read_reg [10]
 					 );
 
 // Local Declarations					 
-logic [15:0] read_reg [10]; // data for an entire row
+//logic [15:0] read_reg [10]; // data for an entire row
 logic [4:0] write_counter;
 logic [24:0] pre_block_addr [4];
 logic [24:0] post_block_addr [4];
