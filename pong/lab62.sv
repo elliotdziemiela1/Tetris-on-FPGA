@@ -236,8 +236,8 @@ logic LD_Row, rowReady;
 logic [15:0] Row [10];
 logic [7:0] rowNum;
 							
-tetris tet (.*, .clk(MAX10_CLK1_50), .vs(VGA_VS), .hs(VGA_HS), .reset(Reset_h), .DrawX(drawxsig), .DrawY(drawysig), .Red(), .Green(), .Blue()); // Tetris instantiation
-
+tetris tet (.*, .clk(MAX10_CLK1_50), .vs(VGA_VS), .hs(VGA_HS), .reset(Reset_h), .DrawX(drawxsig), .DrawY(drawysig), .row(), .row_ready(), .row_ld(), .preX(blockXPrev), .preY(blockYPrev), .postX(blockXPos), .postY(blockYPos), .Red(), .Green(), .Blue()); // Tetris instantiation
+	
 Game_Logic game (.Reset(Reset_h), .frame_clk(~VGA_VS), .keycode(keycode), .blockXPos(blockXPos), .blockYPos(blockYPos), .blockXPrev(blockXPrev), .blockYPrev(blockYPrev), .blockColor(blockColor));
 
 //color_mapper colormap (.blockx1(blockXPos[0]), .blocky1(blockYPos[0]), .blockx2(blockXPos[1]), .blocky2(blockYPos[1]), .blockx3(blockXPos[2]), 
