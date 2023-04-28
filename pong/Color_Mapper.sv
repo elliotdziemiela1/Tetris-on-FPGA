@@ -42,7 +42,7 @@ module  color_mapper (  input Clk, hs,
         else 
         begin // draw side bars
             Red = 8'h00; 
-            Green = 8'h00;
+            Green = 8'h3e;
             Blue = 8'h7c;
         end   
     end 
