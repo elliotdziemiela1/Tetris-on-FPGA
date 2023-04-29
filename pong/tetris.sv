@@ -195,7 +195,7 @@ begin
 					write_counter <= write_counter + 1'b1;
 					end
 			RA:  begin
-					if(write_counter == 5'b01001) // count to 9
+					if(write_counter == 5'b01100) // count to 9
 						begin
 						read_ld <= 1'b0; // Finish read load
 						if(rd_buffer == 16'h01010) // read buffer is of size 10
@@ -263,8 +263,8 @@ post_block_addr[3] = {17'b0,((10*postY[3])+postX[3]),1'b0};
 // Address of row
 row_addr = {16'b0,(10*row),1'b0};
 // Colors
-bckgrd_clr = 16'h0fff; // White
-blck_clr = 16'h0000; // Black
+bckgrd_clr = 16'h0f05; // White
+blck_clr = 16'h005f; // Black
 
 end
 

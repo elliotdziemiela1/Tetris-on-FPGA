@@ -1,20 +1,8 @@
-//-------------------------------------------------------------------------
-//    Color_Mapper.sv                                                    --
-//    Stephen Kempf                                                      --
-//    3-1-06                                                             --
-//                                                                       --
-//    Modified by David Kesler  07-16-2008                               --
-//    Translated by Joe Meng    07-07-2013                               --
-//                                                                       --
-//    Fall 2014 Distribution                                             --
-//                                                                       --
-//    For use with ECE 385 Lab 7                                         --
-//    University of Illinois ECE Department                              --
-//-------------------------------------------------------------------------
+
 
 // VGA = 640*480
 
-module  color_mapper (  input Clk, hs,
+module  color_mapper (  input Clk, hs, reset,
 								input logic [15:0] Row [10],
 								input logic rowReady,
 								input logic [9:0] DrawX, DrawY,
@@ -35,15 +23,15 @@ module  color_mapper (  input Clk, hs,
     begin:RGB_Display
         if ((DrawX >= (640/4)) && (DrawX < (3*640/4)))  // if drawing in board
         begin 
-				Red = Row[(DrawX-(640/4))/(squareSize)][3:0];
-            Green = Row[(DrawX-(640/4))/(squareSize)][7:4];
-            Blue = Row[(DrawX-(640/4))/(squareSize)][11:8];
+				Red = {Row[(DrawX-(640/4))/(squareSize)][3:0], 4'b0};
+            Green = {Row[(DrawX-(640/4))/(squareSize)][7:4], 4'b0};
+            Blue = {Row[(DrawX-(640/4))/(squareSize)][11:8], 4'b0};
         end  
         else 
         begin // draw side bars
             Red = 8'h00; 
-            Green = 8'h3e;
-            Blue = 8'h7c;
+            Green = 8'hfc;
+            Blue = 8'h39;
         end   
     end 
     
@@ -51,48 +39,59 @@ module  color_mapper (  input Clk, hs,
 	 enum logic [15:0] {S1, S2, Wait} state;
 
 	// State machine logic with reset for correct default values of regs
-	always_ff @(posedge Clk)
-	begin
-		unique case (state)
-			Wait: begin
-				if (hs == 1'b1 && ((DrawY+1) % squareSize == 0)) begin // at the end of a block row fetch the next row
-					state <= S1;
-				end
-				end 
-			S1: begin
-				state <= Wait;
-				end 
-//			S2: begin
-//				
-//				state <= Wait
-//				end 
-			default: ;
-		endcase
+	always_ff @(posedge Clk) begin
+		if(reset) begin	// Default values
+			state <= Wait;
+			end
+		else begin
+			unique case (state)
+				Wait: begin
+					if (hs == 1'b1 && (((DrawY+1) % squareSize) == 0)) begin // at the end of a block row fetch the next row
+						state <= S1;
+					end
+					end 
+				S1: begin
+					if (hs == 1'b0)
+						state <= Wait;
+					end 
+	//			S2: begin
+	//				
+	//				state <= Wait
+	//				end 
+				default: ;
+			endcase
+		end
 	end
 	
 	always_comb 
 	begin
-		rowNum = 0;
-		LD_Row = 1'b0;
-		unique case (state)
-			Wait: begin
-				if (DrawY >= 639) begin  // if at the end of the last block row
-					rowNum = 0;
-					LD_Row = 1'b1;
+		if(reset) begin	// Default values
+			rowNum = 1'b0;
+			LD_Row = 1'b0;
+		end
+		else begin
+			rowNum = 0;
+			LD_Row = 1'b0;
+			unique case (state)
+				Wait: begin
+					if (hs == 1'b1 && DrawY >= 479) begin  // if at the end of the last block row
+						rowNum = 0;
+						LD_Row = 1'b1;
+					end
+					else if (hs == 1'b1 && (((DrawY+1) % squareSize) == 0)) begin  // else if at the end at a block row
+						rowNum = (DrawY+1) / squareSize; // get the next block row
+						LD_Row = 1'b1;
+					end
 				end
-				else if (hs == 1'b1 && ((DrawY+1) % squareSize == 0)) begin  // else if at the end at a block row
-					rowNum = (DrawY+1) / squareSize; // get the next block row
-					LD_Row = 1'b1;
-				end
-			end
-			S1: begin  
-				LD_Row = 1'b0;
-				end 
-//			S2: begin
-//				LD_Row = 1'b0;
-//				end 
-			default: ;
-		endcase
+				S1: begin  
+					LD_Row = 1'b0;
+					end 
+	//			S2: begin
+	//				LD_Row = 1'b0;
+	//				end 
+				default: ;
+			endcase
+		end
 	end
 endmodule
 
