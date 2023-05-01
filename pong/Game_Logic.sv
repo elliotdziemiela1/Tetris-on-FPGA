@@ -7,7 +7,7 @@ module Game_Logic (
 		output logic [6:0] blockYPos [4],
 		output logic [6:0] blockXPrev [4], 
 		output logic [6:0] blockYPrev [4],
-		output logic [3:0] blockColor // index into palette
+		output logic [15:0] blockColor 
 	);
 	
 	parameter [6:0] board_width =9; // number of squares in each row (starting at 0)
@@ -25,7 +25,10 @@ module Game_Logic (
 	
 	logic [6:0] blockXMotion;
 	logic [7:0] blockYMotion;
-	logic [3:0] color;
+	logic [4:0] color;
+	
+	logic [15:0] palette [number_of_colors];
+	assign palette = '{16'h0f00, 16'h05f0, 16'h00a8};
 	
 	logic [5:0] Pieces[3][2][4]; // each peice's block positions for two rotations
 	assign Pieces = '{
@@ -181,6 +184,7 @@ module Game_Logic (
 			default: ;
 		endcase
 	  end	
+	  
 
 	always_comb begin
 		blockXPos[0] = blockX1;
@@ -193,7 +197,7 @@ module Game_Logic (
 		blockYPos[3] = blockY4;
 		blockXPrev = blockXPrevious;
 		blockYPrev = blockYPrevious;
-		blockColor = color;
+		blockColor = palette[color];
 	end
 
 

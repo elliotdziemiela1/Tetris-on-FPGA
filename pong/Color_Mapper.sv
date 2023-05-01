@@ -11,7 +11,7 @@ module  color_mapper (  input Clk, hs, reset,
 								output logic [7:0]  Red, Green, Blue );
     
 	 
-	 parameter squareSize = (640/2)/(board_width+1); // half of the screen is the board, and divide that by
+	 parameter squareSize = (640/3)/(board_width+1); // half of the screen is the board, and divide that by
 	 // the # of squares in a row of the board
 	 parameter [6:0] board_width =9; // number of squares in each row (starting at 0)
 	 parameter [6:0] board_height =19;
@@ -23,11 +23,11 @@ module  color_mapper (  input Clk, hs, reset,
        
     always_comb
     begin:RGB_Display
-        if ((DrawX >= (640/4)) && (DrawX < (3*640/4)))  // if drawing in board
+        if ((DrawX >= (640/3)) && (DrawX < (2*640/3) && (DrawY < (squareSize*20))))  // if drawing in board
         begin 
-				Red = {Row[(DrawX-(640/4))/(squareSize)][3:0], 4'b0};
-            Green = {Row[(DrawX-(640/4))/(squareSize)][7:4], 4'b0};
-            Blue = {Row[(DrawX-(640/4))/(squareSize)][11:8], 4'b0};
+				Red = {Row[(DrawX-(640/3))/(squareSize)][11:8], 4'b0};
+            Green = {Row[(DrawX-(640/3))/(squareSize)][7:4], 4'b0};
+            Blue = {Row[(DrawX-(640/3))/(squareSize)][3:0], 4'b0};
         end  
         else 
         begin // draw side bars

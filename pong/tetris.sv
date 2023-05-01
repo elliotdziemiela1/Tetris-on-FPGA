@@ -27,6 +27,7 @@ module tetris ( input clk,
 					 input [9:0] DrawX, DrawY,
 					 input [15:0] wr_buffer, rd_buffer,
 					 input [15:0] readdata,
+					 input [15:0] color,
 					 output logic row_ready, // Send ready signal when done processing row
 					 output logic write_req, read_req,
 					 output logic write_ld, read_ld,
@@ -356,7 +357,7 @@ post_block_addr[3] = {18'b0,((10*postY[3])+postX[3])};
 // Address of row
 row_addr = {17'b0,(10*row)};
 // Colors
-bckgrd_clr = 16'h0f00; // White
+bckgrd_clr = 16'h000f; // White
 blck_clr = 16'h0f00; // Black
 // Assign outputs combinationally to ensure correct reads
 read_reg[0] = readdata_reg[0];
