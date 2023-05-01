@@ -28,7 +28,7 @@ module Game_Logic (
 	logic [5:0] Pieces[3][2][4]; // each peice's block positions for two rotations
 	assign Pieces = '{
 		'{'{6'b000000,6'b001000,6'b001001,6'b010001},'{6'b001000,6'b001001,6'b000001,6'b000010}}, // piece 1
-		'{'{6'b000000,6'b000001,6'b001000,6'b001001},'{6'b000000,6'b000001,6'b001000,6'b001001}}, // piece 2
+		'{'{6'b000000,6'b001000,6'b010000,6'b011000},'{6'b000000,6'b001000,6'b010000,6'b011000}}, // piece 2
 		'{'{6'b000000,6'b001000,6'b001001,6'b010001},'{6'b001000,6'b001001,6'b000001,6'b000010}}  // piece 3
 	}; // array of 3 different peices. each register in the array contains the coordinates
 	// for a block of the peice in the format [5:3]=Y [2:0]=X, relative to (0,0)
@@ -56,7 +56,7 @@ module Game_Logic (
 		  
 	end
 	
-	always_ff @ (posedge frame_clk )
+	always_ff @ (posedge Reset or posedge frame_clk )
 		begin: MoveX_Block
 			if (Reset)  // Asynchronous Reset
 			  begin 
@@ -65,18 +65,20 @@ module Game_Logic (
 					blockX3 <= Pieces[0][0][2][2:0] + (board_width>>1);
 					blockX4 <= Pieces[0][0][3][2:0] + (board_width>>1);
 			  end
-			blockX1 <= blockX1 + blockXMotion;
-			blockX2 <= blockX2 + blockXMotion;
-			blockX3 <= blockX3 + blockXMotion;
-			blockX4 <= blockX4 + blockXMotion;
-			
+			else begin
+				blockX1 <= blockX1 + blockXMotion;
+				blockX2 <= blockX2 + blockXMotion;
+				blockX3 <= blockX3 + blockXMotion;
+				blockX4 <= blockX4 + blockXMotion;
+			end
+					
 			blockXPrevious[0] <= blockX1;
 			blockXPrevious[1] <= blockX2;
 			blockXPrevious[2] <= blockX3;
 			blockXPrevious[3] <= blockX4;
 		end
 	 
-	always_ff @ (posedge move_clk )
+	always_ff @ (posedge Reset or posedge move_clk )
 		begin: MoveY_Block
 		if (Reset)  // Asynchronous Reset
         begin 
@@ -133,7 +135,7 @@ module Game_Logic (
 				end
 		end
 		  
-	always_ff @ (posedge Reset or posedge Clk )
+	always_ff @ (posedge Clk )
     begin: Input_Block
 		blockXMotion <= 0;
 		blockYMotion <= 1;
