@@ -40,6 +40,7 @@ module tetris ( input clk,
 // Local Declarations					 
 //logic [15:0] read_reg [10]; // data for an entire row
 logic [4:0] write_counter;
+logic [24:0] init_counter;
 logic [4:0] read_counter;
 logic [24:0] pre_block_addr [4];
 logic [24:0] post_block_addr [4];
@@ -51,7 +52,7 @@ logic [15:0] readdata_reg [10];
 logic update_flag;
 					 
 // State machine for writing to VRAM					 
-enum logic [15:0] {Hold1, Hold2, Intermediate, PulseRead1, PulseRead2,
+enum logic [15:0] {Hold1, Hold2, Init_RAM1, Init_RAM2, Init_RAM3, Init_RAM4,
 						 PWA, WA, FWA, PWB, WB, FWB, PWC, WC, FWC, PWD, WD, FWD,
 						PRA, PRB, RA, RB, FRA, FRB, RAI, QWA, QWB, QWC, QWD} state;
 
@@ -60,6 +61,7 @@ always_ff @(posedge clk or posedge reset)
 begin
 	if(reset)
 		begin	// Default values
+		init_counter <= 25'b0;
 		clear_flag <= 1'b0;
 		update_flag <= 1'b0;
 		row_ready <= 1'b0;
@@ -72,11 +74,38 @@ begin
 		write_ld <= 1'b0;
 		writeaddr <= 25'b0;
 		writedata <= 16'b0;
-		state <= Hold1;
+		state <= Init_RAM1;
 		end
 	else
 		begin
 		unique case (state)
+			Init_RAM1: begin
+						  write_ld <= 1'b1;
+						  writeaddr <= init_counter;
+						  state <= Init_RAM2;
+						  end
+			Init_RAM2: begin
+						  write_ld <= 1'b0;
+						  write_req <= 1'b1;
+						  writedata <= bckgrd_clr;
+						  state <= Init_RAM3;
+						  end
+			Init_RAM3: begin
+						  if(init_counter > 25'd200)
+						  begin
+								init_counter <= 25'b0;
+								write_req <= 1'b0;
+								state <= Init_RAM4;
+						  end
+						  else
+								init_counter <= init_counter + 1'b1;
+						  end
+			Init_RAM4: begin
+						  if(wr_buffer == 16'b0)
+								state <= Hold1;
+						  end
+		
+		
 			Hold1:   begin 
 							row_ready <= 1'b0;
 							if(vs && !update_flag) // First clear previous locations
