@@ -75,9 +75,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  28 .quartus_project_dir 00000027  00000000  00000000  00076349  2**0
                   CONTENTS, READONLY
- 29 .jdi          00006276  00000000  00000000  00076370  2**0
+ 29 .jdi          000063f7  00000000  00000000  00076370  2**0
                   CONTENTS, READONLY
- 30 .sopcinfo     00074840  00000000  00000000  0007c5e6  2**0
+ 30 .sopcinfo     00074840  00000000  00000000  0007c767  2**0
                   CONTENTS, READONLY
 SYMBOL TABLE:
 08000000 l    d  .entry	00000000 .entry
@@ -5193,7 +5193,7 @@ char* ConvUTF8ToStr(BYTE* utf8, BYTE length)
  8003110:	08003250 	cmplti	zero,at,201
  8003114:	080033b0 	cmpltui	zero,at,206
  8003118:	08003d8c 	andi	zero,at,246
- 800311c:	08003400 	call	800340 <__reset-0x77ffcc0>
+ 800311c:	08003400 	call	800340 <__alt_mem_onchip_memory2_0-0x77ffcc0>
  8003120:	0800340c 	andi	zero,at,208
  8003124:	0800340c 	andi	zero,at,208
  8003128:	0800340c 	andi	zero,at,208
@@ -13166,7 +13166,7 @@ char* ConvUTF8ToStr(BYTE* utf8, BYTE length)
  800ab54:	0800b3ec 	andhi	zero,at,719
  800ab58:	0800aeec 	andhi	zero,at,699
  800ab5c:	0800b3ec 	andhi	zero,at,719
- 800ab60:	0800af00 	call	800af0 <__reset-0x77ff510>
+ 800ab60:	0800af00 	call	800af0 <__alt_mem_onchip_memory2_0-0x77ff510>
  800ab64:	0800af38 	rdprs	zero,at,700
  800ab68:	0800ac38 	rdprs	zero,at,688
  800ab6c:	0800aee0 	cmpeqi	zero,at,699
@@ -23242,7 +23242,7 @@ alt_exception_cause_generated_bad_addr(alt_exception_cause cause)
  80124fc:	d9400015 	stw	r5,0(sp)
  8012500:	d9800115 	stw	r6,4(sp)
  8012504:	d9c00215 	stw	r7,8(sp)
- 8012508:	00000000 	call	0 <__reset-0x8000000>
+ 8012508:	00000000 	call	0 <__alt_mem_onchip_memory2_0-0x8000000>
  801250c:	d9400017 	ldw	r5,0(sp)
  8012510:	d9800117 	ldw	r6,4(sp)
  8012514:	d9c00217 	ldw	r7,8(sp)
@@ -23326,7 +23326,7 @@ alt_exception_cause_generated_bad_addr(alt_exception_cause cause)
  8012644:	10003226 	beq	r2,zero,8012710 <__call_exitprocs+0x178>
  8012648:	a009883a 	mov	r4,r20
  801264c:	98800015 	stw	r2,0(r19)
- 8012650:	00000000 	call	0 <__reset-0x8000000>
+ 8012650:	00000000 	call	0 <__alt_mem_onchip_memory2_0-0x8000000>
  8012654:	9d000017 	ldw	r20,0(r19)
  8012658:	a03fe41e 	bne	r20,zero,80125ec <__alt_data_end+0xffff25ec>
  801265c:	dfc00a17 	ldw	ra,40(sp)

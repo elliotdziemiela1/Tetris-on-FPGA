@@ -327,8 +327,8 @@ post_block_addr[3] = {18'b0,((10*postY[3])+postX[3])};
 // Address of row
 row_addr = {17'b0,(10*row)};
 // Colors
-bckgrd_clr = 16'h0f05; // White
-blck_clr = 16'h005f; // Black
+bckgrd_clr = 16'h0f00; // White
+blck_clr = 16'h0f00; // Black
 // Assign outputs combinationally to ensure correct reads
 read_reg[0] = readdata_reg[0];
 read_reg[1] = readdata_reg[1];
