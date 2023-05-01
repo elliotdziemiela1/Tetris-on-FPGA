@@ -12,7 +12,8 @@ module Game_Logic (
 	
 	parameter [6:0] board_width =9; // number of squares in each row (starting at 0)
 	parameter [6:0] board_height =19; // number of rows (starting at 0)
-	parameter [7:0] frames_per_move = 13;
+	parameter [7:0] frames_per_move_Y = 13;
+	parameter [7:0] frames_per_move_X = 5;
 	
 	logic [15:0] Board[board_height+1]; // each bit represents the presence of a block in that square of the screen
 	logic [6:0] blockX1, blockX2, blockX3, blockX4; // zero indexed
@@ -28,35 +29,48 @@ module Game_Logic (
 	logic [5:0] Pieces[3][2][4]; // each peice's block positions for two rotations
 	assign Pieces = '{
 		'{'{6'b000000,6'b001000,6'b001001,6'b010001},'{6'b001000,6'b001001,6'b000001,6'b000010}}, // piece 1
-		'{'{6'b000000,6'b001000,6'b010000,6'b011000},'{6'b000000,6'b001000,6'b010000,6'b011000}}, // piece 2
+		'{'{6'b000000,6'b001000,6'b000001,6'b001001},'{6'b000000,6'b001000,6'b000001,6'b001001}}, // piece 2
 		'{'{6'b000000,6'b001000,6'b001001,6'b010001},'{6'b001000,6'b001001,6'b000001,6'b000010}}  // piece 3
 	}; // array of 3 different peices. each register in the array contains the coordinates
 	// for a block of the peice in the format [5:3]=Y [2:0]=X, relative to (0,0)
 	logic [2:0] piece_count;
 	logic piece_rotation;
 	
-	logic move_clk;
-	logic [5:0] frame_count;
+	logic move_clk_X, move_clk_Y;
+	logic [5:0] frame_count_move_X, frame_count_move_Y;
 	
 	always_ff @ (posedge frame_clk ) begin
-	    if (Reset)
-			frame_count <= 0;
+	    if (Reset) begin
+			frame_count_move_X <= 0;
+			frame_count_move_Y <= 0;
+		 end
 		 else begin
-			 
-			 if (frame_count > frames_per_move) begin
-				frame_count <= 0;
-				move_clk <= 1;
+		 
+			 // move_clk_X logic
+			 if (frame_count_move_X >= frames_per_move_X) begin
+				frame_count_move_X <= 0;
+				move_clk_X <= 1;
 			 end
 			 else begin
-				frame_count <= frame_count + 1;
-				move_clk <= 0;
+				frame_count_move_X <= frame_count_move_X + 1;
+				move_clk_X <= 0;
+			 end
+			 
+			 // move_clk_Y logic
+			 if (frame_count_move_Y >= frames_per_move_Y) begin
+				frame_count_move_Y <= 0;
+				move_clk_Y <= 1;
+			 end
+			 else begin
+				frame_count_move_Y <= frame_count_move_Y + 1;
+				move_clk_Y <= 0;
 			 end
 		 end
 		  
 		  
 	end
 	
-	always_ff @ (posedge Reset or posedge frame_clk )
+	always_ff @ (posedge Reset or posedge move_clk_X )
 		begin: MoveX_Block
 			if (Reset)  // Asynchronous Reset
 			  begin 
@@ -78,7 +92,7 @@ module Game_Logic (
 			blockXPrevious[3] <= blockX4;
 		end
 	 
-	always_ff @ (posedge Reset or posedge move_clk )
+	always_ff @ (posedge Reset or posedge move_clk_Y )
 		begin: MoveY_Block
 		if (Reset)  // Asynchronous Reset
         begin 
