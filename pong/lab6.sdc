@@ -12,7 +12,7 @@ create_clock -period "50.0 MHz" [get_ports MAX10_CLK2_50]
 
 
 # SDRAM CLK
-create_generated_clock -source [get_pins { u0|sdram_pll|sd1|pll7|clk[1] }] \
+create_generated_clock -source [get_pins { sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[1] }] \
                       -name clk_dram_ext [get_ports {DRAM_CLK}]
 
 create_generated_clock -divide_by 2 -source [get_ports {MAX10_CLK1_50}] \
@@ -52,7 +52,7 @@ set_input_delay -min -clock clk_dram_ext 3.0 [get_ports DRAM_DQ*]
 
 #shift-window
 set_multicycle_path -from [get_clocks {clk_dram_ext}] \
-                    -to [get_clocks { u0|sdram_pll|sd1|pll7|clk[0] }] \
+                    -to [get_clocks { pll|altpll_component|auto_generated|pll1|clk[0] }] \
                                       -setup 2
 
 #**************************************************************
@@ -95,9 +95,9 @@ set_false_path -from * -to [get_ports {VGA_VS*}]
 set_false_path -from * -to [get_ports {VGA_HS*}]
 set_false_path -from [get_ports {altera*}] -to *
 set_false_path -from * -to [get_ports {altera*}]
-set_false_path -from [get_ports {DRAM_DQ*}] -to *
-set_false_path -from * -to [get_ports {DRAM_CLK}]
-set_false_path -from * -to [get_ports {DRAM_DQ*}]
+#set_false_path -from [get_ports {DRAM_DQ*}] -to *
+#set_false_path -from * -to [get_ports {DRAM_CLK}]
+#set_false_path -from * -to [get_ports {DRAM_DQ*}]
 
 
 #**************************************************************

@@ -192,7 +192,7 @@ Sdram_Control sdram_controller (	//	HOST Side
 							.WR(write_req),
 							.WR_ADDR(writeaddr),
 							.WR_MAX_ADDR(25'h1ffffff),		
-							.WR_LENGTH(9'h01), // write one word
+							.WR_LENGTH(9'h01), // write one word (CHECK THIS FIRST!!)
 							.WR_LOAD(write_ld),
 							.WR_CLK(pll_clk),
 							.WR_USE(wr_buffer),
@@ -201,7 +201,7 @@ Sdram_Control sdram_controller (	//	HOST Side
 				        	.RD(read_req),
 				        	.RD_ADDR(readaddr),			
 							.RD_MAX_ADDR(25'h1ffffff), 
-							.RD_LENGTH(9'h01), // write one word
+							.RD_LENGTH(9'h0A), // read ten words
 				        	.RD_LOAD(read_ld),
 							.RD_CLK(pll_clk),
 							.RD_USE(rd_buffer),
