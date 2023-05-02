@@ -15,6 +15,10 @@ module Game_Logic (
 	parameter [7:0] frames_per_move_Y = 13;
 	parameter [7:0] frames_per_move_X = 5;
 	parameter [4:0] number_of_colors = 3;
+	parameter [49:0] keystroke_sample_period = 50'h10000;
+	
+	
+	logic [49:0] keystroke_counter; // counter to wait after sampling a keystroke to sample the next
 	
 	logic [15:0] Board[board_height+1]; // each bit represents the presence of a block in that square of the screen
 	logic [6:0] blockX1, blockX2, blockX3, blockX4; // zero indexed
@@ -129,10 +133,10 @@ module Game_Logic (
 				Board[blockY4+blockYMotion][blockX4]==1'b1 || (blockY4+blockYMotion>board_height)
 				) begin // collision with other block or bottom of screen
 					// new block generated
-					blockYPrevious[0] <= blockY1;
-					blockYPrevious[1] <= blockY2;
-					blockYPrevious[2] <= blockY3;
-					blockYPrevious[3] <= blockY4;
+					blockYPrevious[0] <= 7'b0;
+					blockYPrevious[1] <= 7'b0;
+					blockYPrevious[2] <= 7'b0;
+					blockYPrevious[3] <= 7'b0;
 					
 					Board[blockY1][blockX1] <= 1'b1;
 					Board[blockY2][blockX2] <= 1'b1;
@@ -165,38 +169,79 @@ module Game_Logic (
 					blockY4 <= blockY4 + blockYMotion;
 				end
 		end
-		  
-	always_ff @ (posedge Clk )
-    begin: Input_Block
-		blockXMotion <= 0;
-		blockYMotion <= 1;
-		case (keycode)
-			8'h04 : begin
-						if ((blockX1>0)&&(blockX2>0)&&(blockX3>0)&&(blockX4>0))
-							blockXMotion <= -1;//A
-					  end
-					  
-			8'h07 : begin
-						
-					  if ((blockX1<board_width)&&(blockX2<board_width)&&(blockX3<board_width)&&(blockX4<board_width))
-							blockXMotion <= 1;//D
-					  end
+		
+		always_ff @ (posedge Clk )
+		 begin: Input_Block
+			blockXMotion <= 0;
+			blockYMotion <= 1;
+			case (keycode)
+				8'h04 : begin
+							if ((blockX1>0)&&(blockX2>0)&&(blockX3>0)&&(blockX4>0))
+								blockXMotion <= -1;//A
+						  end
+						  
+				8'h07 : begin
+							
+						  if ((blockX1<board_width)&&(blockX2<board_width)&&(blockX3<board_width)&&(blockX4<board_width))
+								blockXMotion <= 1;//D
+						  end
 
-					  
-//					8'h16 : begin
-//								if ((blockY1<board_height)&&(blockY2<board_height)&&(blockY3<board_height)&&(blockY4<board_height))
-//									blockYMotion <= 2;//S
-//							 end
-//					8'hd44 : begin // space
-//								if ((blockY1<board_height)&&(blockY2<board_height)&&(blockY3<board_height)&&(blockY4<board_height))
-//									blockYMotion <= 2;//S
-//							 end
-					  
-//					8'h1A : begin //W
-			default: ;
-		endcase
+						  
+	//					8'h16 : begin
+	//								if ((blockY1<board_height)&&(blockY2<board_height)&&(blockY3<board_height)&&(blockY4<board_height))
+	//									blockYMotion <= 2;//S
+	//							 end
+	//					8'hd44 : begin // space
+	//								if ((blockY1<board_height)&&(blockY2<board_height)&&(blockY3<board_height)&&(blockY4<board_height))
+	//									blockYMotion <= 2;//S
+	//							 end
+						  
+	//					8'h1A : begin //W
+				default: ;
+			endcase
 	  end	
-	  
+
+//	always_ff @ (posedge Clk )
+//    begin: Input_Block
+//		if (keystroke_counter < keystroke_sample_period)
+//			keystroke_counter <= keystroke_counter + 1;
+//		else begin
+//			case (keycode)
+//				8'h04 : begin
+//							if ((blockX1>0)&&(blockX2>0)&&(blockX3>0)&&(blockX4>0)) begin
+//								blockXMotion <= -1;//A
+//								keystroke_counter <= 0;
+//							end
+//						  end
+//						  
+//				8'h07 : begin
+//							
+//						  if ((blockX1<board_width)&&(blockX2<board_width)&&(blockX3<board_width)&&(blockX4<board_width))begin
+//								blockXMotion <= 1;//D
+//								keystroke_counter <= 0;
+//						  end
+//						  end
+//
+//						  
+//				8'h16 : begin
+////							if ((blockY1<board_height)&&(blockY2<board_height)&&(blockY3<board_height)&&(blockY4<board_height))
+//								blockYMotion <= 2;//S
+//								keystroke_counter <= 0;
+//						 end
+//	//					8'hd44 : begin // space
+//	//								if ((blockY1<board_height)&&(blockY2<board_height)&&(blockY3<board_height)&&(blockY4<board_height))
+//	//									blockYMotion <= 2;//S
+//	//							 end
+//						  
+//	//					8'h1A : begin //W
+//				default: begin
+//						blockXMotion <= 0;
+//						blockYMotion <= 1;
+//				end 
+//			endcase
+//		end
+//	  end	
+//	  
 
 	always_comb begin
 		blockXPos[0] = blockX1;
