@@ -3,95 +3,95 @@ Timing Analyzer Summary
 ------------------------------------------------------------
 
 Type  : Slow 1200mV 85C Model Setup 'MAX10_CLK1_50'
-Slack : -7.280
-TNS   : -580.694
+Slack : -6.986
+TNS   : -262.319
 
 Type  : Slow 1200mV 85C Model Setup 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 6.276
+Slack : 6.205
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Setup 'pll|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 9.109
+Slack : 10.631
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Setup 'clk_dram_ext'
-Slack : 10.351
+Slack : 13.210
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Setup 'clk_vga_ext'
-Slack : 34.191
+Slack : 33.174
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Setup 'altera_reserved_tck'
-Slack : 43.148
+Slack : 41.985
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'MAX10_CLK1_50'
-Slack : -4.243
-TNS   : -4.243
-
-Type  : Slow 1200mV 85C Model Hold 'pll|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 0.340
+Slack : 0.238
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 0.340
+Slack : 0.243
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'altera_reserved_tck'
+Slack : 0.340
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'pll|altpll_component|auto_generated|pll1|clk[0]'
 Slack : 0.341
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'clk_vga_ext'
-Slack : 0.640
+Slack : 0.639
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'clk_dram_ext'
-Slack : 2.204
+Slack : 2.077
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Recovery 'pll|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 9.722
+Slack : 9.884
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Recovery 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 9.911
+Slack : 10.156
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Recovery 'MAX10_CLK1_50'
-Slack : 14.468
+Slack : 13.619
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Recovery 'altera_reserved_tck'
-Slack : 48.052
+Slack : 47.602
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Removal 'MAX10_CLK1_50'
-Slack : 1.128
+Slack : 0.947
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Removal 'altera_reserved_tck'
-Slack : 1.159
+Slack : 1.308
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Removal 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 7.159
+Slack : 6.982
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Removal 'pll|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 7.821
+Slack : 7.155
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'MAX10_CLK1_50'
-Slack : 9.538
+Slack : 9.543
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 9.676
+Slack : 9.682
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'pll|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 9.684
+Slack : 9.687
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[1]'
@@ -107,51 +107,51 @@ Slack : 15.790
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clk_vga_ext'
-Slack : 19.685
+Slack : 19.734
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'altera_reserved_tck'
-Slack : 49.534
+Slack : 49.536
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Setup 'MAX10_CLK1_50'
-Slack : -4.853
-TNS   : -368.644
+Slack : -4.611
+TNS   : -155.255
 
 Type  : Slow 1200mV 0C Model Setup 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 7.021
+Slack : 6.963
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Setup 'pll|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 10.252
+Slack : 11.635
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Setup 'clk_dram_ext'
-Slack : 10.845
+Slack : 13.615
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Setup 'clk_vga_ext'
-Slack : 34.750
+Slack : 33.741
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Setup 'altera_reserved_tck'
-Slack : 43.665
+Slack : 42.565
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'MAX10_CLK1_50'
-Slack : -3.618
-TNS   : -3.618
+Slack : 0.235
+TNS   : 0.000
 
-Type  : Slow 1200mV 0C Model Hold 'pll|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 0.305
+Type  : Slow 1200mV 0C Model Hold 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 0.239
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'altera_reserved_tck'
 Slack : 0.306
 TNS   : 0.000
 
-Type  : Slow 1200mV 0C Model Hold 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 0.306
+Type  : Slow 1200mV 0C Model Hold 'pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 0.307
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'clk_vga_ext'
@@ -159,51 +159,51 @@ Slack : 0.593
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'clk_dram_ext'
-Slack : 1.970
+Slack : 1.847
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Recovery 'pll|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 10.915
-TNS   : 0.000
-
-Type  : Slow 1200mV 0C Model Recovery 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
 Slack : 11.089
 TNS   : 0.000
 
+Type  : Slow 1200mV 0C Model Recovery 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 11.273
+TNS   : 0.000
+
 Type  : Slow 1200mV 0C Model Recovery 'MAX10_CLK1_50'
-Slack : 14.904
+Slack : 14.075
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Recovery 'altera_reserved_tck'
-Slack : 48.237
+Slack : 47.830
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Removal 'MAX10_CLK1_50'
-Slack : 1.032
+Slack : 0.872
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Removal 'altera_reserved_tck'
-Slack : 1.053
+Slack : 1.207
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Removal 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 6.337
+Slack : 6.156
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Removal 'pll|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 6.904
+Slack : 6.308
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'MAX10_CLK1_50'
-Slack : 9.566
-TNS   : 0.000
-
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 9.692
+Slack : 9.569
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'pll|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 9.701
+Slack : 9.687
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 9.698
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'MAX10_CLK2_50'
@@ -219,51 +219,51 @@ Slack : 15.790
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clk_vga_ext'
-Slack : 19.752
+Slack : 19.675
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'altera_reserved_tck'
-Slack : 49.547
+Slack : 49.555
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Setup 'MAX10_CLK1_50'
-Slack : 6.455
+Slack : 8.807
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Setup 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 10.138
+Slack : 10.102
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Setup 'clk_dram_ext'
-Slack : 14.309
+Slack : 14.934
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Setup 'pll|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 14.811
+Slack : 15.557
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Setup 'clk_vga_ext'
-Slack : 37.395
+Slack : 36.820
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Setup 'altera_reserved_tck'
-Slack : 47.291
+Slack : 46.652
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'MAX10_CLK1_50'
-Slack : -2.099
-TNS   : -2.099
-
-Type  : Fast 1200mV 0C Model Hold 'pll|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 0.147
+Slack : 0.089
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 0.147
+Slack : 0.097
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'altera_reserved_tck'
 Slack : 0.148
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 0.149
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'clk_vga_ext'
@@ -271,39 +271,39 @@ Slack : 0.248
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'clk_dram_ext'
-Slack : 0.623
+Slack : 0.541
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Recovery 'pll|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 14.951
+Slack : 15.026
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Recovery 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 15.059
+Slack : 15.204
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Recovery 'MAX10_CLK1_50'
-Slack : 17.277
+Slack : 16.834
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Recovery 'altera_reserved_tck'
-Slack : 49.362
+Slack : 49.132
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Removal 'MAX10_CLK1_50'
-Slack : 0.481
+Slack : 0.414
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Removal 'altera_reserved_tck'
-Slack : 0.489
+Slack : 0.563
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Removal 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 3.299
+Slack : 3.227
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Removal 'pll|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 3.587
+Slack : 3.342
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'MAX10_CLK1_50'
@@ -314,12 +314,12 @@ Type  : Fast 1200mV 0C Model Minimum Pulse Width 'MAX10_CLK2_50'
 Slack : 9.666
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 9.715
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 9.716
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'pll|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 9.717
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 9.716
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'sdram_controller|sdram_pll0_inst|altpll_component|auto_generated|pll1|clk[1]'
@@ -331,11 +331,11 @@ Slack : 16.000
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clk_vga_ext'
-Slack : 19.623
+Slack : 19.666
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'altera_reserved_tck'
-Slack : 49.393
+Slack : 49.387
 TNS   : 0.000
 
 ------------------------------------------------------------

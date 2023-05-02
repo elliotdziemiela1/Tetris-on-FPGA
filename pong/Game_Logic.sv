@@ -78,41 +78,43 @@ module Game_Logic (
 		begin: MoveX_Block
 			if (Reset)  // Asynchronous Reset
 			  begin 
+					blockXPrevious[0] <= 7'b0;
+					blockXPrevious[1] <= 7'b0;
+					blockXPrevious[2] <= 7'b0;
+					blockXPrevious[3] <= 7'b0;
+				
 					blockX1 <= Pieces[0][0][0][2:0] + (board_width>>1); // divided by 2
 					blockX2 <= Pieces[0][0][1][2:0] + (board_width>>1);
 					blockX3 <= Pieces[0][0][2][2:0] + (board_width>>1);
 					blockX4 <= Pieces[0][0][3][2:0] + (board_width>>1);
 			  end
 			else begin
+				blockXPrevious[0] <= blockX1;
+				blockXPrevious[1] <= blockX2;
+				blockXPrevious[2] <= blockX3;
+				blockXPrevious[3] <= blockX4;
+				
 				blockX1 <= blockX1 + blockXMotion;
 				blockX2 <= blockX2 + blockXMotion;
 				blockX3 <= blockX3 + blockXMotion;
 				blockX4 <= blockX4 + blockXMotion;
 			end
 					
-			blockXPrevious[0] <= blockX1;
-			blockXPrevious[1] <= blockX2;
-			blockXPrevious[2] <= blockX3;
-			blockXPrevious[3] <= blockX4;
 		end
 	 
 	always_ff @ (posedge Reset or posedge move_clk_Y )
-		begin: MoveY_Block
+		begin: MoveY_Block // I'M OUTPUTTING THE SAME VALUE FOR PREVIOUS AND CURRENT POSITIONS
 		if (Reset)  // Asynchronous Reset
         begin 
-//				blockX1 <= Pieces[0][0][0][2:0] + (board_width>>1); // divided by 2
 				blockY1 <= Pieces[0][0][0][5:3];
-//				blockX2 <= Pieces[0][0][1][2:0] + (board_width>>1);
 				blockY2 <= Pieces[0][0][1][5:3];
-//				blockX3 <= Pieces[0][0][2][2:0] + (board_width>>1);
 				blockY3 <= Pieces[0][0][2][5:3];
-//				blockX4 <= Pieces[0][0][3][2:0] + (board_width>>1);
 				blockY4 <= Pieces[0][0][3][5:3];
 				
-				blockYPrevious[0] <= blockY1;
-				blockYPrevious[1] <= blockY2;
-				blockYPrevious[2] <= blockY3;
-				blockYPrevious[3] <= blockY4;
+				blockYPrevious[0] <= 7'b0;
+				blockYPrevious[1] <= 7'b0;
+				blockYPrevious[2] <= 7'b0;
+				blockYPrevious[3] <= 7'b0;
 				
 				piece_count <= 0;
 				piece_rotation <= 0;
@@ -121,12 +123,17 @@ module Game_Logic (
         end
 		else 
 			if (
-				Board[blockY1+blockYMotion][blockX1]==1'b1 || (blockY1+blockYMotion>=board_height) ||
-				Board[blockY2+blockYMotion][blockX2]==1'b1 || (blockY2+blockYMotion>=board_height) ||
-				Board[blockY3+blockYMotion][blockX3]==1'b1 || (blockY3+blockYMotion>=board_height) ||
-				Board[blockY4+blockYMotion][blockX4]==1'b1 || (blockY4+blockYMotion>=board_height)
+				Board[blockY1+blockYMotion][blockX1]==1'b1 || (blockY1+blockYMotion>board_height) ||
+				Board[blockY2+blockYMotion][blockX2]==1'b1 || (blockY2+blockYMotion>board_height) ||
+				Board[blockY3+blockYMotion][blockX3]==1'b1 || (blockY3+blockYMotion>board_height) ||
+				Board[blockY4+blockYMotion][blockX4]==1'b1 || (blockY4+blockYMotion>board_height)
 				) begin // collision with other block or bottom of screen
 					// new block generated
+					blockYPrevious[0] <= blockY1;
+					blockYPrevious[1] <= blockY2;
+					blockYPrevious[2] <= blockY3;
+					blockYPrevious[3] <= blockY4;
+					
 					Board[blockY1][blockX1] <= 1'b1;
 					Board[blockY2][blockX2] <= 1'b1;
 					Board[blockY3][blockX3] <= 1'b1;
@@ -147,6 +154,11 @@ module Game_Logic (
 						piece_count <= piece_count + 1;
 				end
 			else begin
+					blockYPrevious[0] <= blockY1;
+					blockYPrevious[1] <= blockY2;
+					blockYPrevious[2] <= blockY3;
+					blockYPrevious[3] <= blockY4;
+		
 					blockY1 <= blockY1 + blockYMotion;
 					blockY2 <= blockY2 + blockYMotion;
 					blockY3 <= blockY3 + blockYMotion;
