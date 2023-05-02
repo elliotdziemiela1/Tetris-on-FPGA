@@ -19,6 +19,9 @@ module tetris ( input clk,
 					 input key,
 					 input reset,
 					 input row_ld, // When to load row
+					 input [7:0] clear_row,
+					 input [7:0] clear_num_rows,
+					 input clear_the_row_ho,
 					 input [7:0] row,
 					 input [6:0] preX [4],
 					 input [6:0] preY [4],
@@ -40,6 +43,8 @@ module tetris ( input clk,
 
 // Local Declarations					 
 //logic [15:0] read_reg [10]; // data for an entire row
+logic [7:0] row_clearing;
+logic [7:0] row_counter;
 logic [4:0] write_counter;
 logic [24:0] init_counter;
 logic [4:0] read_counter;
@@ -50,18 +55,22 @@ logic clear_flag;
 logic [15:0] bckgrd_clr;
 logic [15:0] blck_clr;
 logic [15:0] readdata_reg [10];
+logic [15:0] row_reg [10];
 logic update_flag;
 					 
 // State machine for writing to VRAM					 
 enum logic [15:0] {Hold1, Hold2, Init_RAM1, Init_RAM2, Init_RAM3, Init_RAM4, Init_RAM5,
 						 PWA, WA, FWA, PWB, WB, FWB, PWC, WC, FWC, PWD, WD, FWD,
-						PRA, PRB, RA, RB, FRA, FRB, RAI, QWA, QWB, QWC, QWD} state;
+						PRA, PRB, RA, RB, FRA, FRB, RAI, QWA, QWB, QWC, QWD,
+						MemRead1, MemRead2, MemRead3, MemRead4, MemWrite1, MemWrite2, MemWrite3, MemWrite4, MemWrite5} state;
 
 // State machine logic with reset for correct default values of regs
 always_ff @(posedge clk or posedge reset)
 begin
 	if(reset)
 		begin	// Default values
+		row_clearing <= 8'b0;
+		row_counter <= 8'b0;
 		init_counter <= 25'b0;
 		clear_flag <= 1'b0;
 		update_flag <= 1'b0;
@@ -119,14 +128,101 @@ begin
 								end
 			
 						  end
+			// Mem copy
+			MemRead1: begin
+				  if(write_counter[2]) // Give adequate time to read
+				  begin
+				  row_counter <= 8'b0; // Reset on each read
+				  write_counter <= 5'b0;
+				  read_ld <= 1'b1; // Clear fifo buffer and load read address
+				  readaddr <= row_clearing - clear_num_rows; // Load row to read
+				  state <= MemRead2;
+				  end
+				  else
+					write_counter <= write_counter + 1'b1;
+					end
+			MemRead2:  begin
+					read_ld <= 1'b0; // Finish read load
+						if(rd_buffer == 16'h0A) // read buffer is of size 10
+							begin
+							read_req <= 1'b1; // Call read request to buffer
+							state <= MemRead3; 
+							end
+					end
+			MemRead3: begin
+				  row_reg[write_counter] <= readdata; // Capture data in burst
+				  state <= MemRead4;
+				  end
+			MemRead4: begin
+				  if(rd_buffer == 16'b0) // If count to 8 in order to read 20 words
+						begin
+						write_counter <= 5'b0;
+						read_req <= 1'b0;
+						state <= MemWrite1;
+						end
+					else
+						begin
+						row_reg[write_counter] <= readdata; // Capture data in burst
+						write_counter <= write_counter + 1'b1;
+						end
+				  end
+			MemWrite1: begin
+						  write_ld <= 1'b1;
+						  writeaddr <= row_clearing;
+						  state <= MemWrite2;
+						  end
+			MemWrite2: begin
+						  write_ld <= 1'b0;
+						  write_req <= 1'b1;
+						  writedata <= row_reg[row_counter];
+						  state <= MemWrite3;
+						  end
+			MemWrite3: begin
+							write_req <= 1'b0;
+							if(write_counter[1])
+								begin
+								write_counter <= 5'b0;
+								state <= MemWrite4;
+								end
+							else 
+								write_counter <= write_counter + 1'b1;
+						  end
+			MemWrite4: begin
+						  if(wr_buffer == 16'b0)
+								state <= MemWrite5;
+						  end
+			MemWrite5: begin
+							if(row_clearing == clear_num_rows) // For now exit out if we have copied all possible rows (incomplete functionality atm)
+								state <= Hold1;
+							else if(row_counter == 25'd10) // If we have gone through the entire row, go to the next row and read it
+								begin
+								row_clearing <= row_clearing + 1'b1;
+								row_counter <= 25'b0;
+								state <= MemRead1;
+								end
+							else // Otherwise keep writing to the row
+								begin
+								row_counter <= row_counter + 1'b1;
+								//init_counter <= init_counter + 1'b1;
+								state <= MemWrite1;
+								end
+			
+						  end
+			
 			
 			Hold1:   begin 
 							row_ready <= 1'b0;
+							row_counter <= 8'b0;
 							if(vs && !update_flag) // First clear previous locations
 								begin
 								update_flag <= 1'b1;
 								state <= PWA;
 								clear_flag <= 1'b1;
+								end
+							else if(vs && clear_the_row_ho)
+								begin
+								state <= MemRead1;
+								row_clearing <= clear_row;
 								end
 							else if(row_ld)
 								state <= PRA;
