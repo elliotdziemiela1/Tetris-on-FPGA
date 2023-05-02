@@ -47,52 +47,43 @@ module Game_Logic (
 	logic move_clk_X, move_clk_Y;
 	logic [5:0] frame_count_move_X, frame_count_move_Y;
 	
-	always_ff @ (posedge frame_clk ) begin
+	always_ff @ (posedge Reset or posedge frame_clk ) begin
 	    if (Reset) begin
 			frame_count_move_X <= 0;
 			frame_count_move_Y <= 0;
+			blockXPrevious[0] <= 7'b0;
+			blockXPrevious[1] <= 7'b0;
+			blockXPrevious[2] <= 7'b0;
+			blockXPrevious[3] <= 7'b0;
+		
+			blockX1 <= Pieces[0][0][0][2:0] + (board_width>>1); // divided by 2
+			blockX2 <= Pieces[0][0][1][2:0] + (board_width>>1);
+			blockX3 <= Pieces[0][0][2][2:0] + (board_width>>1);
+			blockX4 <= Pieces[0][0][3][2:0] + (board_width>>1);
+			
+			blockY1 <= Pieces[0][0][0][5:3];
+			blockY2 <= Pieces[0][0][1][5:3];
+			blockY3 <= Pieces[0][0][2][5:3];
+			blockY4 <= Pieces[0][0][3][5:3];
+			
+			blockYPrevious[0] <= 7'b0;
+			blockYPrevious[1] <= 7'b0;
+			blockYPrevious[2] <= 7'b0;
+			blockYPrevious[3] <= 7'b0;
+			
+			piece_count <= 0;
+			piece_rotation <= 0;
+			color <= 0;
+			Board <= '{default: 16'h0};
 		 end
 		 else begin
 		 
+			 //
 			 // move_clk_X logic
-			 if (frame_count_move_X >= frames_per_move_X) begin
+			 //
+			 if (frame_count_move_X >= frames_per_move_X) begin: MoveX_Block
 				frame_count_move_X <= 0;
-				move_clk_X <= 1;
-			 end
-			 else begin
-				frame_count_move_X <= frame_count_move_X + 1;
-				move_clk_X <= 0;
-			 end
-			 
-			 // move_clk_Y logic
-			 if (frame_count_move_Y >= frames_per_move_Y) begin
-				frame_count_move_Y <= 0;
-				move_clk_Y <= 1;
-			 end
-			 else begin
-				frame_count_move_Y <= frame_count_move_Y + 1;
-				move_clk_Y <= 0;
-			 end
-		 end
-		  
-		  
-	end
-	
-	always_ff @ (posedge Reset or posedge move_clk_X )
-		begin: MoveX_Block
-			if (Reset)  // Asynchronous Reset
-			  begin 
-					blockXPrevious[0] <= 7'b0;
-					blockXPrevious[1] <= 7'b0;
-					blockXPrevious[2] <= 7'b0;
-					blockXPrevious[3] <= 7'b0;
 				
-					blockX1 <= Pieces[0][0][0][2:0] + (board_width>>1); // divided by 2
-					blockX2 <= Pieces[0][0][1][2:0] + (board_width>>1);
-					blockX3 <= Pieces[0][0][2][2:0] + (board_width>>1);
-					blockX4 <= Pieces[0][0][3][2:0] + (board_width>>1);
-			  end
-			else begin
 				blockXPrevious[0] <= blockX1;
 				blockXPrevious[1] <= blockX2;
 				blockXPrevious[2] <= blockX3;
@@ -102,31 +93,16 @@ module Game_Logic (
 				blockX2 <= blockX2 + blockXMotion;
 				blockX3 <= blockX3 + blockXMotion;
 				blockX4 <= blockX4 + blockXMotion;
-			end
-					
-		end
-	 
-	always_ff @ (posedge Reset or posedge move_clk_Y )
-		begin: MoveY_Block // I'M OUTPUTTING THE SAME VALUE FOR PREVIOUS AND CURRENT POSITIONS
-		if (Reset)  // Asynchronous Reset
-        begin 
-				blockY1 <= Pieces[0][0][0][5:3];
-				blockY2 <= Pieces[0][0][1][5:3];
-				blockY3 <= Pieces[0][0][2][5:3];
-				blockY4 <= Pieces[0][0][3][5:3];
+			 end
+			 else
+				frame_count_move_X <= frame_count_move_X + 1;
 				
-				blockYPrevious[0] <= 7'b0;
-				blockYPrevious[1] <= 7'b0;
-				blockYPrevious[2] <= 7'b0;
-				blockYPrevious[3] <= 7'b0;
-				
-				piece_count <= 0;
-				piece_rotation <= 0;
-				color <= 0;
-				Board <= '{default: 16'h0};
-        end
-		else 
-			if (
+			 //
+			 // move_clk_Y logic
+			 //
+			 if (frame_count_move_Y >= frames_per_move_Y) begin: MoveY_Block
+				frame_count_move_Y <= 0;
+				if (
 				Board[blockY1+blockYMotion][blockX1]==1'b1 || (blockY1+blockYMotion>board_height) ||
 				Board[blockY2+blockYMotion][blockX2]==1'b1 || (blockY2+blockYMotion>board_height) ||
 				Board[blockY3+blockYMotion][blockX3]==1'b1 || (blockY3+blockYMotion>board_height) ||
@@ -157,7 +133,7 @@ module Game_Logic (
 					else
 						piece_count <= piece_count + 1;
 				end
-			else begin
+				else begin
 					blockYPrevious[0] <= blockY1;
 					blockYPrevious[1] <= blockY2;
 					blockYPrevious[2] <= blockY3;
@@ -168,7 +144,103 @@ module Game_Logic (
 					blockY3 <= blockY3 + blockYMotion;
 					blockY4 <= blockY4 + blockYMotion;
 				end
-		end
+			 end
+			 else 
+				frame_count_move_Y <= frame_count_move_Y + 1;
+		end 
+	end
+	
+//	always_ff @ (posedge Reset or posedge move_clk_X )
+//		begin: MoveX_Block
+//			if (Reset)  // Asynchronous Reset
+//			  begin 
+//					blockXPrevious[0] <= 7'b0;
+//					blockXPrevious[1] <= 7'b0;
+//					blockXPrevious[2] <= 7'b0;
+//					blockXPrevious[3] <= 7'b0;
+//				
+//					blockX1 <= Pieces[0][0][0][2:0] + (board_width>>1); // divided by 2
+//					blockX2 <= Pieces[0][0][1][2:0] + (board_width>>1);
+//					blockX3 <= Pieces[0][0][2][2:0] + (board_width>>1);
+//					blockX4 <= Pieces[0][0][3][2:0] + (board_width>>1);
+//			  end
+//			else begin
+//				blockXPrevious[0] <= blockX1;
+//				blockXPrevious[1] <= blockX2;
+//				blockXPrevious[2] <= blockX3;
+//				blockXPrevious[3] <= blockX4;
+//				
+//				blockX1 <= blockX1 + blockXMotion;
+//				blockX2 <= blockX2 + blockXMotion;
+//				blockX3 <= blockX3 + blockXMotion;
+//				blockX4 <= blockX4 + blockXMotion;
+//			end
+//					
+//		end
+	 
+//	always_ff @ (posedge Reset or posedge move_clk_Y )
+//		begin: MoveY_Block // I'M OUTPUTTING THE SAME VALUE FOR PREVIOUS AND CURRENT POSITIONS
+//		if (Reset)  // Asynchronous Reset
+//        begin 
+//				blockY1 <= Pieces[0][0][0][5:3];
+//				blockY2 <= Pieces[0][0][1][5:3];
+//				blockY3 <= Pieces[0][0][2][5:3];
+//				blockY4 <= Pieces[0][0][3][5:3];
+//				
+//				blockYPrevious[0] <= 7'b0;
+//				blockYPrevious[1] <= 7'b0;
+//				blockYPrevious[2] <= 7'b0;
+//				blockYPrevious[3] <= 7'b0;
+//				
+//				piece_count <= 0;
+//				piece_rotation <= 0;
+//				color <= 0;
+//				Board <= '{default: 16'h0};
+//        end
+//		else 
+//			if (
+//				Board[blockY1+blockYMotion][blockX1]==1'b1 || (blockY1+blockYMotion>board_height) ||
+//				Board[blockY2+blockYMotion][blockX2]==1'b1 || (blockY2+blockYMotion>board_height) ||
+//				Board[blockY3+blockYMotion][blockX3]==1'b1 || (blockY3+blockYMotion>board_height) ||
+//				Board[blockY4+blockYMotion][blockX4]==1'b1 || (blockY4+blockYMotion>board_height)
+//				) begin // collision with other block or bottom of screen
+//					// new block generated
+//					blockYPrevious[0] <= 7'b0;
+//					blockYPrevious[1] <= 7'b0;
+//					blockYPrevious[2] <= 7'b0;
+//					blockYPrevious[3] <= 7'b0;
+//					
+//					Board[blockY1][blockX1] <= 1'b1;
+//					Board[blockY2][blockX2] <= 1'b1;
+//					Board[blockY3][blockX3] <= 1'b1;
+//					Board[blockY4][blockX4] <= 1'b1;
+//					blockY1 <= Pieces[piece_count][0][0][5:3];
+//					blockY2 <= Pieces[piece_count][0][1][5:3];
+//					blockY3 <= Pieces[piece_count][0][2][5:3];
+//					blockY4 <= Pieces[piece_count][0][3][5:3];
+//					
+//					if (color+1 < number_of_colors)
+//						color <= color+1;
+//					else 
+//						color <= 0;
+//						
+//					if (piece_count == 3'h2)
+//						piece_count <= 0;
+//					else
+//						piece_count <= piece_count + 1;
+//				end
+//			else begin
+//					blockYPrevious[0] <= blockY1;
+//					blockYPrevious[1] <= blockY2;
+//					blockYPrevious[2] <= blockY3;
+//					blockYPrevious[3] <= blockY4;
+//		
+//					blockY1 <= blockY1 + blockYMotion;
+//					blockY2 <= blockY2 + blockYMotion;
+//					blockY3 <= blockY3 + blockYMotion;
+//					blockY4 <= blockY4 + blockYMotion;
+//				end
+//		end
 		
 		always_ff @ (posedge Clk )
 		 begin: Input_Block
