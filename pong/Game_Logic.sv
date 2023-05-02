@@ -3,10 +3,10 @@
 module Game_Logic (
 		input Reset, frame_clk, Clk,
 		input [7:0] keycode,
-		output logic [6:0] blockXPos [4], 
-		output logic [6:0] blockYPos [4],
-		output logic [6:0] blockXPrev [4], 
-		output logic [6:0] blockYPrev [4],
+		output logic [6:0] blockXPos [16], 
+		output logic [6:0] blockYPos [16],
+		output logic [6:0] blockXPrev [16], 
+		output logic [6:0] blockYPrev [16],
 		output logic [15:0] blockColor 
 	);
 	
@@ -20,8 +20,8 @@ module Game_Logic (
 	logic [6:0] blockX1, blockX2, blockX3, blockX4; // zero indexed
 	logic [6:0] blockY1, blockY2, blockY3, blockY4; // zero indexed
 	
-	logic [6:0] blockXPrevious [4];
-	logic [6:0] blockYPrevious [4];
+	logic [6:0] blockXPrevious [16];
+	logic [6:0] blockYPrevious [16];
 	
 	logic [6:0] blockXMotion;
 	logic [7:0] blockYMotion;

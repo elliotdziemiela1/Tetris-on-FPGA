@@ -20,10 +20,10 @@ module tetris ( input clk,
 					 input reset,
 					 input row_ld, // When to load row
 					 input [7:0] row,
-					 input [6:0] preX [4],
-					 input [6:0] preY [4],
-					 input [6:0] postX [4],
-					 input [6:0] postY [4],
+					 input [6:0] preX [16],
+					 input [6:0] preY [16],
+					 input [6:0] postX [16],
+					 input [6:0] postY [16],
 					 input [9:0] DrawX, DrawY,
 					 input [15:0] wr_buffer, rd_buffer,
 					 input [15:0] readdata,
@@ -42,32 +42,33 @@ module tetris ( input clk,
 //logic [15:0] read_reg [10]; // data for an entire row
 logic [4:0] write_counter;
 logic [24:0] init_counter;
-logic [4:0] read_counter;
-logic [24:0] pre_block_addr [4];
-logic [24:0] post_block_addr [4];
+logic [4:0] addr_counter;
+logic [24:0] pre_block_addr [16];
+logic [24:0] post_block_addr [16];
 logic [24:0] row_addr;
 logic clear_flag;
 logic [15:0] bckgrd_clr;
 logic [15:0] blck_clr;
 logic [15:0] readdata_reg [10];
 logic update_flag;
+parameter [6:0] ignore_block = 7'b1111111;
 					 
 // State machine for writing to VRAM					 
 enum logic [15:0] {Hold1, Hold2, Init_RAM1, Init_RAM2, Init_RAM3, Init_RAM4, Init_RAM5,
 						 PWA, WA, FWA, PWB, WB, FWB, PWC, WC, FWC, PWD, WD, FWD,
-						PRA, PRB, RA, RB, FRA, FRB, RAI, QWA, QWB, QWC, QWD} state;
+						PRA, PRB, RA, RB, FRA, FRB, RAI, QWA, QWB, QWC, QWD, CWA, CWB, CWC, CWD} state;
 
 // State machine logic with reset for correct default values of regs
 always_ff @(posedge clk or posedge reset)
 begin
 	if(reset)
 		begin	// Default values
+		addr_counter <= 5'b0;
 		init_counter <= 25'b0;
 		clear_flag <= 1'b0;
 		update_flag <= 1'b0;
 		row_ready <= 1'b0;
 		write_counter <= 5'b0;
-		read_counter <= 5'b0;
 		read_req <= 1'b0;
 		read_ld <= 1'b0;
 		readaddr <= 25'b0;
@@ -88,7 +89,6 @@ begin
 			Init_RAM2: begin
 						  write_ld <= 1'b0;
 						  write_req <= 1'b1;
-//						  write_req <= 1'b0;
 						  writedata <= bckgrd_clr;
 						  state <= Init_RAM3;
 						  end
@@ -122,10 +122,11 @@ begin
 			
 			Hold1:   begin 
 							row_ready <= 1'b0;
+							addr_counter <= 5'b0;
 							if(vs && !update_flag) // First clear previous locations
 								begin
 								update_flag <= 1'b1;
-								state <= PWA;
+								state <= CWA;
 								clear_flag <= 1'b1;
 								end
 							else if(row_ld)
@@ -138,16 +139,25 @@ begin
 //									state <= PRA;
 //							  end
 			Hold2:   begin // Second write new locations
-						state <= PWA;
+						state <= CWA;
 						clear_flag <= 1'b0;
+						addr_counter <= 5'b0;
 						end
+			CWA: begin
+				  if(preX[addr_counter] != ignore_block && clear_flag)
+						state <= PWA;
+				  else if (postX[addr_counter] != ignore_block && !clear_flag)
+						state <= PWA;
+				  else
+						addr_counter <= addr_counter + 1'b1;
+				  end
 			// 4 consecutive random writes 
 			PWA: begin // Clear buffer and load address
 				  write_ld <= 1'b1;
 				  if(clear_flag)
-						writeaddr <= pre_block_addr[0];
+						writeaddr <= pre_block_addr[addr_counter];
 				  else
-						writeaddr <= post_block_addr[0];
+						writeaddr <= post_block_addr[addr_counter];
 				  state <= WA;
 				  end
 			WA: begin
@@ -171,14 +181,22 @@ begin
 					end
 			FWA: begin
 					 if(wr_buffer == 16'b0000)
-							state <= PWB; // Go to next write, takes two clock cyles after write request to capture data
+							state <= CWB; // Go to next write, takes two clock cyles after write request to capture data
+				  end
+			CWB: begin
+				  if(preX[addr_counter] != ignore_block && clear_flag)
+						state <= PWB;
+				  else if (postX[addr_counter] != ignore_block && !clear_flag)
+						state <= PWB;
+				  else
+						addr_counter <= addr_counter + 1'b1;
 				  end
 			PWB: begin
 			     write_ld <= 1'b1;
 				  if(clear_flag)
-						writeaddr <= pre_block_addr[1];
+						writeaddr <= pre_block_addr[addr_counter];
 				  else
-						writeaddr <= post_block_addr[1];
+						writeaddr <= post_block_addr[addr_counter];
 				  state <= WB;
 				  end
 			WB: begin
@@ -203,14 +221,22 @@ begin
 			FWB: begin
 					 write_req <= 1'b0;
 					 if(wr_buffer == 16'h0000 && !write_req)
-							state <= PWC;
+							state <= CWC;
+				  end
+			CWC: begin
+				  if(preX[addr_counter] != ignore_block && clear_flag)
+						state <= PWC;
+				  else if (postX[addr_counter] != ignore_block && !clear_flag)
+						state <= PWC;
+				  else
+						addr_counter <= addr_counter + 1'b1;
 				  end
 			PWC: begin
 			     write_ld <= 1'b1;
 				  if(clear_flag)
-						writeaddr <= pre_block_addr[2];
+						writeaddr <= pre_block_addr[addr_counter];
 				  else
-						writeaddr <= post_block_addr[2];
+						writeaddr <= post_block_addr[addr_counter];
 				  state <= WC;
 				  end
 			WC: begin
@@ -237,12 +263,20 @@ begin
 					 if(wr_buffer == 16'h0000 && !write_req)
 							state <= PWD;
 				  end
+			CWD: begin
+				  if(preX[addr_counter] != ignore_block && clear_flag)
+						state <= PWD;
+				  else if (postX[addr_counter] != ignore_block && !clear_flag)
+						state <= PWD;
+				  else
+						addr_counter <= addr_counter + 1'b1;
+				  end
 			PWD: begin
 			     write_ld <= 1'b1;
 				  if(clear_flag)
-						writeaddr <= pre_block_addr[3];
+						writeaddr <= pre_block_addr[addr_counter];
 				  else
-						writeaddr <= post_block_addr[3];
+						writeaddr <= post_block_addr[addr_counter];
 				  state <= WD;
 				  end
 			WD: begin

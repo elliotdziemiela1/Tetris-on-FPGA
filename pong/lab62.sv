@@ -226,10 +226,10 @@ Sdram_Control sdram_controller (	//	HOST Side
 //					 output [7:0] Red, Green, Blue
 //					 );							
 							
-logic [6:0] blockXPos [4];
-logic [6:0] blockYPos [4];
-logic [6:0] blockXPrev [4];
-logic [6:0] blockYPrev [4];
+logic [6:0] blockXPos [16];
+logic [6:0] blockYPos [16];
+logic [6:0] blockXPrev [16];
+logic [6:0] blockYPrev [16];
 logic [15:0] blockColor;
 logic LD_Row, rowReady;
 
