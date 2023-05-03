@@ -92,16 +92,18 @@ module Game_Logic (
 			// clear row logic
 			//
 			clear_row <= 1'b0;
-//			if (Board[blockYPrevious[3]]==10'b1111111111) begin // determines if there's a row to clear, then
+//			if ((Board[blockYPrevious[3]]==10'b1111111111) && (blockYPrevious[3] >= 1)) begin // determines if there's a row to clear, then
 //			// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
 //				clear_row <= 1'b1;
 //				row_to_clear <= blockYPrevious[3];
 //				num_rows_to_clear <= 1;
-//				if (row_to_clear >= 1 && Board[blockYPrevious[3]-1]==10'b1111111111) begin
+//				Board[blockYPrevious[3]] <= Board[blockYPrevious[3]-1];
+//				Board[blockYPrevious[3]-1] <= 10'b0;
+//				if (Board[blockYPrevious[3]-1]==10'b1111111111) begin
 //					num_rows_to_clear <= 2;
-//					if (row_to_clear >= 2 && Board[blockYPrevious[3]-2]==10'b1111111111) begin
+//					if (blockYPrevious[3] >= 2 && Board[blockYPrevious[3]-2]==10'b1111111111) begin
 //						num_rows_to_clear <= 3;
-//						if (row_to_clear >= 3 && Board[blockYPrevious[3]-3]==10'b1111111111) begin
+//						if (blockYPrevious[3] >= 3 && Board[blockYPrevious[3]-3]==10'b1111111111) begin
 //							num_rows_to_clear <= 4;
 //						end
 //					end
@@ -172,6 +174,9 @@ module Game_Logic (
 					clear_row <= 1'b1;
 					num_rows_to_clear <= 1;
 					row_to_clear <= 18;
+					Board[18] <= Board[17];
+					Board[17] <= 10'b0;
+					// end testing
 					
 					if (color+1 < number_of_colors)
 						color <= color+1;
