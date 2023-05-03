@@ -16,13 +16,13 @@ module Game_Logic (
 	parameter [6:0] board_width =9; // number of squares in each row (starting at 0)
 	parameter [6:0] board_height =19; // number of rows (starting at 0)
 	parameter [7:0] frames_per_move_X = 5;
-	parameter [7:0] frames_per_move_Y = 13;
+//	parameter [7:0] frames_per_move_Y = 13;
 	parameter [4:0] number_of_colors = 3; // 1 indexed
 	parameter [49:0] keystroke_sample_period = 50'h10000;
 	parameter [4:0] number_of_pieces = 5'd4; // 1 indexed
 	
-//	parameter [7:0] default_frames_per_move_Y = 13;
-//	logic [7:0] frames_per_move_Y;
+	parameter [7:0] default_frames_per_move_Y = 13;
+	logic [7:0] frames_per_move_Y;
 	
 	logic [49:0] keystroke_counter; // counter to wait after sampling a keystroke to sample the next
 	
@@ -123,10 +123,15 @@ module Game_Logic (
 				blockXPrevious[2] <= blockX3;
 				blockXPrevious[3] <= blockX4;
 				
-				blockX1 <= blockX1 + blockXMotion;
-				blockX2 <= blockX2 + blockXMotion;
-				blockX3 <= blockX3 + blockXMotion;
-				blockX4 <= blockX4 + blockXMotion;
+				if ((blockX1+blockXMotion<board_width+1)&&(blockX1+blockXMotion>0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)&&
+					  (blockX2+blockXMotion<board_width+1)&&(blockX2+blockXMotion>0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)&&
+					  (blockX3+blockXMotion<board_width+1)&&(blockX3+blockXMotion>0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)&&
+					  (blockX4+blockXMotion<board_width+1)&&(blockX4+blockXMotion>0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)) begin
+					blockX1 <= blockX1 + blockXMotion;
+					blockX2 <= blockX2 + blockXMotion;
+					blockX3 <= blockX3 + blockXMotion;
+					blockX4 <= blockX4 + blockXMotion;
+				end
 			 end
 			 else
 				frame_count_move_X <= frame_count_move_X + 1;
@@ -200,23 +205,29 @@ module Game_Logic (
 		 begin: Input_Block
 			blockXMotion <= 0;
 			blockYMotion <= 1;
-//			frames_per_move_Y <= default_frames_per_move_Y;
+			frames_per_move_Y <= default_frames_per_move_Y;
 			case (keycode)
 				8'h04 : begin
-							if ((blockX1>0)&&(blockX2>0)&&(blockX3>0)&&(blockX4>0))
-								blockXMotion <= -1;//A
+						  blockXMotion <= -1;//A
+//							if ((blockX1>0)&&(blockX2>0)&&(blockX3>0)&&(blockX4>0))
+//								blockXMotion <= -1;//A
 						  end
 						  
 				8'h07 : begin
-							
-						  if ((blockX1<board_width)&&(blockX2<board_width)&&(blockX3<board_width)&&(blockX4<board_width))
-								blockXMotion <= 1;//D
+						  blockXMotion <= 1;//D
+//						  if ((blockX1<board_width)&&
+//							  (blockX2<board_width)&&
+//							  (blockX3<board_width)&&
+//							  (blockX4<board_width))
+//								blockXMotion <= 1;//D
 						  end
 
 						  
 				8'h16 : begin
-							if ((blockY1<board_height)&&(blockY2<board_height)&&(blockY3<board_height)&&(blockY4<board_height))
-								blockYMotion <= 2;//S
+							if ((blockY1<board_height)&&(blockY2<board_height)&&(blockY3<board_height)&&(blockY4<board_height)) begin
+//								blockYMotion <= 2;//S
+								frames_per_move_Y <= default_frames_per_move_Y / 2;
+							end
 						 end
 //				8'hd44 : begin // space
 //							if ((blockY1<board_height)&&(blockY2<board_height)&&(blockY3<board_height)&&(blockY4<board_height))

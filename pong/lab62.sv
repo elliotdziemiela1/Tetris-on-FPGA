@@ -243,7 +243,7 @@ logic [6:0] Row_to_clear;
 							
 tetris tet (.*, .read_reg(Row), .clk(MAX10_CLK1_50), .vs(~VGA_VS), .hs(~VGA_HS), .reset(Reset_h), .DrawX(drawxsig), 
 	.DrawY(drawysig), .row(rowNum), .row_ready(rowReady), .row_ld(LD_Row), .preX(blockXPrev), .preY(blockYPrev), .postX(blockXPos), 
-	.postY(blockYPos), .Red(), .Green(), .Blue(), .color(blockColor), .clear_the_row_ho(Clear_row), .clear_num_rows(Num_rows_to_clear), 
+	.postY(blockYPos), .Red(), .Green(), .Blue(), .color(blockColor), .clear_the_row_ho(Clear_row), /*CHANGE THIS BACK TO CLEAR ROW*/.clear_num_rows(Num_rows_to_clear), 
 	.clear_row(Row_to_clear)); // Tetris instantiation
 	
 Game_Logic game (.Reset(Reset_h), .frame_clk(~VGA_VS), .Clk(MAX10_CLK1_50), .keycode(keycode), .blockXPos(blockXPos), 
