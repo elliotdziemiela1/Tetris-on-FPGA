@@ -73,7 +73,7 @@ begin
 		row_counter <= 8'b0;
 		init_counter <= 25'b0;
 		clear_flag <= 1'b0;
-		update_flag <= 1'b0;
+		update_flag <= 1'b1; // Default 1 so that random writes only occur once
 		row_ready <= 1'b0;
 		write_counter <= 5'b0;
 		read_counter <= 5'b0;
@@ -213,21 +213,22 @@ begin
 			Hold1:   begin 
 							row_ready <= 1'b0;
 							row_counter <= 8'b0;
-							if(vs && !update_flag) // First clear previous locations
+							if(vs && clear_the_row_ho)
+								begin
+								update_flag <= 1'b0; // Set low only once during vs 
+								state <= MemRead1;
+								row_clearing <= clear_row;
+								end
+							else if(vs && !update_flag) // First clear previous locations
 								begin
 								update_flag <= 1'b1;
 								state <= PWA;
 								clear_flag <= 1'b1;
 								end
-							else if(vs && clear_the_row_ho)
-								begin
-								state <= MemRead1;
-								row_clearing <= clear_row;
-								end
 							else if(row_ld)
 								state <= PRA;
 							else if(~vs)
-								update_flag <= 1'b0;
+								update_flag <= 1'b1;
 						end
 //			Intermediate: begin
 //								if(~key)
