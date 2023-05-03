@@ -197,7 +197,7 @@ begin
 								state <= Hold1;
 							else if(row_counter == 25'd10) // If we have gone through the entire row, go to the next row and read it
 								begin
-								row_clearing <= row_clearing + 1'b1;
+								row_clearing <= row_clearing - 1;
 								row_counter <= 25'b0;
 								state <= MemRead1;
 								end
