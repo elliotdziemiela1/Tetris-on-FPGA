@@ -136,7 +136,7 @@ begin
 				  row_counter <= 8'b0; // Reset on each read
 				  write_counter <= 5'b0;
 				  read_ld <= 1'b1; // Clear fifo buffer and load read address
-				  readaddr <= row_clearing - clear_num_rows; // Load row to read
+				  readaddr <= 10*(row_clearing - clear_num_rows); // Load row to read
 				  state <= MemRead2;
 				  end
 				  else
@@ -169,7 +169,7 @@ begin
 				  end
 			MemWrite1: begin
 						  write_ld <= 1'b1;
-						  writeaddr <= row_clearing;
+						  writeaddr <= 10*(row_clearing) + row_counter;
 						  state <= MemWrite2;
 						  end
 			MemWrite2: begin
