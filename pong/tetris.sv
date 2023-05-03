@@ -58,6 +58,8 @@ logic [15:0] readdata_reg [10];
 logic [15:0] row_reg [10];
 logic update_flag;
 logic clear_already;
+logic [24:0] read_row_clear;
+logic [24:0] write_row_clear;
 // State machine for writing to VRAM					 
 enum logic [15:0] {Hold1, Hold2, Init_RAM1, Init_RAM2, Init_RAM3, Init_RAM4, Init_RAM5,
 						 PWA, WA, FWA, PWB, WB, FWB, PWC, WC, FWC, PWD, WD, FWD,
@@ -136,7 +138,7 @@ begin
 				  row_counter <= 8'b0; // Reset on each read
 				  write_counter <= 5'b0;
 				  read_ld <= 1'b1; // Clear fifo buffer and load read address
-				  readaddr <= 10*(row_clearing - clear_num_rows); // Load row to read
+				  readaddr <= read_row_clear; // Load row to read
 				  state <= MemRead2;
 				  end
 				  else
@@ -169,7 +171,7 @@ begin
 				  end
 			MemWrite1: begin
 						  write_ld <= 1'b1;
-						  writeaddr <= 10*(row_clearing) + row_counter;
+						  writeaddr <= write_row_clear;
 						  state <= MemWrite2;
 						  end
 			MemWrite2: begin
@@ -198,7 +200,7 @@ begin
 							else if(row_counter == 25'd10) // If we have gone through the entire row, go to the next row and read it
 								begin
 								row_clearing <= row_clearing - 1;
-								row_counter <= 25'b0;
+								row_counter <= 8'b0;
 								state <= MemRead1;
 								end
 							else // Otherwise keep writing to the row
@@ -483,6 +485,9 @@ read_reg[6] = readdata_reg[6];
 read_reg[7] = readdata_reg[7];
 read_reg[8] = readdata_reg[8];
 read_reg[9] = readdata_reg[9];
+// Row to read/write from when doing clears
+read_row_clear = 10*({17'b0, row_clearing} + {17'b0, clear_num_rows}); // Address
+write_row_clear = (10*{17'b0,row_clearing}) + {17'b0, row_counter}; // Address
 end
 
 
