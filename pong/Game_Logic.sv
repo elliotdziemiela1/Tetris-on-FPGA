@@ -7,21 +7,30 @@ module Game_Logic (
 		output logic [6:0] blockYPos [4],
 		output logic [6:0] blockXPrev [4], 
 		output logic [6:0] blockYPrev [4],
-		output logic [15:0] blockColor 
+		output logic [15:0] blockColor,
+		output logic Clear_row,
+		output logic [3:0] Num_rows_to_clear,
+		output logic [6:0] Row_to_clear
 	);
 	
 	parameter [6:0] board_width =9; // number of squares in each row (starting at 0)
 	parameter [6:0] board_height =19; // number of rows (starting at 0)
-	parameter [7:0] frames_per_move_Y = 13;
 	parameter [7:0] frames_per_move_X = 5;
+	parameter [7:0] frames_per_move_Y = 13;
 	parameter [4:0] number_of_colors = 3; // 1 indexed
 	parameter [49:0] keystroke_sample_period = 50'h10000;
 	parameter [4:0] number_of_pieces = 5'd4; // 1 indexed
 	
+//	parameter [7:0] default_frames_per_move_Y = 13;
+//	logic [7:0] frames_per_move_Y;
 	
 	logic [49:0] keystroke_counter; // counter to wait after sampling a keystroke to sample the next
 	
-	logic [15:0] Board[board_height+1]; // each bit represents the presence of a block in that square of the screen
+	logic [6:0] row_to_clear;
+	logic [3:0] num_rows_to_clear;
+	logic clear_row;
+	
+	logic [9:0] Board[board_height+1]; // each bit represents the presence of a block in that square of the screen
 	logic [6:0] blockX1, blockX2, blockX3, blockX4; // zero indexed
 	logic [6:0] blockY1, blockY2, blockY3, blockY4; // zero indexed
 	
@@ -36,7 +45,7 @@ module Game_Logic (
 	assign palette = '{16'h0f00, 16'h05f0, 16'h00a8};
 	
 	logic [5:0] Pieces[number_of_pieces][2][4]; // each peice's block positions for two rotations
-	assign Pieces = '{
+	assign Pieces = '{ // Format is for the last block to have the largest Y value to compare for clearing rows
 		'{'{6'b000000,6'b001000,6'b001001,6'b010001},'{6'b001000,6'b001001,6'b000001,6'b000010}}, // piece 1
 		'{'{6'b000000,6'b000001,6'b000010,6'b000011},'{6'b000000,6'b000001,6'b000010,6'b000011}}, // piece 2
 		'{'{6'b000000,6'b000001,6'b001000,6'b001001},'{6'b000000,6'b000001,6'b001000,6'b001001}}, // piece 3
@@ -79,6 +88,29 @@ module Game_Logic (
 			Board <= '{default: 16'h0};
 		 end
 		 else begin
+			// 
+			// clear row logic
+			//
+			clear_row <= 1'b0;
+//			if (Board[blockYPrevious[3]]==10'b1111111111) begin // determines if there's a row to clear, then
+//			// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
+//				clear_row <= 1'b1;
+//				row_to_clear <= blockYPrevious[3];
+//				num_rows_to_clear <= 1;
+//				if (row_to_clear >= 1 && Board[blockYPrevious[3]-1]==10'b1111111111) begin
+//					num_rows_to_clear <= 2;
+//					if (row_to_clear >= 2 && Board[blockYPrevious[3]-2]==10'b1111111111) begin
+//						num_rows_to_clear <= 3;
+//						if (row_to_clear >= 3 && Board[blockYPrevious[3]-3]==10'b1111111111) begin
+//							num_rows_to_clear <= 4;
+//						end
+//					end
+//				end
+//			end
+//			else if () begin
+//
+//			end
+		 
 		 
 			 //
 			 // move_clk_X logic
@@ -106,8 +138,6 @@ module Game_Logic (
 				frame_count_move_Y <= 0;
 				
 				
-				
-				
 				if (
 				Board[blockY1+blockYMotion][blockX1]==1'b1 || (blockY1+blockYMotion>board_height) ||
 				Board[blockY2+blockYMotion][blockX2]==1'b1 || (blockY2+blockYMotion>board_height) ||
@@ -132,6 +162,11 @@ module Game_Logic (
 					blockX2 <= Pieces[piece_count][0][1][2:0] + (board_width>>1);
 					blockX3 <= Pieces[piece_count][0][2][2:0] + (board_width>>1);
 					blockX4 <= Pieces[piece_count][0][3][2:0] + (board_width>>1);
+					
+					// Testing
+					clear_row <= 1'b1;
+					num_rows_to_clear <= 1;
+					row_to_clear <= 18;
 					
 					if (color+1 < number_of_colors)
 						color <= color+1;
@@ -165,6 +200,7 @@ module Game_Logic (
 		 begin: Input_Block
 			blockXMotion <= 0;
 			blockYMotion <= 1;
+//			frames_per_move_Y <= default_frames_per_move_Y;
 			case (keycode)
 				8'h04 : begin
 							if ((blockX1>0)&&(blockX2>0)&&(blockX3>0)&&(blockX4>0))
@@ -235,6 +271,7 @@ module Game_Logic (
 //	  
 
 	always_comb begin
+			 
 		blockXPos[0] = blockX1;
 		blockYPos[0] = blockY1;
 		blockXPos[1] = blockX2;
@@ -246,6 +283,9 @@ module Game_Logic (
 		blockXPrev = blockXPrevious;
 		blockYPrev = blockYPrevious;
 		blockColor = palette[color];
+		Clear_row = clear_row;
+		Num_rows_to_clear = num_rows_to_clear;
+		Row_to_clear = row_to_clear;
 	end
 
 

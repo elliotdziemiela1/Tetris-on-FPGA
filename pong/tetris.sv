@@ -57,7 +57,7 @@ logic [15:0] blck_clr;
 logic [15:0] readdata_reg [10];
 logic [15:0] row_reg [10];
 logic update_flag;
-					 
+logic clear_already;
 // State machine for writing to VRAM					 
 enum logic [15:0] {Hold1, Hold2, Init_RAM1, Init_RAM2, Init_RAM3, Init_RAM4, Init_RAM5,
 						 PWA, WA, FWA, PWB, WB, FWB, PWC, WC, FWC, PWD, WD, FWD,
@@ -69,11 +69,12 @@ always_ff @(posedge clk or posedge reset)
 begin
 	if(reset)
 		begin	// Default values
+		clear_already <= 1'b0;
 		row_clearing <= 8'b0;
 		row_counter <= 8'b0;
 		init_counter <= 25'b0;
 		clear_flag <= 1'b0;
-		update_flag <= 1'b1; // Default 1 so that random writes only occur once
+		update_flag <= 1'b0; // Default 1 so that random writes only occur once
 		row_ready <= 1'b0;
 		write_counter <= 5'b0;
 		read_counter <= 5'b0;
@@ -213,9 +214,9 @@ begin
 			Hold1:   begin 
 							row_ready <= 1'b0;
 							row_counter <= 8'b0;
-							if(vs && clear_the_row_ho)
-								begin
-								update_flag <= 1'b0; // Set low only once during vs 
+							if(vs && clear_the_row_ho && !clear_already)
+								begin 
+								clear_already <= 1'b1;
 								state <= MemRead1;
 								row_clearing <= clear_row;
 								end
@@ -227,8 +228,10 @@ begin
 								end
 							else if(row_ld)
 								state <= PRA;
-							else if(~vs)
-								update_flag <= 1'b1;
+							else if(~vs) begin
+								update_flag <= 1'b0;
+								clear_already <= 1'b0;
+							end
 						end
 //			Intermediate: begin
 //								if(~key)

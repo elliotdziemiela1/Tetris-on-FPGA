@@ -236,10 +236,19 @@ logic LD_Row, rowReady;
 logic [15:0] Row [10];
 logic [7:0] rowNum;
 
+logic Clear_row;
+logic [3:0] Num_rows_to_clear;
+logic [6:0] Row_to_clear;
+
 							
-tetris tet (.*, .read_reg(Row), .clk(MAX10_CLK1_50), .vs(~VGA_VS), .hs(~VGA_HS), .reset(Reset_h), .DrawX(drawxsig), .DrawY(drawysig), .row(rowNum), .row_ready(rowReady), .row_ld(LD_Row), .preX(blockXPrev), .preY(blockYPrev), .postX(blockXPos), .postY(blockYPos), .Red(), .Green(), .Blue(), .color(blockColor), .clear_the_row_ho(), .clear_num_rows(), .clear_row()); // Tetris instantiation
+tetris tet (.*, .read_reg(Row), .clk(MAX10_CLK1_50), .vs(~VGA_VS), .hs(~VGA_HS), .reset(Reset_h), .DrawX(drawxsig), 
+	.DrawY(drawysig), .row(rowNum), .row_ready(rowReady), .row_ld(LD_Row), .preX(blockXPrev), .preY(blockYPrev), .postX(blockXPos), 
+	.postY(blockYPos), .Red(), .Green(), .Blue(), .color(blockColor), .clear_the_row_ho(Clear_row), .clear_num_rows(Num_rows_to_clear), 
+	.clear_row(Row_to_clear)); // Tetris instantiation
 	
-Game_Logic game (.Reset(Reset_h), .frame_clk(~VGA_VS), .Clk(MAX10_CLK1_50), .keycode(keycode), .blockXPos(blockXPos), .blockYPos(blockYPos), .blockXPrev(blockXPrev), .blockYPrev(blockYPrev), .blockColor(blockColor));
+Game_Logic game (.Reset(Reset_h), .frame_clk(~VGA_VS), .Clk(MAX10_CLK1_50), .keycode(keycode), .blockXPos(blockXPos), 
+	.blockYPos(blockYPos), .blockXPrev(blockXPrev), .blockYPrev(blockYPrev), .blockColor(blockColor), .Clear_row(Clear_row), 
+	.Num_rows_to_clear(Num_rows_to_clear), .Row_to_clear(Row_to_clear));
 
 //color_mapper colormap (.blockx1(blockXPos[0]), .blocky1(blockYPos[0]), .blockx2(blockXPos[1]), .blocky2(blockYPos[1]), .blockx3(blockXPos[2]), 
 //	.blocky3(blockYPos[2]), .blockx4(blockXPos[3]), .blocky4(blockYPos[3]), .DrawX(drawxsig), .DrawY(drawysig), .Ball_size(ballsizesig), .Red(Red), .Green(Green), .Blue(Blue));
