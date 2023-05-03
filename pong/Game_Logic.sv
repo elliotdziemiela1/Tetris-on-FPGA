@@ -24,6 +24,8 @@ module Game_Logic (
 	parameter [7:0] default_frames_per_move_Y = 13;
 	logic [7:0] frames_per_move_Y;
 	
+	logic frame_clk_flag;
+	
 	logic [49:0] keystroke_counter; // counter to wait after sampling a keystroke to sample the next
 	
 	logic [6:0] row_to_clear;
@@ -59,150 +61,150 @@ module Game_Logic (
 	logic [5:0] frame_count_move_X, frame_count_move_Y;
 	
 	always_ff @ (posedge Reset or posedge frame_clk ) begin
-	    if (Reset) begin
-			frame_count_move_X <= 0;
-			frame_count_move_Y <= 0;
-			blockXPrevious[0] <= 7'b0;
-			blockXPrevious[1] <= 7'b0;
-			blockXPrevious[2] <= 7'b0;
-			blockXPrevious[3] <= 7'b0;
-		
-			blockX1 <= Pieces[0][0][0][2:0] + (board_width>>1); // divided by 2
-			blockX2 <= Pieces[0][0][1][2:0] + (board_width>>1);
-			blockX3 <= Pieces[0][0][2][2:0] + (board_width>>1);
-			blockX4 <= Pieces[0][0][3][2:0] + (board_width>>1);
-			
-			blockY1 <= Pieces[0][0][0][5:3];
-			blockY2 <= Pieces[0][0][1][5:3];
-			blockY3 <= Pieces[0][0][2][5:3];
-			blockY4 <= Pieces[0][0][3][5:3];
-			
-			blockYPrevious[0] <= 7'b0;
-			blockYPrevious[1] <= 7'b0;
-			blockYPrevious[2] <= 7'b0;
-			blockYPrevious[3] <= 7'b0;
-			
-			piece_count <= 1;
-			piece_rotation <= 0;
-			color <= 0;
-			Board <= '{default: 16'h0};
-		 end
-		 else begin
-			// 
-			// clear row logic
-			//
-			clear_row <= 1'b0;
-//			if ((Board[blockYPrevious[3]]==10'b1111111111) && (blockYPrevious[3] >= 1)) begin // determines if there's a row to clear, then
-//			// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
-//				clear_row <= 1'b1;
-//				row_to_clear <= blockYPrevious[3];
-//				num_rows_to_clear <= 1;
-//				Board[blockYPrevious[3]] <= Board[blockYPrevious[3]-1];
-//				Board[blockYPrevious[3]-1] <= 10'b0;
-//				if (Board[blockYPrevious[3]-1]==10'b1111111111) begin
-//					num_rows_to_clear <= 2;
-//					if (blockYPrevious[3] >= 2 && Board[blockYPrevious[3]-2]==10'b1111111111) begin
-//						num_rows_to_clear <= 3;
-//						if (blockYPrevious[3] >= 3 && Board[blockYPrevious[3]-3]==10'b1111111111) begin
-//							num_rows_to_clear <= 4;
-//						end
-//					end
+//	    if (Reset) begin
+//			frame_count_move_X <= 0;
+//			frame_count_move_Y <= 0;
+//			blockXPrevious[0] <= 7'b0;
+//			blockXPrevious[1] <= 7'b0;
+//			blockXPrevious[2] <= 7'b0;
+//			blockXPrevious[3] <= 7'b0;
+//		
+//			blockX1 <= Pieces[0][0][0][2:0] + (board_width>>1); // divided by 2
+//			blockX2 <= Pieces[0][0][1][2:0] + (board_width>>1);
+//			blockX3 <= Pieces[0][0][2][2:0] + (board_width>>1);
+//			blockX4 <= Pieces[0][0][3][2:0] + (board_width>>1);
+//			
+//			blockY1 <= Pieces[0][0][0][5:3];
+//			blockY2 <= Pieces[0][0][1][5:3];
+//			blockY3 <= Pieces[0][0][2][5:3];
+//			blockY4 <= Pieces[0][0][3][5:3];
+//			
+//			blockYPrevious[0] <= 7'b0;
+//			blockYPrevious[1] <= 7'b0;
+//			blockYPrevious[2] <= 7'b0;
+//			blockYPrevious[3] <= 7'b0;
+//			
+//			piece_count <= 1;
+//			piece_rotation <= 0;
+//			color <= 0;
+//			Board <= '{default: 16'h0};
+//		 end
+//		 else begin
+//			// 
+//			// clear row logic
+//			//
+//			clear_row <= 1'b0;
+////			if ((Board[blockYPrevious[3]]==10'b1111111111) && (blockYPrevious[3] >= 1)) begin // determines if there's a row to clear, then
+////			// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
+////				clear_row <= 1'b1;
+////				row_to_clear <= blockYPrevious[3];
+////				num_rows_to_clear <= 1;
+////				Board[blockYPrevious[3]] <= Board[blockYPrevious[3]-1];
+////				Board[blockYPrevious[3]-1] <= 10'b0;
+////				if (Board[blockYPrevious[3]-1]==10'b1111111111) begin
+////					num_rows_to_clear <= 2;
+////					if (blockYPrevious[3] >= 2 && Board[blockYPrevious[3]-2]==10'b1111111111) begin
+////						num_rows_to_clear <= 3;
+////						if (blockYPrevious[3] >= 3 && Board[blockYPrevious[3]-3]==10'b1111111111) begin
+////							num_rows_to_clear <= 4;
+////						end
+////					end
+////				end
+////			end
+////			else if () begin
+////
+////			end
+//		 
+//		 
+//			 //
+//			 // move_clk_X logic
+//			 //
+//			 if (frame_count_move_X >= frames_per_move_X) begin: MoveX_Block
+//				frame_count_move_X <= 0;
+//				
+//				blockXPrevious[0] <= blockX1;
+//				blockXPrevious[1] <= blockX2;
+//				blockXPrevious[2] <= blockX3;
+//				blockXPrevious[3] <= blockX4;
+//				
+//				if ((blockX1+blockXMotion<board_width+1)&&(blockX1+blockXMotion>0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)&&
+//					  (blockX2+blockXMotion<board_width+1)&&(blockX2+blockXMotion>0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)&&
+//					  (blockX3+blockXMotion<board_width+1)&&(blockX3+blockXMotion>0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)&&
+//					  (blockX4+blockXMotion<board_width+1)&&(blockX4+blockXMotion>0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)) begin
+//					blockX1 <= blockX1 + blockXMotion;
+//					blockX2 <= blockX2 + blockXMotion;
+//					blockX3 <= blockX3 + blockXMotion;
+//					blockX4 <= blockX4 + blockXMotion;
 //				end
-//			end
-//			else if () begin
-//
-//			end
-		 
-		 
-			 //
-			 // move_clk_X logic
-			 //
-			 if (frame_count_move_X >= frames_per_move_X) begin: MoveX_Block
-				frame_count_move_X <= 0;
-				
-				blockXPrevious[0] <= blockX1;
-				blockXPrevious[1] <= blockX2;
-				blockXPrevious[2] <= blockX3;
-				blockXPrevious[3] <= blockX4;
-				
-				if ((blockX1+blockXMotion<board_width+1)&&(blockX1+blockXMotion>0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)&&
-					  (blockX2+blockXMotion<board_width+1)&&(blockX2+blockXMotion>0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)&&
-					  (blockX3+blockXMotion<board_width+1)&&(blockX3+blockXMotion>0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)&&
-					  (blockX4+blockXMotion<board_width+1)&&(blockX4+blockXMotion>0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)) begin
-					blockX1 <= blockX1 + blockXMotion;
-					blockX2 <= blockX2 + blockXMotion;
-					blockX3 <= blockX3 + blockXMotion;
-					blockX4 <= blockX4 + blockXMotion;
-				end
-			 end
-			 else
-				frame_count_move_X <= frame_count_move_X + 1;
-				
-			 //
-			 // move_clk_Y logic
-			 //
-			 if (frame_count_move_Y >= frames_per_move_Y) begin: MoveY_Block
-				frame_count_move_Y <= 0;
-				
-				
-				if (
-				Board[blockY1+blockYMotion][blockX1]==1'b1 || (blockY1+blockYMotion>board_height) ||
-				Board[blockY2+blockYMotion][blockX2]==1'b1 || (blockY2+blockYMotion>board_height) ||
-				Board[blockY3+blockYMotion][blockX3]==1'b1 || (blockY3+blockYMotion>board_height) ||
-				Board[blockY4+blockYMotion][blockX4]==1'b1 || (blockY4+blockYMotion>board_height)
-				) begin // collision with other block or bottom of screen
-					// new block generated
-					blockYPrevious[0] <= 7'b0;
-					blockYPrevious[1] <= 7'b0;
-					blockYPrevious[2] <= 7'b0;
-					blockYPrevious[3] <= 7'b0;
-					
-					Board[blockY1][blockX1] <= 1'b1;
-					Board[blockY2][blockX2] <= 1'b1;
-					Board[blockY3][blockX3] <= 1'b1;
-					Board[blockY4][blockX4] <= 1'b1;
-					blockY1 <= Pieces[piece_count][0][0][5:3];
-					blockY2 <= Pieces[piece_count][0][1][5:3];
-					blockY3 <= Pieces[piece_count][0][2][5:3];
-					blockY4 <= Pieces[piece_count][0][3][5:3];
-					blockX1 <= Pieces[piece_count][0][0][2:0] + (board_width>>1); // divided by 2
-					blockX2 <= Pieces[piece_count][0][1][2:0] + (board_width>>1);
-					blockX3 <= Pieces[piece_count][0][2][2:0] + (board_width>>1);
-					blockX4 <= Pieces[piece_count][0][3][2:0] + (board_width>>1);
-					
-					// Testing
-					clear_row <= 1'b1;
-					num_rows_to_clear <= 1;
-					row_to_clear <= 18;
-					Board[18] <= Board[17];
-					Board[17] <= 10'b0;
-					// end testing
-					
-					if (color+1 < number_of_colors)
-						color <= color+1;
-					else 
-						color <= 0;
-						
-					if (piece_count == number_of_pieces-1)
-						piece_count <= 0;
-					else
-						piece_count <= piece_count + 1;
-				end
-				else begin
-					blockYPrevious[0] <= blockY1;
-					blockYPrevious[1] <= blockY2;
-					blockYPrevious[2] <= blockY3;
-					blockYPrevious[3] <= blockY4;
-		
-					blockY1 <= blockY1 + blockYMotion;
-					blockY2 <= blockY2 + blockYMotion;
-					blockY3 <= blockY3 + blockYMotion;
-					blockY4 <= blockY4 + blockYMotion;
-				end
-			 end
-			 else 
-				frame_count_move_Y <= frame_count_move_Y + 1;
-		end 
+//			 end
+//			 else
+//				frame_count_move_X <= frame_count_move_X + 1;
+//				
+//			 //
+//			 // move_clk_Y logic
+//			 //
+//			 if (frame_count_move_Y >= frames_per_move_Y) begin: MoveY_Block
+//				frame_count_move_Y <= 0;
+//				
+//				
+//				if (
+//				Board[blockY1+blockYMotion][blockX1]==1'b1 || (blockY1+blockYMotion>board_height) ||
+//				Board[blockY2+blockYMotion][blockX2]==1'b1 || (blockY2+blockYMotion>board_height) ||
+//				Board[blockY3+blockYMotion][blockX3]==1'b1 || (blockY3+blockYMotion>board_height) ||
+//				Board[blockY4+blockYMotion][blockX4]==1'b1 || (blockY4+blockYMotion>board_height)
+//				) begin // collision with other block or bottom of screen
+//					// new block generated
+//					blockYPrevious[0] <= 7'b0;
+//					blockYPrevious[1] <= 7'b0;
+//					blockYPrevious[2] <= 7'b0;
+//					blockYPrevious[3] <= 7'b0;
+//					
+//					Board[blockY1][blockX1] <= 1'b1;
+//					Board[blockY2][blockX2] <= 1'b1;
+//					Board[blockY3][blockX3] <= 1'b1;
+//					Board[blockY4][blockX4] <= 1'b1;
+//					blockY1 <= Pieces[piece_count][0][0][5:3];
+//					blockY2 <= Pieces[piece_count][0][1][5:3];
+//					blockY3 <= Pieces[piece_count][0][2][5:3];
+//					blockY4 <= Pieces[piece_count][0][3][5:3];
+//					blockX1 <= Pieces[piece_count][0][0][2:0] + (board_width>>1); // divided by 2
+//					blockX2 <= Pieces[piece_count][0][1][2:0] + (board_width>>1);
+//					blockX3 <= Pieces[piece_count][0][2][2:0] + (board_width>>1);
+//					blockX4 <= Pieces[piece_count][0][3][2:0] + (board_width>>1);
+//					
+//					// Testing
+//					clear_row <= 1'b1;
+//					num_rows_to_clear <= 1;
+//					row_to_clear <= 18;
+//					Board[18] <= Board[17];
+//					Board[17] <= 10'b0;
+//					// end testing
+//					
+//					if (color+1 < number_of_colors)
+//						color <= color+1;
+//					else 
+//						color <= 0;
+//						
+//					if (piece_count == number_of_pieces-1)
+//						piece_count <= 0;
+//					else
+//						piece_count <= piece_count + 1;
+//				end
+//				else begin
+//					blockYPrevious[0] <= blockY1;
+//					blockYPrevious[1] <= blockY2;
+//					blockYPrevious[2] <= blockY3;
+//					blockYPrevious[3] <= blockY4;
+//		
+//					blockY1 <= blockY1 + blockYMotion;
+//					blockY2 <= blockY2 + blockYMotion;
+//					blockY3 <= blockY3 + blockYMotion;
+//					blockY4 <= blockY4 + blockYMotion;
+//				end
+//			 end
+//			 else 
+//				frame_count_move_Y <= frame_count_move_Y + 1;
+//		end 
 	end
 	
 		
@@ -242,49 +244,160 @@ module Game_Logic (
 	//					8'h1A : begin //W
 				default: ;
 			endcase
+			
+			if (Reset) begin
+					frame_count_move_X <= 0;
+					frame_count_move_Y <= 0;
+					blockXPrevious[0] <= 7'b0;
+					blockXPrevious[1] <= 7'b0;
+					blockXPrevious[2] <= 7'b0;
+					blockXPrevious[3] <= 7'b0;
+				
+					blockX1 <= Pieces[0][0][0][2:0] + (board_width>>1); // divided by 2
+					blockX2 <= Pieces[0][0][1][2:0] + (board_width>>1);
+					blockX3 <= Pieces[0][0][2][2:0] + (board_width>>1);
+					blockX4 <= Pieces[0][0][3][2:0] + (board_width>>1);
+					
+					blockY1 <= Pieces[0][0][0][5:3];
+					blockY2 <= Pieces[0][0][1][5:3];
+					blockY3 <= Pieces[0][0][2][5:3];
+					blockY4 <= Pieces[0][0][3][5:3];
+					
+					blockYPrevious[0] <= 7'b0;
+					blockYPrevious[1] <= 7'b0;
+					blockYPrevious[2] <= 7'b0;
+					blockYPrevious[3] <= 7'b0;
+					
+					piece_count <= 1;
+					piece_rotation <= 0;
+					color <= 0;
+					Board <= '{default: 16'h0};
+					
+					frame_clk_flag <= 1'b0;
+		  end
+			
+			if (frame_clk == 1'b0)
+				frame_clk_flag <= 1'b0;
+// THIS HAPPENS ON FRAME CLOCK
+			if (frame_clk == 1'b1 && frame_clk_flag == 1'b0) begin
+					frame_clk_flag <= 1'b1;
+					// 
+					// clear row logic
+					//
+					clear_row <= 1'b0;
+		//			if ((Board[blockYPrevious[3]]==10'b1111111111) && (blockYPrevious[3] >= 1)) begin // determines if there's a row to clear, then
+		//			// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
+		//				clear_row <= 1'b1;
+		//				row_to_clear <= blockYPrevious[3];
+		//				num_rows_to_clear <= 1;
+		//				Board[blockYPrevious[3]] <= Board[blockYPrevious[3]-1];
+		//				Board[blockYPrevious[3]-1] <= 10'b0;
+		//				if (Board[blockYPrevious[3]-1]==10'b1111111111) begin
+		//					num_rows_to_clear <= 2;
+		//					if (blockYPrevious[3] >= 2 && Board[blockYPrevious[3]-2]==10'b1111111111) begin
+		//						num_rows_to_clear <= 3;
+		//						if (blockYPrevious[3] >= 3 && Board[blockYPrevious[3]-3]==10'b1111111111) begin
+		//							num_rows_to_clear <= 4;
+		//						end
+		//					end
+		//				end
+		//			end
+		//			else if () begin
+		//
+		//			end
+				 
+				 
+					 //
+					 // move_clk_X logic
+					 //
+					 if (frame_count_move_X >= frames_per_move_X) begin: MoveX_Block
+						frame_count_move_X <= 0;
+						
+						blockXPrevious[0] <= blockX1;
+						blockXPrevious[1] <= blockX2;
+						blockXPrevious[2] <= blockX3;
+						blockXPrevious[3] <= blockX4;
+						
+						if ((blockX1+blockXMotion<board_width+1)&&(blockX1+blockXMotion>0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)&&
+							  (blockX2+blockXMotion<board_width+1)&&(blockX2+blockXMotion>0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)&&
+							  (blockX3+blockXMotion<board_width+1)&&(blockX3+blockXMotion>0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)&&
+							  (blockX4+blockXMotion<board_width+1)&&(blockX4+blockXMotion>0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)) begin
+							blockX1 <= blockX1 + blockXMotion;
+							blockX2 <= blockX2 + blockXMotion;
+							blockX3 <= blockX3 + blockXMotion;
+							blockX4 <= blockX4 + blockXMotion;
+						end
+					 end
+					 else
+						frame_count_move_X <= frame_count_move_X + 1;
+						
+					 //
+					 // move_clk_Y logic
+					 //
+					 if (frame_count_move_Y >= frames_per_move_Y) begin: MoveY_Block
+						frame_count_move_Y <= 0;
+						
+						
+						if (
+						Board[blockY1+blockYMotion][blockX1]==1'b1 || (blockY1+blockYMotion>board_height) ||
+						Board[blockY2+blockYMotion][blockX2]==1'b1 || (blockY2+blockYMotion>board_height) ||
+						Board[blockY3+blockYMotion][blockX3]==1'b1 || (blockY3+blockYMotion>board_height) ||
+						Board[blockY4+blockYMotion][blockX4]==1'b1 || (blockY4+blockYMotion>board_height)
+						) begin // collision with other block or bottom of screen
+							// new block generated
+							blockYPrevious[0] <= 7'b0;
+							blockYPrevious[1] <= 7'b0;
+							blockYPrevious[2] <= 7'b0;
+							blockYPrevious[3] <= 7'b0;
+							
+							Board[blockY1][blockX1] <= 1'b1;
+							Board[blockY2][blockX2] <= 1'b1;
+							Board[blockY3][blockX3] <= 1'b1;
+							Board[blockY4][blockX4] <= 1'b1;
+							blockY1 <= Pieces[piece_count][0][0][5:3];
+							blockY2 <= Pieces[piece_count][0][1][5:3];
+							blockY3 <= Pieces[piece_count][0][2][5:3];
+							blockY4 <= Pieces[piece_count][0][3][5:3];
+							blockX1 <= Pieces[piece_count][0][0][2:0] + (board_width>>1); // divided by 2
+							blockX2 <= Pieces[piece_count][0][1][2:0] + (board_width>>1);
+							blockX3 <= Pieces[piece_count][0][2][2:0] + (board_width>>1);
+							blockX4 <= Pieces[piece_count][0][3][2:0] + (board_width>>1);
+							
+							// Testing
+							clear_row <= 1'b1;
+							num_rows_to_clear <= 1;
+							row_to_clear <= 18;
+							Board[18] <= Board[17];
+							Board[17] <= 10'b0;
+							// end testing
+							
+							if (color+1 < number_of_colors)
+								color <= color+1;
+							else 
+								color <= 0;
+								
+							if (piece_count == number_of_pieces-1)
+								piece_count <= 0;
+							else
+								piece_count <= piece_count + 1;
+						end
+						else begin
+							blockYPrevious[0] <= blockY1;
+							blockYPrevious[1] <= blockY2;
+							blockYPrevious[2] <= blockY3;
+							blockYPrevious[3] <= blockY4;
+				
+							blockY1 <= blockY1 + blockYMotion;
+							blockY2 <= blockY2 + blockYMotion;
+							blockY3 <= blockY3 + blockYMotion;
+							blockY4 <= blockY4 + blockYMotion;
+						end
+					 end
+					 else 
+						frame_count_move_Y <= frame_count_move_Y + 1;
+			end
 	  end	
 
-//	always_ff @ (posedge Clk )
-//    begin: Input_Block
-//		if (keystroke_counter < keystroke_sample_period)
-//			keystroke_counter <= keystroke_counter + 1;
-//		else begin
-//			case (keycode)
-//				8'h04 : begin
-//							if ((blockX1>0)&&(blockX2>0)&&(blockX3>0)&&(blockX4>0)) begin
-//								blockXMotion <= -1;//A
-//								keystroke_counter <= 0;
-//							end
-//						  end
-//						  
-//				8'h07 : begin
-//							
-//						  if ((blockX1<board_width)&&(blockX2<board_width)&&(blockX3<board_width)&&(blockX4<board_width))begin
-//								blockXMotion <= 1;//D
-//								keystroke_counter <= 0;
-//						  end
-//						  end
-//
-//						  
-//				8'h16 : begin
-////							if ((blockY1<board_height)&&(blockY2<board_height)&&(blockY3<board_height)&&(blockY4<board_height))
-//								blockYMotion <= 2;//S
-//								keystroke_counter <= 0;
-//						 end
-//	//					8'hd44 : begin // space
-//	//								if ((blockY1<board_height)&&(blockY2<board_height)&&(blockY3<board_height)&&(blockY4<board_height))
-//	//									blockYMotion <= 2;//S
-//	//							 end
-//						  
-//	//					8'h1A : begin //W
-//				default: begin
-//						blockXMotion <= 0;
-//						blockYMotion <= 1;
-//				end 
-//			endcase
-//		end
-//	  end	
-//	  
 
 	always_comb begin
 			 
