@@ -18,6 +18,7 @@ module Game_Logic (
 	parameter [6:0] board_height =19; // number of rows (starting at 0)
 	parameter [7:0] frames_per_move_X = 5;
 //	parameter [7:0] frames_per_move_Y = 13;
+	parameter [7:0] frames_per_rotate = 5;
 	parameter [4:0] number_of_colors = 3; // 1 indexed
 	parameter [49:0] keystroke_sample_period = 50'h10000;
 	parameter [4:0] number_of_pieces = 5'd4; // 1 indexed
@@ -40,9 +41,10 @@ module Game_Logic (
 	logic [6:0] blockY1, blockY2, blockY3, blockY4; // zero indexed
 	logic [6:0] blockXPrevious [4];
 	logic [6:0] blockYPrevious [4];
-	logic [6:0] blockX1Motion, blockX2Motion, blockX3Motion, blockX4Motion;
-	logic [6:0] blockX1Mo, blockX2Mo, blockX3Mo, blockX4Mo;
-	logic [6:0] blockYMotion;
+	logic [6:0] blockXMotion; // register for non-rotating X motion
+	logic [6:0] blockYMotion; // register for non-rotating Y motion
+	logic [6:0] blockX1Motion, blockX2Motion, blockX3Motion, blockX4Motion; // combinational calculations for rotation motion
+	logic [6:0] blockY1Motion, blockY2Motion, blockY3Motion, blockY4Motion; // combinational calculations for rotation motion
 	logic block_orientation;
 	logic [4:0] color;
 	
@@ -52,17 +54,17 @@ module Game_Logic (
 	logic [13:0] Pieces[number_of_pieces][2][4]; // each peice's block positions for two rotations
 	assign Pieces = '{ // Format is for the last block to have the largest Y value to compare for clearing rows and the second block
 	// to have the middle X value
-		'{'{14'b00000000000000,14'b00000010000000,14'b00000010000001,14'b00000100000001},'{14'b00000000000000,14'b00000010000000,14'b00000010000001,14'b00000100000001}}, // piece 1
+		'{'{14'b00000000000000,14'b00000010000000,14'b00000010000001,14'b00000100000001},'{14'b00000010000000,14'b00000010000001,14'b00000000000001,14'b00000000000011}}, // piece 1
 		'{'{14'b00000000000000,14'b00000000000001,14'b00000000000010,14'b00000000000011},'{14'b00000000000000,14'b00000010000000,14'b00000100000000,14'b00000110000000}}, // piece 2
 		'{'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001},'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001}}, // piece 3
-		'{'{14'b00000000000000,14'b00000000000001,14'b00000010000001,14'b00000100000001},'{14'b00000000000000,14'b00000000000001,14'b00000010000001,14'b00000100000001}}  // piece 4
+		'{'{14'b00000000000000,14'b00000000000001,14'b00000010000001,14'b00000100000001},'{14'b00000010000000,14'b00000000000000,14'b00000000000001,14'b00000000000010}}  // piece 4
 	}; // array of 3 different peices. each register in the array contains the coordinates
 	// for a block of the peice in the format [13:7]=Y [6:0]=X, relative to (0,0)
 	logic [2:0] piece_count; // index of the next piece to be dropped, not the current
 	logic piece_rotation;
 	
 	logic move_clk_X, move_clk_Y;
-	logic [5:0] frame_count_move_X, frame_count_move_Y;
+	logic [5:0] frame_count_move_X, frame_count_move_Y, frame_count_rotate;
 	
 	
 	
@@ -76,20 +78,14 @@ module Game_Logic (
 				8'h04 : begin
 						  A_held <= 1;
 							if ((A_held==0))begin
-								blockX1Mo <= -1;
-								blockX2Mo <= -1;
-								blockX3Mo <= -1;
-								blockX4Mo <= -1;//A
+								blockXMotion <= -1;//A
 							end
 					  end
 						  
 				8'h07 : begin
 						  D_held <= 1;
 						  if ((D_held==0))begin
-								blockX1Mo <= 1;
-								blockX2Mo <= 1;
-								blockX3Mo <= 1;
-								blockX4Mo <= 1; //D
+								blockXMotion <= 1;//D
 						  end
 						  end
 
@@ -112,6 +108,7 @@ module Game_Logic (
 			if (Reset) begin
 					frame_count_move_X <= 0;
 					frame_count_move_Y <= 0;
+					frame_count_rotate <= 0;
 					blockXPrevious[0] <= 7'b0;
 					blockXPrevious[1] <= 7'b0;
 					blockXPrevious[2] <= 7'b0;
@@ -180,39 +177,70 @@ module Game_Logic (
 //			else if () begin
 //
 //			end
-					//
+					
+					 //
 					// rotate logic
-					//
-					if (frame_count_move_X >= frames_per_move_X) begin: Rotate_Block
-						W_pressed <= 1'b0;
-						block_orientation <= ~block_orientation;
+					// 
+					if ((frame_count_rotate >= frames_per_rotate) && (frame_count_move_Y != frames_per_move_Y)) begin: Rotate_Block // if not rotating on a move Y frame
+							frame_count_rotate <= 0;
+							W_pressed <= 1'b0;
+							if (W_pressed) begin
+								block_orientation <= ~block_orientation;
+								if ((blockX1+blockX1Motion!=7'b1111111)&&(blockX2+blockX2Motion!=7'b1111111)&&(blockX3+blockX3Motion!=7'b1111111)&&(blockX4+blockX4Motion!=7'b1111111)&& // if within bounds
+									(blockX1+blockX1Motion<=board_width)&&(blockX2+blockX2Motion<=board_width)&&(blockX3+blockX3Motion<=board_width)&&(blockX4+blockX4Motion<=board_width)&& 
+									(blockY1+blockY1Motion<=board_height)&&(blockY2+blockY2Motion<=board_height)&&(blockY3+blockY3Motion<=board_height)&&(blockY4+blockY4Motion<=board_height)&&
+									(Board[blockY1+blockY1Motion][blockX1+blockX1Motion]!=1'b1)&&(Board[blockY2+blockY2Motion][blockX2+blockX2Motion]!=1'b1)&& // and if no collisions
+									(Board[blockY3+blockY3Motion][blockX3+blockX3Motion]!=1'b1)&&(Board[blockY4+blockY4Motion][blockX4+blockX4Motion]!=1'b1)
+									) begin
+										blockX1 <= blockX1 + blockX1Motion;
+										blockX2 <= blockX2 + blockX2Motion;
+										blockX3 <= blockX3 + blockX3Motion;
+										blockX4 <= blockX4 + blockX4Motion;
+										blockY1 <= blockY1 + blockY1Motion;
+										blockY2 <= blockY2 + blockY2Motion;
+										blockY3 <= blockY3 + blockY3Motion;
+										blockY4 <= blockY4 + blockY4Motion;
+									end
+								blockXPrevious[0] <= blockX1;
+								blockXPrevious[1] <= blockX2;
+								blockXPrevious[2] <= blockX3;
+								blockXPrevious[3] <= blockX4;
+								blockYPrevious[0] <= blockY1;
+								blockYPrevious[1] <= blockY2;
+								blockYPrevious[2] <= blockY3;
+								blockYPrevious[3] <= blockY4;
+							end
+						// if rotating on a move Y frame then we do nothing, dont increment this counter, and we repeat next frame.
 					end
+					else 
+						frame_count_rotate <= frame_count_rotate + 1;
 					
 					 //
 					 // move_clk_X logic
 					 //
 					 if (frame_count_move_X >= frames_per_move_X) begin: MoveX_Block
-						blockX1Mo <= 0;
-						blockX2Mo <= 0;
-						blockX3Mo <= 0;
-						blockX4Mo <= 0;
 						frame_count_move_X <= 0;
+						blockXMotion <= 0;
+						
 						
 						blockXPrevious[0] <= blockX1;
 						blockXPrevious[1] <= blockX2;
 						blockXPrevious[2] <= blockX3;
 						blockXPrevious[3] <= blockX4;
 						
-						if ((blockX1+blockX1Motion!=7'b1111111)&&(blockX2+blockX2Motion!=7'b1111111)&&(blockX3+blockX3Motion!=7'b1111111)&&(blockX4+blockX4Motion!=7'b1111111)&&
-						(blockX1+blockX1Motion<=board_width)&&(blockX2+blockX2Motion<=board_width)&&(blockX3+blockX3Motion<=board_width)&&(blockX4+blockX4Motion<=board_width)&&
-						(Board[blockY1][blockX1+blockX1Motion]!=1'b1)&&(Board[blockY2][blockX2+blockX2Motion]!=1'b1)&&
-						(Board[blockY3][blockX3+blockX3Motion]!=1'b1)&&(Board[blockY4][blockX4+blockX4Motion]!=1'b1)
+						
+						if (!((frame_count_rotate >= frames_per_rotate)&&(frame_count_move_Y != frames_per_move_Y)&&(W_pressed))&& // if not in a rotate frame
+						(blockX1+blockXMotion!=7'b1111111)&&(blockX2+blockXMotion!=7'b1111111)&&(blockX3+blockXMotion!=7'b1111111)&&(blockX4+blockXMotion!=7'b1111111)&& // and within bounds
+						(blockX1+blockXMotion<=board_width)&&(blockX2+blockXMotion<=board_width)&&(blockX3+blockXMotion<=board_width)&&(blockX4+blockXMotion<=board_width)&&
+						(Board[blockY1][blockX1+blockXMotion]!=1'b1)&&(Board[blockY2][blockX2+blockXMotion]!=1'b1)&& //and not colliding with other blocks
+						(Board[blockY3][blockX3+blockXMotion]!=1'b1)&&(Board[blockY4][blockX4+blockXMotion]!=1'b1)
 						) begin
-							blockX1 <= blockX1 + blockX1Motion;
-							blockX2 <= blockX2 + blockX2Motion;
-							blockX3 <= blockX3 + blockX3Motion;
-							blockX4 <= blockX4 + blockX4Motion;
+							blockX1 <= blockX1 + blockXMotion;
+							blockX2 <= blockX2 + blockXMotion;
+							blockX3 <= blockX3 + blockXMotion;
+							blockX4 <= blockX4 + blockXMotion;
 						end
+						
 					 end
 					 else
 						frame_count_move_X <= frame_count_move_X + 1;
@@ -273,12 +301,10 @@ module Game_Logic (
 							blockYPrevious[2] <= blockY3;
 							blockYPrevious[3] <= blockY4;
 							 
-							if (~W_pressed) begin
-								blockY1 <= blockY1 + blockYMotion;
-								blockY2 <= blockY2 + blockYMotion;
-								blockY3 <= blockY3 + blockYMotion;
-								blockY4 <= blockY4 + blockYMotion;
-							end
+							blockY1 <= blockY1 + blockYMotion;
+							blockY2 <= blockY2 + blockYMotion;
+							blockY3 <= blockY3 + blockYMotion;
+							blockY4 <= blockY4 + blockYMotion;
 						end
 					 end
 					 else 
@@ -288,31 +314,16 @@ module Game_Logic (
 
 
 	always_comb begin
-//		if (frame_count_move_X >= frames_per_move_X) begin
-//			if (W_pressed == 1'b1) begin
-//				blockX1Motion = (Pieces[piece_count-1][~block_orientation][0][6:0] - Pieces[piece_count-1][block_orientation][0][6:0]);
-//				blockX2Motion = (Pieces[piece_count-1][~block_orientation][1][6:0] - Pieces[piece_count-1][block_orientation][1][6:0]);
-//				blockX3Motion = (Pieces[piece_count-1][~block_orientation][2][6:0] - Pieces[piece_count-1][block_orientation][2][6:0]);
-//				blockX4Motion = (Pieces[piece_count-1][~block_orientation][3][6:0] - Pieces[piece_count-1][block_orientation][3][6:0]);
-//				blockY1 <= (Pieces[piece_count-1][~block_orientation][0][13:7] - Pieces[piece_count-1][block_orientation][0][13:7]);
-//				blockY2 <= (Pieces[piece_count-1][~block_orientation][1][13:7] - Pieces[piece_count-1][block_orientation][1][13:7]);
-//				blockY3 <= (Pieces[piece_count-1][~block_orientation][2][13:7] - Pieces[piece_count-1][block_orientation][2][13:7]);
-//				blockY4 <= (Pieces[piece_count-1][~block_orientation][3][13:7] - Pieces[piece_count-1][block_orientation][3][13:7]);
-//			end
-//		end 
-//		else begin
-//			blockX1Motion = blockX1Mo;
-//			blockX2Motion = blockX2Mo;
-//			blockX3Motion = blockX3Mo;
-//			blockX4Motion = blockX4Mo;
-//		end
-			 
-		
-		blockX1Motion = blockX1Mo;
-		blockX2Motion = blockX2Mo;
-		blockX3Motion = blockX3Mo;
-		blockX4Motion = blockX4Mo;
-		
+
+		blockX1Motion = (Pieces[piece_count-1][~block_orientation][0][6:0] - Pieces[piece_count-1][block_orientation][0][6:0]);
+		blockX2Motion = (Pieces[piece_count-1][~block_orientation][1][6:0] - Pieces[piece_count-1][block_orientation][1][6:0]);
+		blockX3Motion = (Pieces[piece_count-1][~block_orientation][2][6:0] - Pieces[piece_count-1][block_orientation][2][6:0]);
+		blockX4Motion = (Pieces[piece_count-1][~block_orientation][3][6:0] - Pieces[piece_count-1][block_orientation][3][6:0]);
+		blockY1Motion = (Pieces[piece_count-1][~block_orientation][0][13:7] - Pieces[piece_count-1][block_orientation][0][13:7]);
+		blockY2Motion = (Pieces[piece_count-1][~block_orientation][1][13:7] - Pieces[piece_count-1][block_orientation][1][13:7]);
+		blockY3Motion = (Pieces[piece_count-1][~block_orientation][2][13:7] - Pieces[piece_count-1][block_orientation][2][13:7]);
+		blockY4Motion = (Pieces[piece_count-1][~block_orientation][3][13:7] - Pieces[piece_count-1][block_orientation][3][13:7]);
+
 		blockXPos[0] = blockX1;
 		blockYPos[0] = blockY1;
 		blockXPos[1] = blockX2;
