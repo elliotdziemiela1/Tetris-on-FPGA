@@ -195,7 +195,7 @@ begin
 			MemWrite5: begin
 							if(row_clearing == clear_num_rows) // For now exit out if we have copied all possible rows (incomplete functionality atm)
 								state <= Hold1;
-							else if(row_counter == 25'd10) // If we have gone through the entire row, go to the next row and read it
+							else if(row_counter == 25'd9) // If we have gone through the entire row, go to the next row and read it
 								begin
 								row_clearing <= row_clearing - 1;
 								row_counter <= 25'b0;
