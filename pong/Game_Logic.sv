@@ -66,6 +66,9 @@ module Game_Logic (
 	logic move_clk_X, move_clk_Y;
 	logic [5:0] frame_count_move_X, frame_count_move_Y, frame_count_rotate;
 	
+	enum logic [15:0] {Wait, clear1, clear2, clear3, clear4} state;
+	logic [6:0] clear_counter;
+	
 	
 	
 		always_ff @ (posedge Clk )
@@ -141,6 +144,24 @@ module Game_Logic (
 					block_orientation <= 1'b0;
 					
 		  end
+		  
+		  // row clearing state machine
+		  unique case (state)
+				Wait: clear_counter <= 0;
+				clear1: begin 
+					if (clear_counter != 0) begin
+						clear_counter <= clear_counter - 1;
+						Board[clear_counter] <= Board[clear_counter-1];
+					end
+					else begin
+						state <= Wait;
+					end
+				end
+				clear2: begin
+					state <= clear3;
+				end
+				default: ;
+		  endcase
 			
 			
 			
@@ -148,7 +169,7 @@ module Game_Logic (
 				frame_clk_flag <= 1'b0;
 				clear_row <= 1'b0;
 			end
-// THIS HAPPENS ON FRAME CLOCK
+// THIS HAPPENS ONCE, ONE CYCLE AFTER POSITIVE EDGE OF FRAME CLOCK
 			if (frame_clk == 1'b1 && frame_clk_flag == 1'b0) begin
 					
 					frame_clk_flag <= 1'b1;
@@ -157,26 +178,70 @@ module Game_Logic (
 					// clear row logic
 					//
 					
-//			if ((Board[blockYPrevious[3]]==10'b1111111111) && (blockYPrevious[3] >= 1)) begin // determines if there's a row to clear, then
-//			// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
-//				clear_row <= 1'b1;
-//				row_to_clear <= blockYPrevious[3];
-//				num_rows_to_clear <= 1;
-//				Board[blockYPrevious[3]] <= Board[blockYPrevious[3]-1];
-//				Board[blockYPrevious[3]-1] <= 10'b0;
-//				if (Board[blockYPrevious[3]-1]==10'b1111111111) begin
-//					num_rows_to_clear <= 2;
-//					if (blockYPrevious[3] >= 2 && Board[blockYPrevious[3]-2]==10'b1111111111) begin
-//						num_rows_to_clear <= 3;
-//						if (blockYPrevious[3] >= 3 && Board[blockYPrevious[3]-3]==10'b1111111111) begin
-//							num_rows_to_clear <= 4;
+					if ((Board[blockYPrevious[3]]==10'b1111111111) && (blockYPrevious[3] >= 1)) begin // determines if there's a row to clear, then
+					// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
+						clear_row <= 1'b1;
+						row_to_clear <= blockYPrevious[3];
+						state <= clear1;
+						clear_counter <= blockYPrevious[3];
+//						if (Board[blockYPrevious[3]-1]==10'b1111111111) begin
+//							num_rows_to_clear <= 2;
+//							if (blockYPrevious[3] >= 2 && Board[blockYPrevious[3]-2]==10'b1111111111) begin
+//								num_rows_to_clear <= 3;
+//								if (blockYPrevious[3] >= 3 && Board[blockYPrevious[3]-3]==10'b1111111111) begin
+//									num_rows_to_clear <= 4;
+//								end
+//							end
 //						end
-//					end
-//				end
-//			end
-//			else if () begin
-//
-//			end
+					end
+					if ((Board[blockYPrevious[2]]==10'b1111111111) && (blockYPrevious[2] >= 1)) begin // determines if there's a row to clear, then
+					// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
+						clear_row <= 1'b1;
+						row_to_clear <= blockYPrevious[2];
+						state <= clear1;
+						clear_counter <= blockYPrevious[2];
+//						if (Board[blockYPrevious[3]-1]==10'b1111111111) begin
+//							num_rows_to_clear <= 2;
+//							if (blockYPrevious[3] >= 2 && Board[blockYPrevious[3]-2]==10'b1111111111) begin
+//								num_rows_to_clear <= 3;
+//								if (blockYPrevious[3] >= 3 && Board[blockYPrevious[3]-3]==10'b1111111111) begin
+//									num_rows_to_clear <= 4;
+//								end
+//							end
+//						end
+					end
+					if ((Board[blockYPrevious[1]]==10'b1111111111) && (blockYPrevious[1] >= 1)) begin // determines if there's a row to clear, then
+					// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
+						clear_row <= 1'b1;
+						row_to_clear <= blockYPrevious[1];
+						state <= clear1;
+						clear_counter <= blockYPrevious[1];
+//						if (Board[blockYPrevious[3]-1]==10'b1111111111) begin
+//							num_rows_to_clear <= 2;
+//							if (blockYPrevious[3] >= 2 && Board[blockYPrevious[3]-2]==10'b1111111111) begin
+//								num_rows_to_clear <= 3;
+//								if (blockYPrevious[3] >= 3 && Board[blockYPrevious[3]-3]==10'b1111111111) begin
+//									num_rows_to_clear <= 4;
+//								end
+//							end
+//						end
+					end
+					if ((Board[blockYPrevious[0]]==10'b1111111111) && (blockYPrevious[0] >= 1)) begin // determines if there's a row to clear, then
+					// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
+						clear_row <= 1'b1;
+						row_to_clear <= blockYPrevious[0];
+						state <= clear1;
+						clear_counter <= blockYPrevious[0];
+//						if (Board[blockYPrevious[3]-1]==10'b1111111111) begin
+//							num_rows_to_clear <= 2;
+//							if (blockYPrevious[3] >= 2 && Board[blockYPrevious[3]-2]==10'b1111111111) begin
+//								num_rows_to_clear <= 3;
+//								if (blockYPrevious[3] >= 3 && Board[blockYPrevious[3]-3]==10'b1111111111) begin
+//									num_rows_to_clear <= 4;
+//								end
+//							end
+//						end
+					end
 					
 					 //
 					// rotate logic
@@ -279,10 +344,10 @@ module Game_Logic (
 							blockX4 <= Pieces[piece_count][0][3][6:0] + (board_width>>1);
 							
 							// Testing
-							clear_row <= 1'b1;
-							num_rows_to_clear <= 1;
-							row_to_clear <= 18;
-							Board[1:18] <= Board[0:17];
+//							clear_row <= 1'b1;
+//							num_rows_to_clear <= 1;
+//							row_to_clear <= 18;
+//							Board[1:18] <= Board[0:17];
 							// end testing
 							
 							block_orientation <= 1'b0;
