@@ -40,7 +40,8 @@ module Game_Logic (
 	logic [6:0] blockY1, blockY2, blockY3, blockY4; // zero indexed
 	logic [6:0] blockXPrevious [4];
 	logic [6:0] blockYPrevious [4];
-	logic [6:0] blockXMotion;
+	logic [6:0] blockX1Motion, blockX2Motion, blockX3Motion, blockX4Motion;
+	logic [6:0] blockX1Mo, blockX2Mo, blockX3Mo, blockX4Mo;
 	logic [6:0] blockYMotion;
 	logic block_orientation;
 	logic [4:0] color;
@@ -74,14 +75,22 @@ module Game_Logic (
 			case (keycode)
 				8'h04 : begin
 						  A_held <= 1;
-							if ((blockX1>0)&&(blockX2>0)&&(blockX3>0)&&(blockX4>0)&&(A_held==0))
-								blockXMotion <= -1;//A
+							if ((A_held==0))begin
+								blockX1Mo <= -1;
+								blockX2Mo <= -1;
+								blockX3Mo <= -1;
+								blockX4Mo <= -1;//A
+							end
 					  end
 						  
 				8'h07 : begin
 						  D_held <= 1;
-						  if ((blockX1<board_width)&&(blockX2<board_width)&&(blockX3<board_width)&&(blockX4<board_width)&&(D_held==0))
-								blockXMotion <= 1;//D
+						  if ((D_held==0))begin
+								blockX1Mo <= 1;
+								blockX2Mo <= 1;
+								blockX3Mo <= 1;
+								blockX4Mo <= 1; //D
+						  end
 						  end
 
 						  
@@ -174,24 +183,17 @@ module Game_Logic (
 					//
 					if (frame_count_move_X >= frames_per_move_X) begin: Rotate_Block
 						W_pressed <= 1'b0;
-						if (W_pressed == 1'b1) begin
-							blockX1 <= blockX1 + (Pieces[piece_count-1][~block_orientation][0][6:0] - Pieces[piece_count-1][block_orientation][0][6:0]);
-							blockX2 <= blockX2 + (Pieces[piece_count-1][~block_orientation][1][6:0] - Pieces[piece_count-1][block_orientation][1][6:0]);
-							blockX3 <= blockX3 + (Pieces[piece_count-1][~block_orientation][2][6:0] - Pieces[piece_count-1][block_orientation][2][6:0]);
-							blockX4 <= blockX4 + (Pieces[piece_count-1][~block_orientation][3][6:0] - Pieces[piece_count-1][block_orientation][3][6:0]);
-							blockY1 <= blockY1 + (Pieces[piece_count-1][~block_orientation][0][13:7] - Pieces[piece_count-1][block_orientation][0][13:7]);
-							blockY2 <= blockY2 + (Pieces[piece_count-1][~block_orientation][1][13:7] - Pieces[piece_count-1][block_orientation][1][13:7]);
-							blockY3 <= blockY3 + (Pieces[piece_count-1][~block_orientation][2][13:7] - Pieces[piece_count-1][block_orientation][2][13:7]);
-							blockY4 <= blockY4 + (Pieces[piece_count-1][~block_orientation][3][13:7] - Pieces[piece_count-1][block_orientation][3][13:7]);
-							block_orientation <= ~block_orientation;
-						end
+						block_orientation <= ~block_orientation;
 					end
 					
 					 //
 					 // move_clk_X logic
 					 //
 					 if (frame_count_move_X >= frames_per_move_X) begin: MoveX_Block
-						blockXMotion <= 0;
+						blockX1Mo <= 0;
+						blockX2Mo <= 0;
+						blockX3Mo <= 0;
+						blockX4Mo <= 0;
 						frame_count_move_X <= 0;
 						
 						blockXPrevious[0] <= blockX1;
@@ -199,12 +201,15 @@ module Game_Logic (
 						blockXPrevious[2] <= blockX3;
 						blockXPrevious[3] <= blockX4;
 						
-						if ((~W_pressed)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)&&(Board[blockX2+blockXMotion][blockY2]!=1'b1)&&
-						(Board[blockX3+blockXMotion][blockY3]!=1'b1)&&(Board[blockX4+blockXMotion][blockY4]!=1'b1)) begin
-							blockX1 <= blockX1 + blockXMotion;
-							blockX2 <= blockX2 + blockXMotion;
-							blockX3 <= blockX3 + blockXMotion;
-							blockX4 <= blockX4 + blockXMotion;
+						if ((blockX1+blockX1Motion!=7'b1111111)&&(blockX2+blockX2Motion!=7'b1111111)&&(blockX3+blockX3Motion!=7'b1111111)&&(blockX4+blockX4Motion!=7'b1111111)&&
+						(blockX1+blockX1Motion<=board_width)&&(blockX2+blockX2Motion<=board_width)&&(blockX3+blockX3Motion<=board_width)&&(blockX4+blockX4Motion<=board_width)&&
+						(Board[blockY1][blockX1+blockX1Motion]!=1'b1)&&(Board[blockY2][blockX2+blockX2Motion]!=1'b1)&&
+						(Board[blockY3][blockX3+blockX3Motion]!=1'b1)&&(Board[blockY4][blockX4+blockX4Motion]!=1'b1)
+						) begin
+							blockX1 <= blockX1 + blockX1Motion;
+							blockX2 <= blockX2 + blockX2Motion;
+							blockX3 <= blockX3 + blockX3Motion;
+							blockX4 <= blockX4 + blockX4Motion;
 						end
 					 end
 					 else
@@ -281,7 +286,27 @@ module Game_Logic (
 
 
 	always_comb begin
+		if (frame_count_move_X >= frames_per_move_X) begin
+			if (W_pressed == 1'b1) begin
+				blockX1Motion = (Pieces[piece_count-1][~block_orientation][0][6:0] - Pieces[piece_count-1][block_orientation][0][6:0]);
+				blockX2Motion = (Pieces[piece_count-1][~block_orientation][1][6:0] - Pieces[piece_count-1][block_orientation][1][6:0]);
+				blockX3Motion = (Pieces[piece_count-1][~block_orientation][2][6:0] - Pieces[piece_count-1][block_orientation][2][6:0]);
+				blockX4Motion = (Pieces[piece_count-1][~block_orientation][3][6:0] - Pieces[piece_count-1][block_orientation][3][6:0]);
+//				blockY1 <= (Pieces[piece_count-1][~block_orientation][0][13:7] - Pieces[piece_count-1][block_orientation][0][13:7]);
+//				blockY2 <= (Pieces[piece_count-1][~block_orientation][1][13:7] - Pieces[piece_count-1][block_orientation][1][13:7]);
+//				blockY3 <= (Pieces[piece_count-1][~block_orientation][2][13:7] - Pieces[piece_count-1][block_orientation][2][13:7]);
+//				blockY4 <= (Pieces[piece_count-1][~block_orientation][3][13:7] - Pieces[piece_count-1][block_orientation][3][13:7]);
+			end
+		end 
+		else begin
+			blockX1Motion = blockX1Mo;
+			blockX2Motion = blockX2Mo;
+			blockX3Motion = blockX3Mo;
+			blockX4Motion = blockX4Mo;
+		end
 			 
+		
+						
 		blockXPos[0] = blockX1;
 		blockYPos[0] = blockY1;
 		blockXPos[1] = blockX2;
