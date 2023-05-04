@@ -39,6 +39,7 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 	 enum logic [15:0] {A, B, C, D, E, F, G, H} cool_points;
 	 logic [10:0] pointer;
 	 logic [7:0] fade;
+	 logic [4:0] counter;
 	 
 	 always_ff @(posedge frame_clk)
 	 begin
@@ -48,44 +49,92 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 		begin
 			unique case(cool_points)
 			A: begin
-				fade <= 8'b0;
-				pointer <= 11'b0;
-				cool_points <= B;
+				if(counter[4])
+				begin
+					counter <= 5'b0;
+					fade <= 8'b0;
+					pointer <= 11'b0;
+					cool_points <= B;
+				end
+				else
+					counter <= counter + 1'b1;
 				end
 			B: begin
-				fade <= fade + 8'h04;
-				pointer <= pointer + 1'b1;
-				cool_points <= C;
+				if(counter[4])
+				begin
+					counter <= 5'b0;
+					fade <= fade + 8'h04;
+					pointer <= pointer + 1'b1;
+					cool_points <= C;
+				end
+				else
+					counter <= counter + 1'b1;
 				end
 			C: begin
-				fade <= fade + 8'h04;
-				pointer <= pointer + 1'b1;
-				cool_points <= D;
+				if(counter[4])
+				begin
+					counter <= 5'b0;
+					fade <= fade + 8'h04;
+					pointer <= pointer + 1'b1;
+					cool_points <= D;
+				end
+				else
+					counter <= counter + 1'b1;
 				end
 			D: begin
-				fade <= fade + 8'h04;
-				pointer <= pointer + 1'b1;
-				cool_points <= E;
+				if(counter[4])
+				begin
+					counter <= 5'b0;
+					fade <= fade + 8'h04;
+					pointer <= pointer + 1'b1;
+					cool_points <= E;
 				end
-			E: begin
-				fade <= fade + 8'h04;
-				pointer <= pointer + 1'b1;
-				cool_points <= F;
+				else
+					counter <= counter + 1'b1;
+				end
+			E:begin
+				if(counter[4])
+				begin
+					counter <= 5'b0;
+					fade <= fade + 8'h04;
+					pointer <= pointer + 1'b1;
+					cool_points <= F;
+				end
+				else
+					counter <= counter + 1'b1;
 				end
 			F: begin
-				fade <= fade + 8'h04;
-				pointer <= pointer + 1'b1;
-				cool_points <= G;
+				if(counter[4])
+				begin
+					counter <= 5'b0;
+					fade <= fade + 8'h04;
+					pointer <= pointer + 1'b1;
+					cool_points <= G;
+				end
+				else
+					counter <= counter + 1'b1;
 				end
 			G: begin
-				fade <= fade + 8'h04;
-				pointer <= pointer + 1'b1;
-				cool_points <= H;
+				if(counter[4])
+				begin
+					counter <= 5'b0;
+					fade <= fade + 8'h04;
+					pointer <= pointer + 1'b1;
+					cool_points <= H;
+				end
+				else
+					counter <= counter + 1'b1;
 				end
 			H: begin
-				fade <= fade + 8'h04;
-				pointer <= pointer + 1'b1;
-				cool_points <= A;
+				if(counter[4])
+				begin
+					counter <= 5'b0;
+					fade <= fade + 8'h04;
+					pointer <= pointer + 1'b1;
+					cool_points <= A;
+				end
+				else
+					counter <= counter + 1'b1;
 				end
 			endcase
 		end
@@ -162,7 +211,7 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 						end
 				end
 		  // Pointer adder +5
-		  else if(DrawX >= (right_edge) && DrawX < ((right_edge)+8*3) && DrawY >= 16 && DrawY < 32)
+		  else if(DrawX >= (right_edge) && DrawX < ((right_edge)+8*3) && DrawY >= pointer && DrawY < (pointer + 8'h08))
 		  begin
 				if(DrawX < ((right_edge)+8*1))
 						sprite_addr = (({1'b0, DrawY} - pointer) + 16*(11'h2b)); // Code for 0 is x30
