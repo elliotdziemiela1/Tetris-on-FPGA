@@ -20,15 +20,47 @@ module  color_mapper (  input Clk, hs, reset,
 	 
 	 logic [7:0] load_counter;
 	 
+	 // For indexing font rom 
+	 logic [10:0] sprite_addr;
+	 logic [7:0] sprite_data;
+	 
+	 font_rom font(.addr(sprite_addr), .data(sprite_data));
        
     always_comb
     begin:RGB_Display
+		  sprite_addr = 11'b0; // Default font address
         if ((DrawX >= (640/3)) && (DrawX < (2*640/3) && (DrawY < (squareSize*20))))  // if drawing in board
-        begin 
+        begin
 				Red = {Row[(DrawX-(640/3))/(squareSize)][11:8], 4'b0};
             Green = {Row[(DrawX-(640/3))/(squareSize)][7:4], 4'b0};
             Blue = {Row[(DrawX-(640/3))/(squareSize)][3:0], 4'b0};
-        end  
+        end
+		  // Code added by ya boi
+		  // Indexing sprite_addr for scoreboard
+			else if(DrawX >= (2*640/3) && DrawX < ((2*640/3)+8*4) && DrawY < 16) // Drawing IBM chars (8x16)
+				begin
+					if(DrawX < ((2*640/3)+8*1))
+						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*(30)); // Code for 0 is x30
+					else if(DrawX < ((2*640/3)+8*2))
+						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*(31)); // Code for 1 is x31
+					else if(DrawX < ((2*640/3)+8*3))
+						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*(32)); // Code for 2 is x32
+					else
+						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*(33)); // Code for 3 is x33
+					
+					if(sprite_data[((DrawX - (2*640/3)) % 8)] == 1'b1)
+						begin
+						Red = 8'hff;
+						Green = 8'hff;
+						Blue = 8'hff;
+						end
+					else
+						begin
+						Red = 8'h00;
+						Green = 8'h00;
+						Blue = 8'h00;
+						end
+				end
         else 
         begin // draw side bars
             Red = 8'h00; 
@@ -70,6 +102,7 @@ module  color_mapper (  input Clk, hs, reset,
 			endcase
 		end
 	end
+	
 	
 	always_comb 
 	begin
