@@ -70,18 +70,16 @@ module Game_Logic (
 			frames_per_move_Y <= default_frames_per_move_Y;
 			case (keycode)
 				8'h04 : begin
-						  blockXMotion <= -1;//A
-//							if ((blockX1>0)&&(blockX2>0)&&(blockX3>0)&&(blockX4>0))
-//								blockXMotion <= -1;//A
-						  end
+							if ((blockX1>0)&&(blockX2>0)&&(blockX3>0)&&(blockX4>0))
+								blockXMotion <= -1;//A
+					  end
 						  
 				8'h07 : begin
-						  blockXMotion <= 1;//D
-//						  if ((blockX1<board_width)&&
-//							  (blockX2<board_width)&&
-//							  (blockX3<board_width)&&
-//							  (blockX4<board_width))
-//								blockXMotion <= 1;//D
+						  if ((blockX1<board_width)&&
+							  (blockX2<board_width)&&
+							  (blockX3<board_width)&&
+							  (blockX4<board_width))
+								blockXMotion <= 1;//D
 						  end
 
 						  
@@ -145,26 +143,26 @@ module Game_Logic (
 					// clear row logic
 					//
 					
-		//			if ((Board[blockYPrevious[3]]==10'b1111111111) && (blockYPrevious[3] >= 1)) begin // determines if there's a row to clear, then
-		//			// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
-		//				clear_row <= 1'b1;
-		//				row_to_clear <= blockYPrevious[3];
-		//				num_rows_to_clear <= 1;
-		//				Board[blockYPrevious[3]] <= Board[blockYPrevious[3]-1];
-		//				Board[blockYPrevious[3]-1] <= 10'b0;
-		//				if (Board[blockYPrevious[3]-1]==10'b1111111111) begin
-		//					num_rows_to_clear <= 2;
-		//					if (blockYPrevious[3] >= 2 && Board[blockYPrevious[3]-2]==10'b1111111111) begin
-		//						num_rows_to_clear <= 3;
-		//						if (blockYPrevious[3] >= 3 && Board[blockYPrevious[3]-3]==10'b1111111111) begin
-		//							num_rows_to_clear <= 4;
-		//						end
-		//					end
-		//				end
-		//			end
-		//			else if () begin
-		//
-		//			end
+//			if ((Board[blockYPrevious[3]]==10'b1111111111) && (blockYPrevious[3] >= 1)) begin // determines if there's a row to clear, then
+//			// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
+//				clear_row <= 1'b1;
+//				row_to_clear <= blockYPrevious[3];
+//				num_rows_to_clear <= 1;
+//				Board[blockYPrevious[3]] <= Board[blockYPrevious[3]-1];
+//				Board[blockYPrevious[3]-1] <= 10'b0;
+//				if (Board[blockYPrevious[3]-1]==10'b1111111111) begin
+//					num_rows_to_clear <= 2;
+//					if (blockYPrevious[3] >= 2 && Board[blockYPrevious[3]-2]==10'b1111111111) begin
+//						num_rows_to_clear <= 3;
+//						if (blockYPrevious[3] >= 3 && Board[blockYPrevious[3]-3]==10'b1111111111) begin
+//							num_rows_to_clear <= 4;
+//						end
+//					end
+//				end
+//			end
+//			else if () begin
+//
+//			end
 				 
 				 
 					 //
@@ -177,11 +175,9 @@ module Game_Logic (
 						blockXPrevious[1] <= blockX2;
 						blockXPrevious[2] <= blockX3;
 						blockXPrevious[3] <= blockX4;
-						
-						if (((blockX1+blockXMotion)<board_width+1)&&((blockX1+blockXMotion)>=0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)&&
-							  ((blockX2+blockXMotion)<board_width+1)&&((blockX2+blockXMotion)>=0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)&&
-							  ((blockX3+blockXMotion)<board_width+1)&&((blockX3+blockXMotion)>=0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)&&
-							  ((blockX4+blockXMotion)<board_width+1)&&((blockX4+blockXMotion)>=0)&&(Board[blockX1+blockXMotion][blockY1]!=1'b1)) begin
+//						
+						if ((Board[blockX1+blockXMotion][blockY1]!=1'b1)&&(Board[blockX2+blockXMotion][blockY2]!=1'b1)&&
+						(Board[blockX3+blockXMotion][blockY3]!=1'b1)&&(Board[blockX4+blockXMotion][blockY4]!=1'b1)) begin
 							blockX1 <= blockX1 + blockXMotion;
 							blockX2 <= blockX2 + blockXMotion;
 							blockX3 <= blockX3 + blockXMotion;
@@ -227,8 +223,7 @@ module Game_Logic (
 							clear_row <= 1'b1;
 							num_rows_to_clear <= 1;
 							row_to_clear <= 18;
-//							Board[18] <= Board[17];
-//							Board[17] <= 10'b0;
+							Board[1:18] <= Board[0:17];
 							// end testing
 							
 							if (color+1 < number_of_colors)
