@@ -40,8 +40,8 @@ module  color_mapper (  input Clk, hs, reset,
 		  sprite_addr = 11'b0; // Default font address
         if ((DrawX >= (left_edge)) && (DrawX < (right_edge) && (DrawY < (squareSize*20))))  // if drawing in board
         begin
-				if((DrawX-(left_edge))%(squareSize) == 0 || (DrawX-(left_edge))%(squareSize) == (squareSize - 1) ||
-					DrawY%squareSize == 0 || DrawY%squareSize == (squareSize - 1))
+				if(((DrawX-(left_edge))%(squareSize) == 0 || (DrawX-(left_edge))%(squareSize) == (squareSize - 1) ||
+					DrawY%squareSize == 0 || DrawY%squareSize == (squareSize - 1)) && (Row[(DrawX-(left_edge))/(squareSize)][11:4] != 0))
 					begin
 					Red = 8'h00;
 					Green = 8'h00;
