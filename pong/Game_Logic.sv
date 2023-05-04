@@ -10,7 +10,8 @@ module Game_Logic (
 		output logic [15:0] blockColor,
 		output logic Clear_row,
 		output logic [3:0] Num_rows_to_clear,
-		output logic [6:0] Row_to_clear
+		output logic [6:0] Row_to_clear,
+		output logic test_flag
 
 	);
 	
@@ -41,6 +42,7 @@ module Game_Logic (
 	logic [6:0] blockY1, blockY2, blockY3, blockY4; // zero indexed
 	logic [6:0] blockXPrevious [4];
 	logic [6:0] blockYPrevious [4];
+	logic [6:0] blockYLanded [4];
 	logic [6:0] blockXMotion; // register for non-rotating X motion
 	logic [6:0] blockYMotion; // register for non-rotating Y motion
 	logic [6:0] blockX1Motion, blockX2Motion, blockX3Motion, blockX4Motion; // combinational calculations for rotation motion
@@ -71,6 +73,7 @@ module Game_Logic (
 	
 	
 	
+	
 		always_ff @ (posedge Clk )
 		 begin: Input_Block
 			frames_per_move_Y <= default_frames_per_move_Y;
@@ -95,7 +98,7 @@ module Game_Logic (
 						  
 				8'h16 : begin
 							if ((blockY1<board_height)&&(blockY2<board_height)&&(blockY3<board_height)&&(blockY4<board_height)) begin
-								frames_per_move_Y <= default_frames_per_move_Y / 2; // S
+								frames_per_move_Y <= default_frames_per_move_Y / 3; // S
 							end
 						 end
 				8'd26 : begin // W
@@ -123,7 +126,6 @@ module Game_Logic (
 					blockX2 <= Pieces[0][0][1][6:0] + (board_width>>1);
 					blockX3 <= Pieces[0][0][2][6:0] + (board_width>>1);
 					blockX4 <= Pieces[0][0][3][6:0] + (board_width>>1);
-					
 					blockY1 <= Pieces[0][0][0][13:7];
 					blockY2 <= Pieces[0][0][1][13:7];
 					blockY3 <= Pieces[0][0][2][13:7];
@@ -133,6 +135,10 @@ module Game_Logic (
 					blockYPrevious[1] <= 7'b0;
 					blockYPrevious[2] <= 7'b0;
 					blockYPrevious[3] <= 7'b0;
+					blockYLanded[0] <= 7'b0;
+					blockYLanded[1] <= 7'b0;
+					blockYLanded[2] <= 7'b0;
+					blockYLanded[3] <= 7'b0;
 					
 					piece_count <= 1;
 					piece_rotation <= 0;
@@ -142,6 +148,8 @@ module Game_Logic (
 					frame_clk_flag <= 1'b0;
 					
 					block_orientation <= 1'b0;
+					
+					test_flag = 1'b0;
 					
 		  end
 		  
@@ -186,7 +194,7 @@ module Game_Logic (
 					// clear row logic
 					//
 					
-					if ((Board[blockYPrevious[3]]==10'b1111111111) && (blockYPrevious[3] >= 1)) begin // determines if there's a row to clear, then
+					if ((Board[blockYLanded[3]]==10'b1111111111) && (blockYLanded[3] >= 1)) begin // determines if there's a row to clear, then
 					// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
 						clear_row <= 1'b1;
 						row_to_clear <= blockYPrevious[3];
@@ -202,7 +210,7 @@ module Game_Logic (
 //							end
 //						end
 					end
-					if ((Board[blockYPrevious[2]]==10'b1111111111) && (blockYPrevious[2] >= 1)) begin // determines if there's a row to clear, then
+					if ((Board[blockYLanded[2]]==10'b1111111111) && (blockYLanded[2] >= 1)) begin // determines if there's a row to clear, then
 					// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
 						clear_row <= 1'b1;
 						row_to_clear <= blockYPrevious[2];
@@ -218,7 +226,7 @@ module Game_Logic (
 //							end
 //						end
 					end
-					if ((Board[blockYPrevious[1]]==10'b1111111111) && (blockYPrevious[1] >= 1)) begin // determines if there's a row to clear, then
+					if ((Board[blockYLanded[1]]==10'b1111111111) && (blockYLanded[1] >= 1)) begin // determines if there's a row to clear, then
 					// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
 						clear_row <= 1'b1;
 						row_to_clear <= blockYPrevious[1];
@@ -234,7 +242,7 @@ module Game_Logic (
 //							end
 //						end
 					end
-					if ((Board[blockYPrevious[0]]==10'b1111111111) && (blockYPrevious[0] >= 1)) begin // determines if there's a row to clear, then
+					if ((Board[blockYLanded[0]]==10'b1111111111) && (blockYLanded[0] >= 1)) begin // determines if there's a row to clear, then
 					// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
 						clear_row <= 1'b1;
 						row_to_clear <= blockYPrevious[0];
@@ -307,6 +315,7 @@ module Game_Logic (
 					 //
 					 // move_clk_Y logic
 					 //
+					 test_flag = 1'b0;
 					 if (frame_count_move_Y >= frames_per_move_Y) begin: MoveY_Block
 						frame_count_move_Y <= 0;
 						blockYMotion <= 1;
@@ -319,10 +328,17 @@ module Game_Logic (
 						Board[blockY4+blockYMotion][blockX4]==1'b1 || (blockY4+blockYMotion>board_height)
 						) begin // collision with other block or bottom of screen
 							// new block generated
+							test_flag = 1'b1;
+							
 							blockYPrevious[0] <= 7'b0;
 							blockYPrevious[1] <= 7'b0;
 							blockYPrevious[2] <= 7'b0;
 							blockYPrevious[3] <= 7'b0;
+							
+							blockYLanded[0] <= blockY1;
+							blockYLanded[1] <= blockY2;
+							blockYLanded[2] <= blockY3;
+							blockYLanded[3] <= blockY4;
 							
 							Board[blockY1][blockX1] <= 1'b1;
 							Board[blockY2][blockX2] <= 1'b1;
