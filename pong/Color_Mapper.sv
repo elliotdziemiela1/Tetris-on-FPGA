@@ -3,6 +3,7 @@
 // VGA = 640*480
 
 module  color_mapper (  input Clk, hs, reset,
+								input [3:0] gameClock [3], // From timer
 								input logic [15:0] Row [10],
 								input logic rowReady,
 								input logic [9:0] DrawX, DrawY,
@@ -11,14 +12,22 @@ module  color_mapper (  input Clk, hs, reset,
 								output logic [7:0]  Red, Green, Blue );
     
 	 
-	 parameter squareSize = (640/3)/(board_width+1); // half of the screen is the board, and divide that by
+	 parameter squareSize = (left_edge)/(board_width+1); // half of the screen is the board, and divide that by
 	 // the # of squares in a row of the board
 	 parameter [6:0] board_width =9; // number of squares in each row (starting at 0)
 	 parameter [6:0] board_height =19;
+	 parameter [9:0] left_edge = 640/3;
+	 parameter [9:0] right_edge = (640/3) + (10*squareSize);
 	 
 	 logic [7:0] currentRow;
 	 
 	 logic [7:0] load_counter;
+	 
+	 // Compute time to display
+	 logic [10:0] the_matrix[3]; 
+	 assign the_matrix[2] = {7'b0, gameClock[2]} + 11'h30;
+	 assign the_matrix[1] = {7'b0, gameClock[1]} + 11'h30;
+	 assign the_matrix[0] = {7'b0, gameClock[0]} + 11'h30;
 	 
 	 // For indexing font rom 
 	 logic [10:0] sprite_addr;
@@ -29,26 +38,50 @@ module  color_mapper (  input Clk, hs, reset,
     always_comb
     begin:RGB_Display
 		  sprite_addr = 11'b0; // Default font address
-        if ((DrawX >= (640/3)) && (DrawX < (2*640/3) && (DrawY < (squareSize*20))))  // if drawing in board
+        if ((DrawX >= (left_edge)) && (DrawX < (right_edge) && (DrawY < (squareSize*20))))  // if drawing in board
         begin
-				Red = {Row[(DrawX-(640/3))/(squareSize)][11:8], 4'b0};
-            Green = {Row[(DrawX-(640/3))/(squareSize)][7:4], 4'b0};
-            Blue = {Row[(DrawX-(640/3))/(squareSize)][3:0], 4'b0};
+				Red = {Row[(DrawX-(left_edge))/(squareSize)][11:8], 4'b0};
+            Green = {Row[(DrawX-(left_edge))/(squareSize)][7:4], 4'b0};
+            Blue = {Row[(DrawX-(left_edge))/(squareSize)][3:0], 4'b0};
         end
 		  // Code added by ya boi
 		  // Indexing sprite_addr for scoreboard
-			else if(DrawX >= (2*640/3) && DrawX < ((2*640/3)+8*4) && DrawY < 16) // Drawing IBM chars (8x16)
+			else if(DrawX >= (right_edge) && DrawX < ((right_edge)+8*4) && DrawY < 16) // Drawing IBM chars (8x16)
 				begin
-					if(DrawX < ((2*640/3)+8*1))
+					if(DrawX < ((right_edge)+8*1))
 						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*(11'h30)); // Code for 0 is x30
-					else if(DrawX < ((2*640/3)+8*2))
+					else if(DrawX < ((right_edge)+8*2))
 						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*(11'h31)); // Code for 1 is x31
-					else if(DrawX < ((2*640/3)+8*3))
+					else if(DrawX < ((right_edge)+8*3))
 						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*(11'h32)); // Code for 2 is x32
 					else
 						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*(11'h33)); // Code for 3 is x33
 					
-					if(sprite_data[3'd7 - (((DrawX - (2*640/3)) % 8))] == 1'b1)
+					if(sprite_data[3'd7 - (((DrawX - (right_edge)) % 8))] == 1'b1)
+						begin
+						Red = 8'hff;
+						Green = 8'hff;
+						Blue = 8'hff;
+						end
+					else
+						begin
+						Red = 8'h00;
+						Green = 8'h00;
+						Blue = 8'h00;
+						end
+				end
+			else if(DrawX >= (left_edge - 8*4) && DrawX < left_edge && DrawY < 16)
+				begin
+					if(DrawX < ((left_edge) - 8*3))
+						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*(the_matrix[2])); // Code for 0 is x30
+					else if(DrawX < ((left_edge)- 8*2))
+						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*(11'h3A)); // Code for :
+					else if(DrawX < ((left_edge) - 8*1))
+						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*(the_matrix[1])); // Code for 2 is x32
+					else
+						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*(the_matrix[0])); // Code for 3 is x33
+					
+					if(sprite_data[3'd7 - (((left_edge - DrawX) % 8))] == 1'b1)
 						begin
 						Red = 8'hff;
 						Green = 8'hff;
@@ -145,18 +178,18 @@ endmodule
 //    logic ball_on;
 //	 
 //
-//	 parameter squareSize = (640/3)/10; // half of the screen is the board, and divide that by
+//	 parameter squareSize = (left_edge)/10; // half of the screen is the board, and divide that by
 //	 // the # of squares in a row of the board
 //	 logic [9:0] BallX [4]; 
 //	 logic [9:0] BallY [4];
 //	 
-//	 assign BallX[0] = (blockx1 * squareSize) + (640/3); // start at second third of screen
+//	 assign BallX[0] = (blockx1 * squareSize) + (left_edge); // start at second third of screen
 //	 assign BallY[0] = blocky1 * squareSize;
-//	 assign BallX[1] = (blockx2 * squareSize) + (640/3); // start at second third of screen
+//	 assign BallX[1] = (blockx2 * squareSize) + (left_edge); // start at second third of screen
 //	 assign BallY[1] = blocky2 * squareSize;
-//	 assign BallX[2] = (blockx3 * squareSize) + (640/3); // start at second third of screen
+//	 assign BallX[2] = (blockx3 * squareSize) + (left_edge); // start at second third of screen
 //	 assign BallY[2] = blocky3 * squareSize;
-//	 assign BallX[3] = (blockx4 * squareSize) + (640/3); // start at second third of screen
+//	 assign BallX[3] = (blockx4 * squareSize) + (left_edge); // start at second third of screen
 //	 assign BallY[3] = blocky4 * squareSize;
 ////	 assign BallX = ballx; // start at second quarter of screen
 ////	 assign BallY = bally;
@@ -178,7 +211,7 @@ endmodule
 //        if ( 
 //		  (DistX1*DistX1+DistY1*DistY1)<=(Size*Size) || (DistX2*DistX2+DistY2*DistY2)<=(Size*Size) || 
 //		  (DistX3*DistX3+DistY3*DistY3)<=(Size*Size) || (DistX4*DistX4+DistY4*DistY4)<=(Size*Size) || 
-//		  (DrawX <= (640/3) - (squareSize/2)) || (DrawX >= (2*640/3) + (squareSize/2)) || DrawY >=(squareSize*20)
+//		  (DrawX <= (left_edge) - (squareSize/2)) || (DrawX >= (right_edge) + (squareSize/2)) || DrawY >=(squareSize*20)
 //		  ) 
 //            ball_on = 1'b1;
 //        else 
