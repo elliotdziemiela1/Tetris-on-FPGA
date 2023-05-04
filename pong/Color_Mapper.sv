@@ -40,9 +40,19 @@ module  color_mapper (  input Clk, hs, reset,
 		  sprite_addr = 11'b0; // Default font address
         if ((DrawX >= (left_edge)) && (DrawX < (right_edge) && (DrawY < (squareSize*20))))  // if drawing in board
         begin
-				Red = {Row[(DrawX-(left_edge))/(squareSize)][11:8], 4'b0};
-            Green = {Row[(DrawX-(left_edge))/(squareSize)][7:4], 4'b0};
-            Blue = {Row[(DrawX-(left_edge))/(squareSize)][3:0], 4'b0};
+				if((DrawX-(left_edge))%(squareSize) == 0 || (DrawX-(left_edge))%(squareSize) == (squareSize - 1) ||
+					DrawY%squareSize == 0 || DrawY%squareSize == (squareSize - 1))
+					begin
+					Red = 8'h00;
+					Green = 8'h00;
+					Blue = 8'h00;
+					end
+				else
+					begin
+					Red = {Row[(DrawX-(left_edge))/(squareSize)][11:8], 4'b0};
+					Green = {Row[(DrawX-(left_edge))/(squareSize)][7:4], 4'b0};
+					Blue = {Row[(DrawX-(left_edge))/(squareSize)][3:0], 4'b0};
+					end
         end
 		  // Code added by ya boi
 		  // Indexing sprite_addr for scoreboard
