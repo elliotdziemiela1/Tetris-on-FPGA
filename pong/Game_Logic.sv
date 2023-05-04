@@ -54,7 +54,7 @@ module Game_Logic (
 	logic [13:0] Pieces[number_of_pieces][2][4]; // each peice's block positions for two rotations
 	assign Pieces = '{ // Format is for the last block to have the largest Y value to compare for clearing rows and the second block
 	// to have the middle X value
-		'{'{14'b00000000000000,14'b00000010000000,14'b00000010000001,14'b00000100000001},'{14'b00000010000000,14'b00000010000001,14'b00000000000001,14'b00000000000011}}, // piece 1
+		'{'{14'b00000000000000,14'b00000010000000,14'b00000010000001,14'b00000100000001},'{14'b00000010000000,14'b00000010000001,14'b00000000000001,14'b00000000000010}}, // piece 1
 		'{'{14'b00000000000000,14'b00000000000001,14'b00000000000010,14'b00000000000011},'{14'b00000000000000,14'b00000010000000,14'b00000100000000,14'b00000110000000}}, // piece 2
 		'{'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001},'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001}}, // piece 3
 		'{'{14'b00000000000000,14'b00000000000001,14'b00000010000001,14'b00000100000001},'{14'b00000010000000,14'b00000000000000,14'b00000000000001,14'b00000000000010}}  // piece 4
@@ -185,13 +185,13 @@ module Game_Logic (
 							frame_count_rotate <= 0;
 							W_pressed <= 1'b0;
 							if (W_pressed) begin
-								block_orientation <= ~block_orientation;
 								if ((blockX1+blockX1Motion!=7'b1111111)&&(blockX2+blockX2Motion!=7'b1111111)&&(blockX3+blockX3Motion!=7'b1111111)&&(blockX4+blockX4Motion!=7'b1111111)&& // if within bounds
 									(blockX1+blockX1Motion<=board_width)&&(blockX2+blockX2Motion<=board_width)&&(blockX3+blockX3Motion<=board_width)&&(blockX4+blockX4Motion<=board_width)&& 
 									(blockY1+blockY1Motion<=board_height)&&(blockY2+blockY2Motion<=board_height)&&(blockY3+blockY3Motion<=board_height)&&(blockY4+blockY4Motion<=board_height)&&
 									(Board[blockY1+blockY1Motion][blockX1+blockX1Motion]!=1'b1)&&(Board[blockY2+blockY2Motion][blockX2+blockX2Motion]!=1'b1)&& // and if no collisions
 									(Board[blockY3+blockY3Motion][blockX3+blockX3Motion]!=1'b1)&&(Board[blockY4+blockY4Motion][blockX4+blockX4Motion]!=1'b1)
 									) begin
+										block_orientation <= ~block_orientation;
 										blockX1 <= blockX1 + blockX1Motion;
 										blockX2 <= blockX2 + blockX2Motion;
 										blockX3 <= blockX3 + blockX3Motion;
@@ -284,6 +284,8 @@ module Game_Logic (
 							row_to_clear <= 18;
 							Board[1:18] <= Board[0:17];
 							// end testing
+							
+							block_orientation <= 1'b0;
 							
 							if (color+1 < number_of_colors)
 								color <= color+1;
