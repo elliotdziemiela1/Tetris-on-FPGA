@@ -11,6 +11,7 @@ always_ff @(posedge clk)
 begin
 if(reset) // Initialize to 2:00
 	begin
+	frame_counter <= 8'b0;
 	timer[2] <= 4'd2;
 	timer[1] <= 4'd0;
 	timer[0] <= 4'd0;
