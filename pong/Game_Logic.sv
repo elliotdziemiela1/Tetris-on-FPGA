@@ -116,6 +116,8 @@ module Game_Logic (
 					blockXPrevious[1] <= 7'b0;
 					blockXPrevious[2] <= 7'b0;
 					blockXPrevious[3] <= 7'b0;
+					
+					blockYMotion <= 1;
 				
 					blockX1 <= Pieces[0][0][0][6:0] + (board_width>>1); // divided by 2
 					blockX2 <= Pieces[0][0][1][6:0] + (board_width>>1);
@@ -286,27 +288,31 @@ module Game_Logic (
 
 
 	always_comb begin
-		if (frame_count_move_X >= frames_per_move_X) begin
-			if (W_pressed == 1'b1) begin
-				blockX1Motion = (Pieces[piece_count-1][~block_orientation][0][6:0] - Pieces[piece_count-1][block_orientation][0][6:0]);
-				blockX2Motion = (Pieces[piece_count-1][~block_orientation][1][6:0] - Pieces[piece_count-1][block_orientation][1][6:0]);
-				blockX3Motion = (Pieces[piece_count-1][~block_orientation][2][6:0] - Pieces[piece_count-1][block_orientation][2][6:0]);
-				blockX4Motion = (Pieces[piece_count-1][~block_orientation][3][6:0] - Pieces[piece_count-1][block_orientation][3][6:0]);
+//		if (frame_count_move_X >= frames_per_move_X) begin
+//			if (W_pressed == 1'b1) begin
+//				blockX1Motion = (Pieces[piece_count-1][~block_orientation][0][6:0] - Pieces[piece_count-1][block_orientation][0][6:0]);
+//				blockX2Motion = (Pieces[piece_count-1][~block_orientation][1][6:0] - Pieces[piece_count-1][block_orientation][1][6:0]);
+//				blockX3Motion = (Pieces[piece_count-1][~block_orientation][2][6:0] - Pieces[piece_count-1][block_orientation][2][6:0]);
+//				blockX4Motion = (Pieces[piece_count-1][~block_orientation][3][6:0] - Pieces[piece_count-1][block_orientation][3][6:0]);
 //				blockY1 <= (Pieces[piece_count-1][~block_orientation][0][13:7] - Pieces[piece_count-1][block_orientation][0][13:7]);
 //				blockY2 <= (Pieces[piece_count-1][~block_orientation][1][13:7] - Pieces[piece_count-1][block_orientation][1][13:7]);
 //				blockY3 <= (Pieces[piece_count-1][~block_orientation][2][13:7] - Pieces[piece_count-1][block_orientation][2][13:7]);
 //				blockY4 <= (Pieces[piece_count-1][~block_orientation][3][13:7] - Pieces[piece_count-1][block_orientation][3][13:7]);
-			end
-		end 
-		else begin
-			blockX1Motion = blockX1Mo;
-			blockX2Motion = blockX2Mo;
-			blockX3Motion = blockX3Mo;
-			blockX4Motion = blockX4Mo;
-		end
+//			end
+//		end 
+//		else begin
+//			blockX1Motion = blockX1Mo;
+//			blockX2Motion = blockX2Mo;
+//			blockX3Motion = blockX3Mo;
+//			blockX4Motion = blockX4Mo;
+//		end
 			 
 		
-						
+		blockX1Motion = blockX1Mo;
+		blockX2Motion = blockX2Mo;
+		blockX3Motion = blockX3Mo;
+		blockX4Motion = blockX4Mo;
+		
 		blockXPos[0] = blockX1;
 		blockYPos[0] = blockY1;
 		blockXPos[1] = blockX2;
