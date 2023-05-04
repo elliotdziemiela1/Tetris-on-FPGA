@@ -81,7 +81,7 @@ module  color_mapper (  input Clk, hs, reset,
 					else
 						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*(the_matrix[0])); // Code for 3 is x33
 					
-					if(sprite_data[3'd7 - (((left_edge - DrawX) % 8))] == 1'b1)
+					if(sprite_data[(((left_edge - DrawX) % 8))] == 1'b1)
 						begin
 						Red = 8'hff;
 						Green = 8'hff;
