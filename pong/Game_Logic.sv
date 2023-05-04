@@ -171,6 +171,14 @@ module Game_Logic (
 			end
 // THIS HAPPENS ONCE, ONE CYCLE AFTER POSITIVE EDGE OF FRAME CLOCK
 			if (frame_clk == 1'b1 && frame_clk_flag == 1'b0) begin
+					blockXPrevious[0] <= blockX1;
+					blockXPrevious[1] <= blockX2;
+					blockXPrevious[2] <= blockX3;
+					blockXPrevious[3] <= blockX4;
+					blockYPrevious[0] <= blockY1;
+					blockYPrevious[1] <= blockY2;
+					blockYPrevious[2] <= blockY3;
+					blockYPrevious[3] <= blockY4;
 					
 					frame_clk_flag <= 1'b1;
 					
@@ -266,14 +274,6 @@ module Game_Logic (
 										blockY3 <= blockY3 + blockY3Motion;
 										blockY4 <= blockY4 + blockY4Motion;
 									end
-								blockXPrevious[0] <= blockX1;
-								blockXPrevious[1] <= blockX2;
-								blockXPrevious[2] <= blockX3;
-								blockXPrevious[3] <= blockX4;
-								blockYPrevious[0] <= blockY1;
-								blockYPrevious[1] <= blockY2;
-								blockYPrevious[2] <= blockY3;
-								blockYPrevious[3] <= blockY4;
 							end
 						// if rotating on a move Y frame then we do nothing, dont increment this counter, and we repeat next frame.
 					end
@@ -286,12 +286,6 @@ module Game_Logic (
 					 if (frame_count_move_X >= frames_per_move_X) begin: MoveX_Block
 						frame_count_move_X <= 0;
 						blockXMotion <= 0;
-						
-						
-						blockXPrevious[0] <= blockX1;
-						blockXPrevious[1] <= blockX2;
-						blockXPrevious[2] <= blockX3;
-						blockXPrevious[3] <= blockX4;
 						
 						
 						if (!((frame_count_rotate >= frames_per_rotate)&&(frame_count_move_Y != frames_per_move_Y)&&(W_pressed))&& // if not in a rotate frame
@@ -363,11 +357,6 @@ module Game_Logic (
 								piece_count <= piece_count + 1;
 						end
 						else begin
-							blockYPrevious[0] <= blockY1;
-							blockYPrevious[1] <= blockY2;
-							blockYPrevious[2] <= blockY3;
-							blockYPrevious[3] <= blockY4;
-							 
 							blockY1 <= blockY1 + blockYMotion;
 							blockY2 <= blockY2 + blockYMotion;
 							blockY3 <= blockY3 + blockYMotion;
