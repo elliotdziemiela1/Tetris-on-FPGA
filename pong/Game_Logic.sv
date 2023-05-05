@@ -77,7 +77,7 @@ module Game_Logic (
 	logic [6:0] clear_counter, clear_counter_start;
 	logic [6:0] clear_row_counter, clear_row_counter_start;
 	
-	logic power_up;
+	logic power_up, game_over;
 	
 	
 		always_ff @ (posedge Clk )
@@ -157,6 +157,7 @@ module Game_Logic (
 					num_rows_to_clear <= 0;
 					
 					power_up <= 0;
+					game_over <= 0;
 					
 		  end
 		  
@@ -222,7 +223,7 @@ module Game_Logic (
 				clear_row <= 1'b0;
 			end
 // THIS HAPPENS ONCE, ONE CYCLE AFTER POSITIVE EDGE OF FRAME CLOCK
-			if (frame_clk == 1'b1 && frame_clk_flag == 1'b0) begin
+			if ((~game_over) && (frame_clk == 1'b1) && (frame_clk_flag == 1'b0)) begin
 					frame_clk_flag <= 1'b1;
 					
 					blockXPrevious[0] <= blockX1;
@@ -458,6 +459,9 @@ module Game_Logic (
 								Board[blockY3+blockYMotion][blockX3]==1'b1 || (blockY3+blockYMotion>board_height) ||
 								Board[blockY4+blockYMotion][blockX4]==1'b1 || (blockY4+blockYMotion>board_height)) begin // collision with other block or bottom of screen
 									// new block generated
+									if ((blockY1 <= 0) || (blockY2 <= 0) || (blockY3 <= 0) || (blockY4 <= 0))
+										game_over <= 1;
+									
 									blockYPrevious[0] <= 7'b0;
 									blockYPrevious[1] <= 7'b0;
 									blockYPrevious[2] <= 7'b0;
