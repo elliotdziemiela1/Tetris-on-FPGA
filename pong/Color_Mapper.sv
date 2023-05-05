@@ -32,17 +32,47 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 	 assign the_matrix[1] = {7'b0, gameClock[1]} + 11'h30;
 	 assign the_matrix[0] = {7'b0, gameClock[0]} + 11'h30;
 	 
+	 logic display; // Display points added
+	 
 	 // For indexing font rom 
 	 logic [10:0] sprite_addr;
 	 logic [7:0] sprite_data;
+	 logic [7:0] counter;
 	 
 	 font_rom font(.addr(sprite_addr), .data(sprite_data));
+	 
+always_ff @(posedge frame_clk or posedge reset)
+begin
+if(reset)
+	begin
+	display <= 1'b0;
+	counter <= 8'b0;
+	end
+else
+begin
+	if(score_to_add[0] > 0 || score_to_add[1] > 0)
+		begin
+		display <= 1'b1;
+		counter <= 8'b0;
+		end
+	else
+		begin
+		if(counter == 8'd60)
+			begin
+			counter <= 8'b0;
+			display <= 1'b0;
+			end
+		else
+			counter <= counter + 1'b1;
+		end
+end
+end
 	 
 //	 // Logic for some cool points
 //	 enum logic [15:0] {A, B, C, D, E, F, G, H} cool_points;
 //	 logic [10:0] pointer;
 //	 logic [7:0] fade;
-//	 logic [5:0] counter;
+
 //	 
 //	 always_ff @(posedge frame_clk or posedge reset)
 //	 begin
@@ -161,7 +191,7 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 						end
 				end
 		  // Pointer adder +5
-		  else if(DrawX >= (right_edge) && DrawX < ((right_edge)+8*3) && DrawY >= (squareSize*clear_row) && DrawY < (squareSize*clear_row + 10'h10) && (score_to_add[1] > 0 || score_to_add[0] > 0))
+		  else if(DrawX >= (right_edge) && DrawX < ((right_edge)+8*3) && DrawY >= (squareSize*clear_row) && DrawY < (squareSize*clear_row + 10'h10) && display)
 		  begin
 				if(DrawX < ((right_edge)+8*1))
 						sprite_addr = (({1'b0, DrawY} - (squareSize*clear_row)) + 16*(11'h2b)); // Code for 0 is x30
