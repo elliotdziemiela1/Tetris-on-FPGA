@@ -22,7 +22,7 @@ module Game_Logic (
 	parameter [7:0] frames_per_rotate = 5;
 	parameter [4:0] number_of_colors = 3; // 1 indexed
 	parameter [49:0] keystroke_sample_period = 50'h10000;
-	parameter [4:0] number_of_pieces = 5'd4; // 1 indexed
+	parameter [4:0] number_of_pieces = 5'd5; // 1 indexed
 	
 	parameter [7:0] default_frames_per_move_Y = 13;
 	logic [7:0] frames_per_move_Y;
@@ -47,7 +47,7 @@ module Game_Logic (
 	logic [6:0] blockYMotion; // register for non-rotating Y motion
 	logic [6:0] blockX1Motion, blockX2Motion, blockX3Motion, blockX4Motion; // combinational calculations for rotation motion
 	logic [6:0] blockY1Motion, blockY2Motion, blockY3Motion, blockY4Motion; // combinational calculations for rotation motion
-	logic block_orientation;
+	logic [2:0] block_orientation;
 	logic [4:0] color;
 	
 	logic [15:0] palette [number_of_colors];
@@ -59,10 +59,11 @@ module Game_Logic (
 		'{'{14'b00000000000000,14'b00000010000000,14'b00000010000001,14'b00000100000001},'{14'b00000000000001,14'b00000000000010,14'b00000010000000,14'b00000010000001},'{14'b00000000000000,14'b00000010000000,14'b00000010000001,14'b00000100000001},'{14'b00000000000001,14'b00000000000010,14'b00000010000000,14'b00000010000001}}, // piece 1
 		'{'{14'b00000000000000,14'b00000000000001,14'b00000000000010,14'b00000000000011},'{14'b00000000000000,14'b00000010000000,14'b00000100000000,14'b00000110000000},'{14'b00000000000000,14'b00000000000001,14'b00000000000010,14'b00000000000011},'{14'b00000000000000,14'b00000010000000,14'b00000100000000,14'b00000110000000}}, // piece 2
 		'{'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001},'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001},'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001},'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001}}, // piece 3
-		'{'{14'b00000000000000,14'b00000000000001,14'b00000010000001,14'b00000100000001},'{14'b00000000000000,14'b00000000000001,14'b00000000000010,14'b00000010000000},'{14'b00000000000000,14'b00000000000001,14'b00000010000001,14'b00000100000001},'{14'b00000000000000,14'b00000000000001,14'b00000000000010,14'b00000010000000}}  // piece 4
+		'{'{14'b00000000000000,14'b00000000000001,14'b00000010000001,14'b00000100000001},'{14'b00000000000010,14'b00000010000000,14'b00000010000001,14'b00000010000010},'{14'b00000000000000,14'b00000010000000,14'b00000100000000,14'b00000100000001},'{14'b00000000000000,14'b00000000000001,14'b00000000000010,14'b00000010000000}},  // piece 4
+		'{'{14'b00000000000000,14'b00000000000001,14'b00000000000010,14'b00000010000001},'{14'b00000000000001,14'b00000010000001,14'b00000010000000,14'b00000100000001},'{14'b00000000000001,14'b00000010000000,14'b00000010000001,14'b00000010000010},'{14'b00000000000001,14'b00000010000001,14'b00000010000010,14'b00000100000001}}  // piece 4
 	}; // array of 3 different peices. each register in the array contains the coordinates
 	// for a block of the peice in the format [13:7]=Y [6:0]=X, relative to (0,0)
-	logic [2:0] piece_count; // index of the next piece to be dropped, not the current
+	logic [3:0] piece_count; // index of the next piece to be dropped, not the current
 	logic piece_rotation;
 	
 	logic move_clk_X, move_clk_Y;
@@ -318,7 +319,10 @@ module Game_Logic (
 										(Board[blockY1+blockY1Motion][blockX1+blockX1Motion]!=1'b1)&&(Board[blockY2+blockY2Motion][blockX2+blockX2Motion]!=1'b1)&& // and if no collisions
 										(Board[blockY3+blockY3Motion][blockX3+blockX3Motion]!=1'b1)&&(Board[blockY4+blockY4Motion][blockX4+blockX4Motion]!=1'b1)
 										) begin
-											block_orientation <= ~block_orientation;
+											if (block_orientation == 3)
+												block_orientation <= 0;
+											else
+												block_orientation <= block_orientation + 1;
 											blockX1 <= blockX1 + blockX1Motion;
 											blockX2 <= blockX2 + blockX2Motion;
 											blockX3 <= blockX3 + blockX3Motion;
@@ -403,7 +407,7 @@ module Game_Logic (
 	//							Board[1:18] <= Board[0:17];
 								// end testing
 								
-								block_orientation <= 1'b0;
+								block_orientation <= 0;
 								
 								if (color+1 < number_of_colors)
 									color <= color+1;
@@ -431,14 +435,14 @@ module Game_Logic (
 
 	always_comb begin
 
-		blockX1Motion = (Pieces[piece_count-1][~block_orientation][0][6:0] - Pieces[piece_count-1][block_orientation][0][6:0]);
-		blockX2Motion = (Pieces[piece_count-1][~block_orientation][1][6:0] - Pieces[piece_count-1][block_orientation][1][6:0]);
-		blockX3Motion = (Pieces[piece_count-1][~block_orientation][2][6:0] - Pieces[piece_count-1][block_orientation][2][6:0]);
-		blockX4Motion = (Pieces[piece_count-1][~block_orientation][3][6:0] - Pieces[piece_count-1][block_orientation][3][6:0]);
-		blockY1Motion = (Pieces[piece_count-1][~block_orientation][0][13:7] - Pieces[piece_count-1][block_orientation][0][13:7]);
-		blockY2Motion = (Pieces[piece_count-1][~block_orientation][1][13:7] - Pieces[piece_count-1][block_orientation][1][13:7]);
-		blockY3Motion = (Pieces[piece_count-1][~block_orientation][2][13:7] - Pieces[piece_count-1][block_orientation][2][13:7]);
-		blockY4Motion = (Pieces[piece_count-1][~block_orientation][3][13:7] - Pieces[piece_count-1][block_orientation][3][13:7]);
+		blockX1Motion = (Pieces[piece_count-1][(block_orientation+1)%4][0][6:0] - Pieces[piece_count-1][block_orientation][0][6:0]);
+		blockX2Motion = (Pieces[piece_count-1][(block_orientation+1)%4][1][6:0] - Pieces[piece_count-1][block_orientation][1][6:0]);
+		blockX3Motion = (Pieces[piece_count-1][(block_orientation+1)%4][2][6:0] - Pieces[piece_count-1][block_orientation][2][6:0]);
+		blockX4Motion = (Pieces[piece_count-1][(block_orientation+1)%4][3][6:0] - Pieces[piece_count-1][block_orientation][3][6:0]);
+		blockY1Motion = (Pieces[piece_count-1][(block_orientation+1)%4][0][13:7] - Pieces[piece_count-1][block_orientation][0][13:7]);
+		blockY2Motion = (Pieces[piece_count-1][(block_orientation+1)%4][1][13:7] - Pieces[piece_count-1][block_orientation][1][13:7]);
+		blockY3Motion = (Pieces[piece_count-1][(block_orientation+1)%4][2][13:7] - Pieces[piece_count-1][block_orientation][2][13:7]);
+		blockY4Motion = (Pieces[piece_count-1][(block_orientation+1)%4][3][13:7] - Pieces[piece_count-1][block_orientation][3][13:7]);
 
 		blockXPos[0] = blockX1;
 		blockYPos[0] = blockY1;
