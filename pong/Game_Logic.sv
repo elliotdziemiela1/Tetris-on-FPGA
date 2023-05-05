@@ -10,7 +10,8 @@ module Game_Logic (
 		output logic [15:0] blockColor,
 		output logic Clear_row,
 		output logic [3:0] Num_rows_to_clear,
-		output logic [6:0] Row_to_clear
+		output logic [6:0] Row_to_clear,
+		output logic [4:0] Score_to_add [4]
 
 	);
 	
@@ -66,6 +67,9 @@ module Game_Logic (
 	
 	logic move_clk_X, move_clk_Y;
 	logic [5:0] frame_count_move_X, frame_count_move_Y, frame_count_rotate;
+	
+	logic [4:0] score_to_add [4];
+	assign Score_to_add = score_to_add;
 	
 	enum logic [15:0] {Wait, clear1, clear2, clear3, clear4} state;
 	logic [6:0] clear_counter, clear_counter_start;
@@ -150,10 +154,24 @@ module Game_Logic (
 					
 		  end
 		  
+		  score_to_add[0] <= 5'h0;
+		  score_to_add[1] <= 5'h0;
+		  score_to_add[2] <= 5'h0;
+		  score_to_add[3] <= 5'h0;
 		  // row clearing state machine. clear_counter_start should be the topmost row of the clear.
 		  unique case (state)
 				Wait: clear_counter <= 0;
 				clear1: begin
+					if (num_rows_to_clear == 1)
+						score_to_add[0] <= 5'h1;
+					else if (num_rows_to_clear == 2)
+						score_to_add[0] <= 5'h5;
+					else if (num_rows_to_clear == 3)
+						score_to_add[1] <= 5'h1;
+					else if (num_rows_to_clear == 4) begin
+						score_to_add[0] <= 5'h5;
+						score_to_add[1] <= 5'h2;
+					end
 					clear_row_counter <= 0;
 					clear_counter <= clear_counter_start;
 					state <= clear2;
@@ -179,6 +197,7 @@ module Game_Logic (
 				clear4: ;
 				default: ;
 		  endcase
+			
 			
 			
 			
