@@ -10,8 +10,7 @@ module Game_Logic (
 		output logic [15:0] blockColor,
 		output logic Clear_row,
 		output logic [3:0] Num_rows_to_clear,
-		output logic [6:0] Row_to_clear,
-		output logic test_flag
+		output logic [6:0] Row_to_clear
 
 	);
 	
@@ -53,13 +52,13 @@ module Game_Logic (
 	logic [15:0] palette [number_of_colors];
 	assign palette = '{16'h0f00, 16'h05f0, 16'h00a8};
 	
-	logic [13:0] Pieces[number_of_pieces][2][4]; // each peice's block positions for two rotations
+	logic [13:0] Pieces[number_of_pieces][4][4]; // each peice's block positions for two rotations
 	assign Pieces = '{ // Format is for the last block to have the largest Y value to compare for clearing rows and the second block
 	// to have the middle X value
-		'{'{14'b00000000000000,14'b00000010000000,14'b00000010000001,14'b00000100000001},'{14'b00000010000000,14'b00000010000001,14'b00000000000001,14'b00000000000010}}, // piece 1
-		'{'{14'b00000000000000,14'b00000000000001,14'b00000000000010,14'b00000000000011},'{14'b00000000000000,14'b00000010000000,14'b00000100000000,14'b00000110000000}}, // piece 2
-		'{'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001},'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001}}, // piece 3
-		'{'{14'b00000000000000,14'b00000000000001,14'b00000010000001,14'b00000100000001},'{14'b00000010000000,14'b00000000000000,14'b00000000000001,14'b00000000000010}}  // piece 4
+		'{'{14'b00000000000000,14'b00000010000000,14'b00000010000001,14'b00000100000001},'{14'b00000010000000,14'b00000010000001,14'b00000000000001,14'b00000000000010},'{14'b00000000000000,14'b00000010000000,14'b00000010000001,14'b00000100000001},'{14'b00000010000000,14'b00000010000001,14'b00000000000001,14'b00000000000010}}, // piece 1
+		'{'{14'b00000000000000,14'b00000000000001,14'b00000000000010,14'b00000000000011},'{14'b00000000000000,14'b00000010000000,14'b00000100000000,14'b00000110000000},'{14'b00000000000000,14'b00000000000001,14'b00000000000010,14'b00000000000011},'{14'b00000000000000,14'b00000010000000,14'b00000100000000,14'b00000110000000}}, // piece 2
+		'{'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001},'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001},'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001},'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001}}, // piece 3
+		'{'{14'b00000000000000,14'b00000000000001,14'b00000010000001,14'b00000100000001},'{14'b00000010000000,14'b00000000000000,14'b00000000000001,14'b00000000000010},'{14'b00000000000000,14'b00000000000001,14'b00000010000001,14'b00000100000001},'{14'b00000010000000,14'b00000000000000,14'b00000000000001,14'b00000000000010}}  // piece 4
 	}; // array of 3 different peices. each register in the array contains the coordinates
 	// for a block of the peice in the format [13:7]=Y [6:0]=X, relative to (0,0)
 	logic [2:0] piece_count; // index of the next piece to be dropped, not the current
@@ -70,7 +69,6 @@ module Game_Logic (
 	
 	enum logic [15:0] {Wait, clear1, clear2, clear3, clear4} state;
 	logic [6:0] clear_counter;
-	
 	
 	
 	
@@ -98,7 +96,7 @@ module Game_Logic (
 						  
 				8'h16 : begin
 							if ((blockY1<board_height)&&(blockY2<board_height)&&(blockY3<board_height)&&(blockY4<board_height)) begin
-								frames_per_move_Y <= default_frames_per_move_Y / 3; // S
+								frames_per_move_Y <= 2; // S
 							end
 						 end
 				8'd26 : begin // W
@@ -149,7 +147,7 @@ module Game_Logic (
 					
 					block_orientation <= 1'b0;
 					
-					test_flag = 1'b0;
+					num_rows_to_clear <= 0;
 					
 		  end
 		  
@@ -197,14 +195,22 @@ module Game_Logic (
 					if ((Board[blockYLanded[3]]==10'b1111111111) && (blockYLanded[3] >= 1)) begin // determines if there's a row to clear, then
 					// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
 						clear_row <= 1'b1;
-						row_to_clear <= blockYPrevious[3];
+						row_to_clear <= blockYLanded[3];
+						num_rows_to_clear <= 1;
 						state <= clear1;
-						clear_counter <= blockYPrevious[3];
-//						if (Board[blockYPrevious[3]-1]==10'b1111111111) begin
+						clear_counter <= 18;
+						// Testing
+//							clear_row <= 1'b1;
+//							num_rows_to_clear <= 1;
+//							row_to_clear <= 18;
+//							Board[1:18] <= Board[0:17];
+						// end testing
+						
+//						if (Board[blockYLanded[3]-1]==10'b1111111111) begin
 //							num_rows_to_clear <= 2;
-//							if (blockYPrevious[3] >= 2 && Board[blockYPrevious[3]-2]==10'b1111111111) begin
+//							if (blockYLanded[3] >= 2 && Board[blockYLanded[3]-2]==10'b1111111111) begin
 //								num_rows_to_clear <= 3;
-//								if (blockYPrevious[3] >= 3 && Board[blockYPrevious[3]-3]==10'b1111111111) begin
+//								if (blockYLanded[3] >= 3 && Board[blockYLanded[3]-3]==10'b1111111111) begin
 //									num_rows_to_clear <= 4;
 //								end
 //							end
@@ -213,14 +219,22 @@ module Game_Logic (
 					if ((Board[blockYLanded[2]]==10'b1111111111) && (blockYLanded[2] >= 1)) begin // determines if there's a row to clear, then
 					// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
 						clear_row <= 1'b1;
-						row_to_clear <= blockYPrevious[2];
+						row_to_clear <= blockYLanded[2];
+						num_rows_to_clear <= 1;
 						state <= clear1;
-						clear_counter <= blockYPrevious[2];
-//						if (Board[blockYPrevious[3]-1]==10'b1111111111) begin
+						clear_counter <= 18;
+						// Testing
+//							clear_row <= 1'b1;
+//							num_rows_to_clear <= 1;
+//							row_to_clear <= 18;
+//							Board[1:18] <= Board[0:17];
+						// end testing
+						
+//						if (Board[blockYLanded[3]-1]==10'b1111111111) begin
 //							num_rows_to_clear <= 2;
-//							if (blockYPrevious[3] >= 2 && Board[blockYPrevious[3]-2]==10'b1111111111) begin
+//							if (blockYLanded[3] >= 2 && Board[blockYLanded[3]-2]==10'b1111111111) begin
 //								num_rows_to_clear <= 3;
-//								if (blockYPrevious[3] >= 3 && Board[blockYPrevious[3]-3]==10'b1111111111) begin
+//								if (blockYLanded[3] >= 3 && Board[blockYLanded[3]-3]==10'b1111111111) begin
 //									num_rows_to_clear <= 4;
 //								end
 //							end
@@ -229,14 +243,21 @@ module Game_Logic (
 					if ((Board[blockYLanded[1]]==10'b1111111111) && (blockYLanded[1] >= 1)) begin // determines if there's a row to clear, then
 					// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
 						clear_row <= 1'b1;
-						row_to_clear <= blockYPrevious[1];
+						row_to_clear <= blockYLanded[1];
+						num_rows_to_clear <= 1;
 						state <= clear1;
-						clear_counter <= blockYPrevious[1];
-//						if (Board[blockYPrevious[3]-1]==10'b1111111111) begin
+						clear_counter <= 18;
+						// Testing
+//							clear_row <= 1'b1;
+//							num_rows_to_clear <= 1;
+//							row_to_clear <= 18;
+//							Board[1:18] <= Board[0:17];
+						// end testing
+//						if (Board[blockYLanded[3]-1]==10'b1111111111) begin
 //							num_rows_to_clear <= 2;
-//							if (blockYPrevious[3] >= 2 && Board[blockYPrevious[3]-2]==10'b1111111111) begin
+//							if (blockYLanded[3] >= 2 && Board[blockYLanded[3]-2]==10'b1111111111) begin
 //								num_rows_to_clear <= 3;
-//								if (blockYPrevious[3] >= 3 && Board[blockYPrevious[3]-3]==10'b1111111111) begin
+//								if (blockYLanded[3] >= 3 && Board[blockYLanded[3]-3]==10'b1111111111) begin
 //									num_rows_to_clear <= 4;
 //								end
 //							end
@@ -245,14 +266,22 @@ module Game_Logic (
 					if ((Board[blockYLanded[0]]==10'b1111111111) && (blockYLanded[0] >= 1)) begin // determines if there's a row to clear, then
 					// looks at rows above it to see how many to clear (num_rows_to_clear referes to rows above the row_to_clear)
 						clear_row <= 1'b1;
-						row_to_clear <= blockYPrevious[0];
+						row_to_clear <= blockYLanded[0];
+						num_rows_to_clear <= 1;
 						state <= clear1;
-						clear_counter <= blockYPrevious[0];
-//						if (Board[blockYPrevious[3]-1]==10'b1111111111) begin
+						clear_counter <= 18;
+						// Testing
+//							clear_row <= 1'b1;
+//							num_rows_to_clear <= 1;
+//							row_to_clear <= 18;
+//							Board[1:18] <= Board[0:17];
+						// end testing
+						// end testing
+//						if (Board[blockYLanded[3]-1]==10'b1111111111) begin
 //							num_rows_to_clear <= 2;
-//							if (blockYPrevious[3] >= 2 && Board[blockYPrevious[3]-2]==10'b1111111111) begin
+//							if (blockYLanded[3] >= 2 && Board[blockYLanded[3]-2]==10'b1111111111) begin
 //								num_rows_to_clear <= 3;
-//								if (blockYPrevious[3] >= 3 && Board[blockYPrevious[3]-3]==10'b1111111111) begin
+//								if (blockYLanded[3] >= 3 && Board[blockYLanded[3]-3]==10'b1111111111) begin
 //									num_rows_to_clear <= 4;
 //								end
 //							end
@@ -315,7 +344,6 @@ module Game_Logic (
 					 //
 					 // move_clk_Y logic
 					 //
-					 test_flag = 1'b0;
 					 if (frame_count_move_Y >= frames_per_move_Y) begin: MoveY_Block
 						frame_count_move_Y <= 0;
 						blockYMotion <= 1;
@@ -328,8 +356,6 @@ module Game_Logic (
 						Board[blockY4+blockYMotion][blockX4]==1'b1 || (blockY4+blockYMotion>board_height)
 						) begin // collision with other block or bottom of screen
 							// new block generated
-							test_flag = 1'b1;
-							
 							blockYPrevious[0] <= 7'b0;
 							blockYPrevious[1] <= 7'b0;
 							blockYPrevious[2] <= 7'b0;
