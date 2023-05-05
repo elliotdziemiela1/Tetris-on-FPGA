@@ -44,22 +44,52 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 	 font_rom font(.addr(sprite_addr), .data(sprite_data));
 	 
 // Backup version start
-//always_ff @(posedge frame_clk or posedge reset)
-//begin
-//if(reset)
-//	counter <= 8'b0;
-//else
-//	begin
-//		if(display == 1'b1);
-//			counter <= 1'b1;
-//		else if(counter == 8'd60)
-//			counter <= 8'b0;
-//		else if(counter > 0)
-//			counter <= counter + 8'b01;
-//	end
-//
-//end
-//
+always_ff @(posedge frame_clk or posedge reset)
+begin
+if(reset)
+	counter <= 8'b0;
+else
+	begin
+		if(display == 1'b1)
+			counter <= 1'b1;
+		else if(counter == 8'd60)
+			counter <= 8'b0;
+		else if(counter > 0)
+			counter <= counter + 8'b01;
+	end
+
+end
+
+always_ff @(posedge Clk or posedge reset)
+begin
+if(reset)
+	begin
+	score1 <= 5'b0;
+	score0 <= 5'b0;
+	display <= 1'b0;
+	frame_clk_flag <= 1'b0;
+	end
+else
+begin
+	if(score_to_add[0] > 0 || score_to_add[1] > 0) // Lock in score and set display
+		begin
+		score1 <= score_to_add[1];
+		score0 <= score_to_add[0];
+		display <= 1'b1;
+		end
+
+	 if (display && frame_clk == 1 && counter == 8'b0) 
+	         begin
+				score1 <= 5'b0;
+				score0 <= 5'b0;
+				display <= 1'b0;
+				end
+end
+end
+
+//Backup Version end
+	 
+	 
 //always_ff @(posedge Clk or posedge reset)
 //begin
 //if(reset)
@@ -78,56 +108,25 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 //		score0 <= score_to_add[0];
 //		display <= 1'b1;
 //		end
-//
-//	 if (display && frame_clk == 1 && counter == 8'b0) 
+//	 if (frame_clk == 1'b0) 
+//		begin
+//			frame_clk_flag <= 1'b0;
+//		end
+//	 if (frame_clk == 1'b1 && frame_clk_flag == 1'b0 && counter == 8'd60) 
 //	         begin
+//				frame_clk_flag <= 1'b1;
 //				score1 <= 5'b0;
 //				score0 <= 5'b0;
+//				counter <= 8'b0;
 //				display <= 1'b0;
 //				end
+//	  else if (frame_clk == 1'b1 && frame_clk_flag == 1'b0) 
+//	         begin
+//				frame_clk_flag <= 1'b1;
+//				counter <= counter + 1'b1;
+//		      end
 //end
 //end
-
-//Backup Version end
-	 
-	 
-always_ff @(posedge Clk or posedge reset)
-begin
-if(reset)
-	begin
-	score1 <= 5'b0;
-	score0 <= 5'b0;
-	display <= 1'b0;
-	counter <= 8'b0;
-	frame_clk_flag <= 1'b0;
-	end
-else
-begin
-	if(score_to_add[0] > 0 || score_to_add[1] > 0) // Lock in score and set display
-		begin
-		score1 <= score_to_add[1];
-		score0 <= score_to_add[0];
-		display <= 1'b1;
-		end
-	 if (frame_clk == 1'b0) 
-		begin
-			frame_clk_flag <= 1'b0;
-		end
-	 if (frame_clk == 1'b1 && frame_clk_flag == 1'b0 && counter == 8'd60) 
-	         begin
-				frame_clk_flag <= 1'b1;
-				score1 <= 5'b0;
-				score0 <= 5'b0;
-				counter <= 8'b0;
-				display <= 1'b0;
-				end
-	  else if (frame_clk == 1'b1 && frame_clk_flag == 1'b0) 
-	         begin
-				frame_clk_flag <= 1'b1;
-				counter <= counter + 1'b1;
-		      end
-end
-end
 	 
 //always_ff @(posedge frame_clk or posedge reset)
 //begin
