@@ -250,7 +250,7 @@ tetris tet (.*, .read_reg(Row), .clk(MAX10_CLK1_50), .vs(~VGA_VS), .hs(~VGA_HS),
 	
 Game_Logic game (.Reset(Reset_h), .frame_clk(~VGA_VS), .Clk(MAX10_CLK1_50), .keycode(keycode), .blockXPos(blockXPos), 
 	.blockYPos(blockYPos), .blockXPrev(blockXPrev), .blockYPrev(blockYPrev), .blockColor(blockColor), .Clear_row(Clear_row), 
-	.Num_rows_to_clear(Num_rows_to_clear), .Row_to_clear(Row_to_clear), .Score_to_add(Score_to_add));
+	.Num_rows_to_clear(Num_rows_to_clear), .Row_to_clear(Row_to_clear), .Score_to_add(Score_to_add), .time_left(game_clock));
 
 //color_mapper colormap (.blockx1(blockXPos[0]), .blocky1(blockYPos[0]), .blockx2(blockXPos[1]), .blocky2(blockYPos[1]), .blockx3(blockXPos[2]), 
 //	.blocky3(blockYPos[2]), .blockx4(blockXPos[3]), .blocky4(blockYPos[3]), .DrawX(drawxsig), .DrawY(drawysig), .Ball_size(ballsizesig), .Red(Red), .Green(Green), .Blue(Blue));

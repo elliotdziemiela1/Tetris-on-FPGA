@@ -3971,3 +3971,57 @@ Caused by: org.eclipse.swt.SWTException: Widget is disposed
 
 !ENTRY com.altera.sbtgui.launch 1 0 2023-05-04 23:28:25.187
 !MESSAGE Executing: [C:/intelfpga_lite/18.1/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x11d0 --id=0x0 --timestamp=1682978260 /cygdrive/c/Users/user1/Desktop/NES-on-FPGA/pong/software/usb_kb/usb_kb.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 11:35:19.557
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 11:35:20.615
+!MESSAGE Executing: [C:/intelfpga_lite/18.1/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x11d0 --id=0x0 --timestamp=1682978260]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 11:35:22.740
+!MESSAGE Executing: [C:/intelfpga_lite/18.1/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x11d0 --id=0x0 --timestamp=1682978260 /cygdrive/c/Users/user1/Desktop/NES-on-FPGA/pong/software/usb_kb/usb_kb.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 11:41:45.111
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 11:41:46.173
+!MESSAGE Executing: [C:/intelfpga_lite/18.1/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x11d0 --id=0x0 --timestamp=1682978260]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 11:41:48.314
+!MESSAGE Executing: [C:/intelfpga_lite/18.1/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x11d0 --id=0x0 --timestamp=1682978260 /cygdrive/c/Users/user1/Desktop/NES-on-FPGA/pong/software/usb_kb/usb_kb.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 11:49:51.750
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 11:49:52.784
+!MESSAGE Executing: [C:/intelfpga_lite/18.1/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x11d0 --id=0x0 --timestamp=1682978260]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 11:49:54.905
+!MESSAGE Executing: [C:/intelfpga_lite/18.1/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x11d0 --id=0x0 --timestamp=1682978260 /cygdrive/c/Users/user1/Desktop/NES-on-FPGA/pong/software/usb_kb/usb_kb.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 11:57:14.966
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 11:57:16.017
+!MESSAGE Executing: [C:/intelfpga_lite/18.1/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x11d0 --id=0x0 --timestamp=1682978260]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 11:57:18.156
+!MESSAGE Executing: [C:/intelfpga_lite/18.1/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x11d0 --id=0x0 --timestamp=1682978260 /cygdrive/c/Users/user1/Desktop/NES-on-FPGA/pong/software/usb_kb/usb_kb.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 12:06:53.060
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 12:06:54.109
+!MESSAGE Executing: [C:/intelfpga_lite/18.1/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x11d0 --id=0x0 --timestamp=1682978260]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 12:06:56.253
+!MESSAGE Executing: [C:/intelfpga_lite/18.1/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x11d0 --id=0x0 --timestamp=1682978260 /cygdrive/c/Users/user1/Desktop/NES-on-FPGA/pong/software/usb_kb/usb_kb.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 12:28:16.597
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 12:28:17.577
+!MESSAGE Executing: [C:/intelfpga_lite/18.1/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x11d0 --id=0x0 --timestamp=1682978260]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2023-05-05 12:28:19.504
+!MESSAGE Executing: [C:/intelfpga_lite/18.1/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x11d0 --id=0x0 --timestamp=1682978260 /cygdrive/c/Users/user1/Desktop/NES-on-FPGA/pong/software/usb_kb/usb_kb.elf]
