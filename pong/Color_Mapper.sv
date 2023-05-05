@@ -228,9 +228,9 @@ end
 				if(DrawX < ((right_edge)+8*1))
 						sprite_addr = (({1'b0, DrawY} - (squareSize*clear_row)) + 16*(11'h2b)); // Code for 0 is x30
 				else if(DrawX < ((right_edge)+8*2))
-						sprite_addr = (({1'b0, DrawY} - (squareSize*clear_row)) + 16*({6'b0, score_to_add[1]} + 11'h30)); // Code for 1 is x31
+						sprite_addr = (({1'b0, DrawY} - (squareSize*clear_row)) + 16*({6'b0, score1} + 11'h30)); // Code for 1 is x31
 				else
-						sprite_addr = (({1'b0, DrawY} - (squareSize*clear_row)) + 16*({6'b0, score_to_add[0]} + 11'h30)); // Code for 1 is x31
+						sprite_addr = (({1'b0, DrawY} - (squareSize*clear_row)) + 16*({6'b0, score0} + 11'h30)); // Code for 1 is x31
 		  
 		  		if(sprite_data[3'd7 - (((DrawX - (right_edge)) % 8))] == 1'b1)
 						begin
