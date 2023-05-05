@@ -79,6 +79,17 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 		  sprite_addr = 11'b0; // Default font address
 		  fade = 8'h00;
 		  pointer = 11'h00;
+		  unique case (cool_points)
+				A: begin
+					fade = 8'h00;
+					pointer = 11'h0;
+					end
+				B:	begin
+					fade = 8'h04;
+					pointer = 11'h01;
+					end
+				default: ;
+		  endcase
         if ((DrawX >= (left_edge)) && (DrawX < (right_edge) && (DrawY < (squareSize*20))))  // if drawing in board
         begin
 				if(((DrawX-(left_edge))%(squareSize) == 0 || (DrawX-(left_edge))%(squareSize) == (squareSize - 1) ||
@@ -149,17 +160,6 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 		  // Pointer adder +5
 		  else if(DrawX >= (right_edge) && DrawX < ((right_edge)+8*3) && DrawY >= (16 + pointer) && DrawY < (16 + pointer + 8'h10))
 		  begin
-				unique case (cool_points)
-				A: begin
-					fade = 8'h00;
-					pointer = 11'h0;
-					end
-				B:	begin
-					fade = 8'h04;
-					pointer = 11'h01;
-					end
-				default: ;
-				endcase
 				if(DrawX < ((right_edge)+8*1))
 						sprite_addr = (({1'b0, DrawY} - (16 + pointer)) + 16*(11'h2b)); // Code for 0 is x30
 				else if(DrawX < ((right_edge)+8*2))
