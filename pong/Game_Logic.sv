@@ -11,7 +11,8 @@ module Game_Logic (
 		output logic Clear_row,
 		output logic [3:0] Num_rows_to_clear,
 		output logic [6:0] Row_to_clear,
-		output logic [4:0] Score_to_add [4]
+		output logic [4:0] Score_to_add [4],
+		input logic [3:0] time_left [3]
 
 	);
 	
@@ -24,8 +25,10 @@ module Game_Logic (
 	parameter [49:0] keystroke_sample_period = 50'h10000;
 	parameter [4:0] number_of_pieces = 5'd5; // 1 indexed
 	
-	parameter [7:0] default_frames_per_move_Y = 13;
-	logic [7:0] frames_per_move_Y;
+	parameter [7:0] default_frames_per_move_Y1 = 15;
+	parameter [7:0] default_frames_per_move_Y2 = 10;
+	parameter [7:0] default_frames_per_move_Y3 = 5;
+	logic [7:0] frames_per_move_Y, current_frames_per_move_Y;
 	
 	logic frame_clk_flag;
 	
@@ -82,7 +85,7 @@ module Game_Logic (
 	
 		always_ff @ (posedge Clk )
 		 begin: Input_Block
-			frames_per_move_Y <= default_frames_per_move_Y;
+			frames_per_move_Y <= current_frames_per_move_Y;
 			A_held <= 0;
 			D_held <= 0;
 			W_held <= 0;
@@ -158,6 +161,8 @@ module Game_Logic (
 					
 					power_up <= 0;
 					game_over <= 0;
+					
+					current_frames_per_move_Y <= default_frames_per_move_Y1;
 					
 		  end
 		  
@@ -250,6 +255,16 @@ module Game_Logic (
 						piece_count <= 0;
 					else
 						piece_count <= piece_count + 1;
+						
+					if ((time_left[2]==0)&&(time_left[1]==0)&&(time_left[0]==0)) begin
+						game_over <= 1;	
+					end
+					else if ((time_left[2] == 0) && (time_left[1] <= 2)) begin
+						current_frames_per_move_Y <= default_frames_per_move_Y3;
+					end
+					else if ((time_left[2] == 0)) begin
+						current_frames_per_move_Y <= default_frames_per_move_Y2;
+					end
 					
 					// 
 					// clear row logic
