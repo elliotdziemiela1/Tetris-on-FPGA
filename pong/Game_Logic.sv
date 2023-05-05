@@ -398,14 +398,29 @@ module Game_Logic (
 								Board[blockY2][blockX2] <= 1'b1;
 								Board[blockY3][blockX3] <= 1'b1;
 								Board[blockY4][blockX4] <= 1'b1;
-								blockY1 <= Pieces[piece_count][0][0][13:7];
-								blockY2 <= Pieces[piece_count][0][1][13:7];
-								blockY3 <= Pieces[piece_count][0][2][13:7];
-								blockY4 <= Pieces[piece_count][0][3][13:7];
-								blockX1 <= Pieces[piece_count][0][0][6:0] + (board_width>>1); // divided by 2
-								blockX2 <= Pieces[piece_count][0][1][6:0] + (board_width>>1);
-								blockX3 <= Pieces[piece_count][0][2][6:0] + (board_width>>1);
-								blockX4 <= Pieces[piece_count][0][3][6:0] + (board_width>>1);
+								
+								if (piece_count != current_piece) begin
+									blockY1 <= Pieces[piece_count][0][0][13:7];
+									blockY2 <= Pieces[piece_count][0][1][13:7];
+									blockY3 <= Pieces[piece_count][0][2][13:7];
+									blockY4 <= Pieces[piece_count][0][3][13:7];
+									blockX1 <= Pieces[piece_count][0][0][6:0] + (board_width>>1); // divided by 2
+									blockX2 <= Pieces[piece_count][0][1][6:0] + (board_width>>1);
+									blockX3 <= Pieces[piece_count][0][2][6:0] + (board_width>>1);
+									blockX4 <= Pieces[piece_count][0][3][6:0] + (board_width>>1);
+									current_piece <= piece_count;
+								end
+								else begin
+									blockY1 <= Pieces[(piece_count+1)%number_of_pieces][0][0][13:7];
+									blockY2 <= Pieces[(piece_count+1)%number_of_pieces][0][1][13:7];
+									blockY3 <= Pieces[(piece_count+1)%number_of_pieces][0][2][13:7];
+									blockY4 <= Pieces[(piece_count+1)%number_of_pieces][0][3][13:7];
+									blockX1 <= Pieces[(piece_count+1)%number_of_pieces][0][0][6:0] + (board_width>>1); // divided by 2
+									blockX2 <= Pieces[(piece_count+1)%number_of_pieces][0][1][6:0] + (board_width>>1);
+									blockX3 <= Pieces[(piece_count+1)%number_of_pieces][0][2][6:0] + (board_width>>1);
+									blockX4 <= Pieces[(piece_count+1)%number_of_pieces][0][3][6:0] + (board_width>>1);
+									current_piece <= (piece_count+1)%number_of_pieces;
+								end
 								
 								// Testing
 	//							clear_row <= 1'b1;
@@ -416,7 +431,6 @@ module Game_Logic (
 								
 								block_orientation <= 0;
 								
-								current_piece <= piece_count; 
 								
 								if (color+1 < number_of_colors)
 									color <= color+1;
