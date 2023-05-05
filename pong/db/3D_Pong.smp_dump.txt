@@ -4,6 +4,19 @@ Name state.S1
 state.Wait 0 
 state.S1 1 
 
+State Machine - |lab62|color_mapper:colormap|cool_points
+Name cool_points.B 
+cool_points.A 0 
+cool_points.B 1 
+
+State Machine - |lab62|Game_Logic:game|state
+Name state.clear3 state.clear2 state.clear1 state.Wait state.clear4 
+state.Wait 0 0 0 0 0 
+state.clear1 0 0 1 1 0 
+state.clear2 0 1 0 1 0 
+state.clear3 1 0 0 1 0 
+state.clear4 0 0 0 1 1 
+
 State Machine - |lab62|tetris:tet|state
 Name state.MemWrite5 state.MemWrite4 state.MemWrite3 state.MemWrite2 state.MemWrite1 state.MemRead4 state.MemRead3 state.MemRead2 state.MemRead1 state.QWD state.QWC state.QWB state.QWA state.RAI state.FRA state.RA state.PRA state.FWD state.WD state.PWD state.FWC state.WC state.PWC state.FWB state.WB state.PWB state.FWA state.WA state.PWA state.Init_RAM5 state.Init_RAM4 state.Init_RAM3 state.Init_RAM2 state.Hold1 state.Hold2 state.Init_RAM1 
 state.Init_RAM1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
