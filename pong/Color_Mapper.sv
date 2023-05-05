@@ -66,18 +66,19 @@ begin
 		begin
 			frame_clk_flag <= 1'b0;
 		end
-	 if (frame_clk == 1'b1 && frame_clk_flag == 1'b0) begin
+	 if (frame_clk == 1'b1 && frame_clk_flag == 1'b0 && counter == 8'd60) 
+	         begin
 				frame_clk_flag <= 1'b1;
-				if(counter == 8'd60)
-					begin
-					score1 <= 5'b0;
-					score0 <= 5'b0;
-					counter <= 8'b0;
-					display <= 1'b0;
-					end
-			else
+				score1 <= 5'b0;
+				score0 <= 5'b0;
+				counter <= 8'b0;
+				display <= 1'b0;
+				end
+	  else if (frame_clk == 1'b1 && frame_clk_flag == 1'b0) 
+	         begin
+				frame_clk_flag <= 1'b1;
 				counter <= counter + 1'b1;
-		end
+		      end
 end
 end
 	 
