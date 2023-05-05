@@ -58,13 +58,14 @@ module Game_Logic (
 	// to have the middle X value
 		'{'{14'b00000000000000,14'b00000010000000,14'b00000010000001,14'b00000100000001},'{14'b00000000000001,14'b00000000000010,14'b00000010000000,14'b00000010000001},'{14'b00000000000000,14'b00000010000000,14'b00000010000001,14'b00000100000001},'{14'b00000000000001,14'b00000000000010,14'b00000010000000,14'b00000010000001}}, // piece 1
 		'{'{14'b00000000000000,14'b00000000000001,14'b00000000000010,14'b00000000000011},'{14'b00000000000000,14'b00000010000000,14'b00000100000000,14'b00000110000000},'{14'b00000000000000,14'b00000000000001,14'b00000000000010,14'b00000000000011},'{14'b00000000000000,14'b00000010000000,14'b00000100000000,14'b00000110000000}}, // piece 2
+		'{'{14'b00000000000000,14'b00000000000001,14'b00000000000010,14'b00000010000001},'{14'b00000000000001,14'b00000010000001,14'b00000010000000,14'b00000100000001},'{14'b00000000000001,14'b00000010000000,14'b00000010000001,14'b00000010000010},'{14'b00000000000001,14'b00000010000001,14'b00000010000010,14'b00000100000001}},  // piece 4
 		'{'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001},'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001},'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001},'{14'b00000000000000,14'b00000000000001,14'b00000010000000,14'b00000010000001}}, // piece 3
-		'{'{14'b00000000000000,14'b00000000000001,14'b00000010000001,14'b00000100000001},'{14'b00000000000010,14'b00000010000000,14'b00000010000001,14'b00000010000010},'{14'b00000000000000,14'b00000010000000,14'b00000100000000,14'b00000100000001},'{14'b00000000000000,14'b00000000000001,14'b00000000000010,14'b00000010000000}},  // piece 4
-		'{'{14'b00000000000000,14'b00000000000001,14'b00000000000010,14'b00000010000001},'{14'b00000000000001,14'b00000010000001,14'b00000010000000,14'b00000100000001},'{14'b00000000000001,14'b00000010000000,14'b00000010000001,14'b00000010000010},'{14'b00000000000001,14'b00000010000001,14'b00000010000010,14'b00000100000001}}  // piece 4
-	}; // array of 3 different peices. each register in the array contains the coordinates
+		'{'{14'b00000000000000,14'b00000000000001,14'b00000010000001,14'b00000100000001},'{14'b00000000000010,14'b00000010000000,14'b00000010000001,14'b00000010000010},'{14'b00000000000000,14'b00000010000000,14'b00000100000000,14'b00000100000001},'{14'b00000000000000,14'b00000000000001,14'b00000000000010,14'b00000010000000}}  // piece 4
+		}; // array of 3 different peices. each register in the array contains the coordinates
 	// for a block of the peice in the format [13:7]=Y [6:0]=X, relative to (0,0)
 	logic [3:0] piece_count; // index of the next piece to be dropped, not the current
 	logic piece_rotation;
+	logic [3:0] current_piece;
 	
 	logic move_clk_X, move_clk_Y;
 	logic [5:0] frame_count_move_X, frame_count_move_Y, frame_count_rotate;
@@ -142,7 +143,8 @@ module Game_Logic (
 					blockYLanded[2] <= 7'b0;
 					blockYLanded[3] <= 7'b0;
 					
-					piece_count <= 1;
+					piece_count <= 0;
+					current_piece <= 0;
 					piece_rotation <= 0;
 					color <= 0;
 					Board <= '{default: 16'h0};
@@ -216,6 +218,11 @@ module Game_Logic (
 					blockYPrevious[1] <= blockY2;
 					blockYPrevious[2] <= blockY3;
 					blockYPrevious[3] <= blockY4;
+					
+					if (piece_count == number_of_pieces-1)
+						piece_count <= 0;
+					else
+						piece_count <= piece_count + 1;
 					
 					frame_clk_flag <= 1'b1;
 					
@@ -409,15 +416,13 @@ module Game_Logic (
 								
 								block_orientation <= 0;
 								
+								current_piece <= piece_count; 
+								
 								if (color+1 < number_of_colors)
 									color <= color+1;
 								else 
 									color <= 0;
 									
-								if (piece_count == number_of_pieces-1)
-									piece_count <= 0;
-								else
-									piece_count <= piece_count + 1;
 							end
 							else begin
 								blockY1 <= blockY1 + blockYMotion;
@@ -432,17 +437,16 @@ module Game_Logic (
 			end
 	  end	
 
-
 	always_comb begin
 
-		blockX1Motion = (Pieces[piece_count-1][(block_orientation+1)%4][0][6:0] - Pieces[piece_count-1][block_orientation][0][6:0]);
-		blockX2Motion = (Pieces[piece_count-1][(block_orientation+1)%4][1][6:0] - Pieces[piece_count-1][block_orientation][1][6:0]);
-		blockX3Motion = (Pieces[piece_count-1][(block_orientation+1)%4][2][6:0] - Pieces[piece_count-1][block_orientation][2][6:0]);
-		blockX4Motion = (Pieces[piece_count-1][(block_orientation+1)%4][3][6:0] - Pieces[piece_count-1][block_orientation][3][6:0]);
-		blockY1Motion = (Pieces[piece_count-1][(block_orientation+1)%4][0][13:7] - Pieces[piece_count-1][block_orientation][0][13:7]);
-		blockY2Motion = (Pieces[piece_count-1][(block_orientation+1)%4][1][13:7] - Pieces[piece_count-1][block_orientation][1][13:7]);
-		blockY3Motion = (Pieces[piece_count-1][(block_orientation+1)%4][2][13:7] - Pieces[piece_count-1][block_orientation][2][13:7]);
-		blockY4Motion = (Pieces[piece_count-1][(block_orientation+1)%4][3][13:7] - Pieces[piece_count-1][block_orientation][3][13:7]);
+		blockX1Motion = (Pieces[current_piece][(block_orientation+1)%4][0][6:0] - Pieces[current_piece][block_orientation][0][6:0]);
+		blockX2Motion = (Pieces[current_piece][(block_orientation+1)%4][1][6:0] - Pieces[current_piece][block_orientation][1][6:0]);
+		blockX3Motion = (Pieces[current_piece][(block_orientation+1)%4][2][6:0] - Pieces[current_piece][block_orientation][2][6:0]);
+		blockX4Motion = (Pieces[current_piece][(block_orientation+1)%4][3][6:0] - Pieces[current_piece][block_orientation][3][6:0]);
+		blockY1Motion = (Pieces[current_piece][(block_orientation+1)%4][0][13:7] - Pieces[current_piece][block_orientation][0][13:7]);
+		blockY2Motion = (Pieces[current_piece][(block_orientation+1)%4][1][13:7] - Pieces[current_piece][block_orientation][1][13:7]);
+		blockY3Motion = (Pieces[current_piece][(block_orientation+1)%4][2][13:7] - Pieces[current_piece][block_orientation][2][13:7]);
+		blockY4Motion = (Pieces[current_piece][(block_orientation+1)%4][3][13:7] - Pieces[current_piece][block_orientation][3][13:7]);
 
 		blockXPos[0] = blockX1;
 		blockYPos[0] = blockY1;
