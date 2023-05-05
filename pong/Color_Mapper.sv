@@ -160,14 +160,14 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 						end
 				end
 		  // Pointer adder +5
-		  else if(DrawX >= (right_edge) && DrawX < ((right_edge)+8*3) && DrawY >= (16*clear_row) && DrawY < (16*clear_row + 8'h10))
+		  else if(DrawX >= (right_edge) && DrawX < ((right_edge)+8*3) && DrawY >= (squareSize*clear_row) && DrawY < (squareSize*clear_row + 10'h10) && (score[1] + score[0] > 0))
 		  begin
 				if(DrawX < ((right_edge)+8*1))
-						sprite_addr = (({1'b0, DrawY} - (16*clear_row)) + 16*(11'h2b)); // Code for 0 is x30
+						sprite_addr = (({1'b0, DrawY} - (squareSize*clear_row)) + 16*(11'h2b)); // Code for 0 is x30
 				else if(DrawX < ((right_edge)+8*2))
-						sprite_addr = (({1'b0, DrawY} - (16*clear_row)) + 16*(11'h31)); // Code for 1 is x31
+						sprite_addr = (({1'b0, DrawY} - (squareSize*clear_row)) + 16*({6'b0, score[1]} + 11'h30)); // Code for 1 is x31
 				else
-						sprite_addr = (({1'b0, DrawY} - (16*clear_row)) + 16*(11'h30)); // Code for 1 is x31
+						sprite_addr = (({1'b0, DrawY} - (squareSize*clear_row)) + 16*({6'b0, score[0]} + 11'h30)); // Code for 1 is x31
 		  
 		  		if(sprite_data[3'd7 - (((DrawX - (right_edge)) % 8))] == 1'b1)
 						begin
