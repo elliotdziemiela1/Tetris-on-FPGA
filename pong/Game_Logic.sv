@@ -20,7 +20,7 @@ module Game_Logic (
 	parameter [7:0] frames_per_move_X = 5;
 //	parameter [7:0] frames_per_move_Y = 13;
 	parameter [7:0] frames_per_rotate = 5;
-	parameter [4:0] number_of_colors = 3; // 1 indexed
+	parameter [4:0] number_of_colors = 4; // 1 indexed
 	parameter [49:0] keystroke_sample_period = 50'h10000;
 	parameter [4:0] number_of_pieces = 5'd5; // 1 indexed
 	
@@ -51,7 +51,7 @@ module Game_Logic (
 	logic [4:0] color;
 	
 	logic [15:0] palette [number_of_colors];
-	assign palette = '{16'h0f00, 16'h05f0, 16'h00a8};
+	assign palette = '{16'h0f00, 16'h05f0, 16'h00fb, 16'h0ff0};
 	
 	logic [13:0] Pieces[number_of_pieces][4][4]; // each peice's block positions for two rotations
 	assign Pieces = '{ // Format is for the last block to have the largest Y value to compare for clearing rows and the second block
@@ -171,27 +171,31 @@ module Game_Logic (
 				clear1: begin
 					if (num_rows_to_clear == 1)
 						score_to_add[0] <= 5'h1;
-					else if (num_rows_to_clear == 2)
+					else if (num_rows_to_clear == 2) begin
 						score_to_add[0] <= 5'h5;
-					else if (num_rows_to_clear == 3)
+					end
+					else if (num_rows_to_clear == 3) begin
 						score_to_add[1] <= 5'h1;
+					end
 					else if (num_rows_to_clear == 4) begin
 						score_to_add[0] <= 5'h5;
 						score_to_add[1] <= 5'h2;
 					end
 					clear_row_counter <= 0;
 					clear_counter <= clear_counter_start;
-					// power up code
-					power_up <= 1'b1;
-					blockY1 <= Pieces[1][0][0][13:7];
-					blockY2 <= Pieces[1][0][1][13:7];
-					blockY3 <= Pieces[1][0][2][13:7];
-					blockY4 <= Pieces[1][0][3][13:7];
-					blockX1 <= Pieces[1][0][0][6:0] + (board_width>>1); // divided by 2
-					blockX2 <= Pieces[1][0][1][6:0] + (board_width>>1);
-					blockX3 <= Pieces[1][0][2][6:0] + (board_width>>1);
-					blockX4 <= Pieces[1][0][3][6:0] + (board_width>>1);
-					// end power up code
+					if (num_rows_to_clear >= 2) begin
+						// power up code
+						power_up <= 1'b1;
+						blockY1 <= Pieces[1][0][0][13:7];
+						blockY2 <= Pieces[1][0][1][13:7];
+						blockY3 <= Pieces[1][0][2][13:7];
+						blockY4 <= Pieces[1][0][3][13:7];
+						blockX1 <= Pieces[1][0][0][6:0] + (board_width>>1); // divided by 2
+						blockX2 <= Pieces[1][0][1][6:0] + (board_width>>1);
+						blockX3 <= Pieces[1][0][2][6:0] + (board_width>>1);
+						blockX4 <= Pieces[1][0][3][6:0] + (board_width>>1);
+						// end power up code
+					end
 					state <= clear2;
 				end
 				clear2: begin
