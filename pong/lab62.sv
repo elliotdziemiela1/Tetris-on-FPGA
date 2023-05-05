@@ -255,7 +255,7 @@ Game_Logic game (.Reset(Reset_h), .frame_clk(~VGA_VS), .Clk(MAX10_CLK1_50), .key
 //color_mapper colormap (.blockx1(blockXPos[0]), .blocky1(blockYPos[0]), .blockx2(blockXPos[1]), .blocky2(blockYPos[1]), .blockx3(blockXPos[2]), 
 //	.blocky3(blockYPos[2]), .blockx4(blockXPos[3]), .blocky4(blockYPos[3]), .DrawX(drawxsig), .DrawY(drawysig), .Ball_size(ballsizesig), .Red(Red), .Green(Green), .Blue(Blue));
 
-color_mapper colormap (.reset(Reset_h), .Clk(MAX10_CLK1_50), .hs(~VGA_HS), .LD_Row(LD_Row), .rowReady(rowReady), .Row(Row), .rowNum(rowNum), .DrawX(drawxsig), .DrawY(drawysig), .Red(Red), .Green(Green), .Blue(Blue), .gameClock(game_clock), .score(Score_to_add));
+color_mapper colormap (.reset(Reset_h), .Clk(MAX10_CLK1_50), .hs(~VGA_HS), .LD_Row(LD_Row), .rowReady(rowReady), .Row(Row), .rowNum(rowNum), .DrawX(drawxsig), .DrawY(drawysig), .Red(Red), .Green(Green), .Blue(Blue), .gameClock(game_clock), .score(Score_to_add), .clear_row(Row_to_clear));
 
 vga_controller vga_ctrl (.Clk(MAX10_CLK1_50), .Reset(1'b0), .hs(VGA_HS), .vs(VGA_VS), .pixel_clk(), .blank(), .sync(), .DrawX(drawxsig), .DrawY(drawysig));
 

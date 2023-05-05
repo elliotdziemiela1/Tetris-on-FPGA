@@ -3,6 +3,7 @@
 // VGA = 640*480
 
 module  color_mapper (  input Clk, hs, reset, frame_clk,
+								input [6:0] clear_row,
 								input [4:0] score [4],
 								input [3:0] gameClock [3], // From timer
 								input logic [15:0] Row [10],
@@ -36,61 +37,61 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 	 
 	 font_rom font(.addr(sprite_addr), .data(sprite_data));
 	 
-	 // Logic for some cool points
-	 enum logic [15:0] {A, B, C, D, E, F, G, H} cool_points;
-	 logic [10:0] pointer;
-	 logic [7:0] fade;
-	 logic [5:0] counter;
-	 
-	 always_ff @(posedge frame_clk or posedge reset)
-	 begin
-		if(reset)
-			begin
-			cool_points <= A;
-			counter <= 6'b0;
-			end
-		else
-		begin
-			unique case(cool_points)
-			A: begin
-				if(counter == 6'd60)
-					begin
-					counter <= 6'b0;
-					cool_points <= B;
-					end
-				else
-					counter <= counter + 1'b1;
-				end
-			B: begin
-				if(counter == 6'd60)
-				begin
-					counter <= 6'b0;
-					cool_points <= A;
-				end
-				else
-					counter <= counter + 1'b1;
-				end
-			default ;
-			endcase
-		end
-	 end
+//	 // Logic for some cool points
+//	 enum logic [15:0] {A, B, C, D, E, F, G, H} cool_points;
+//	 logic [10:0] pointer;
+//	 logic [7:0] fade;
+//	 logic [5:0] counter;
+//	 
+//	 always_ff @(posedge frame_clk or posedge reset)
+//	 begin
+//		if(reset)
+//			begin
+//			cool_points <= A;
+//			counter <= 6'b0;
+//			end
+//		else
+//		begin
+//			unique case(cool_points)
+//			A: begin
+//				if(counter == 6'd60)
+//					begin
+//					counter <= 6'b0;
+//					cool_points <= B;
+//					end
+//				else
+//					counter <= counter + 1'b1;
+//				end
+//			B: begin
+//				if(counter == 6'd60)
+//				begin
+//					counter <= 6'b0;
+//					cool_points <= A;
+//				end
+//				else
+//					counter <= counter + 1'b1;
+//				end
+//			default ;
+//			endcase
+//		end
+//	 end
        
     always_comb
     begin:RGB_Display
 		  sprite_addr = 11'b0; // Default font address
-		  fade = 8'h00;
-		  pointer = 11'h00;
-		  unique case (cool_points)
-				A: begin
-					fade = 8'h00;
-					pointer = 11'h0;
-					end
-				B:	begin
-					fade = 8'h04;
-					pointer = 11'h01;
-					end
-				default: ;
-		  endcase
+//		  fade = 8'h00;
+//		  pointer = 11'h00;
+//		  unique case (cool_points)
+//				A: begin
+//					fade = 8'h00;
+//					pointer = 11'h0;
+//					end
+//				B:	begin
+//					fade = 8'h04;
+//					pointer = 11'h01;
+//					end
+//				default: ;
+//		  endcase
         if ((DrawX >= (left_edge)) && (DrawX < (right_edge) && (DrawY < (squareSize*20))))  // if drawing in board
         begin
 				if(((DrawX-(left_edge))%(squareSize) == 0 || (DrawX-(left_edge))%(squareSize) == (squareSize - 1) ||
@@ -159,20 +160,20 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 						end
 				end
 		  // Pointer adder +5
-		  else if(DrawX >= (right_edge) && DrawX < ((right_edge)+8*3) && DrawY >= (16 + pointer) && DrawY < (16 + pointer + 8'h10))
+		  else if(DrawX >= (right_edge) && DrawX < ((right_edge)+8*3) && DrawY >= (16*clear_row) && DrawY < (16*clear_row + 8'h10))
 		  begin
 				if(DrawX < ((right_edge)+8*1))
-						sprite_addr = (({1'b0, DrawY} - (16 + pointer)) + 16*(11'h2b)); // Code for 0 is x30
+						sprite_addr = (({1'b0, DrawY} - (16*clear_row)) + 16*(11'h2b)); // Code for 0 is x30
 				else if(DrawX < ((right_edge)+8*2))
-						sprite_addr = (({1'b0, DrawY} - (16 + pointer)) + 16*(11'h31)); // Code for 1 is x31
+						sprite_addr = (({1'b0, DrawY} - (16*clear_row)) + 16*(11'h31)); // Code for 1 is x31
 				else
-						sprite_addr = (({1'b0, DrawY} - (16 + pointer)) + 16*(11'h30)); // Code for 1 is x31
+						sprite_addr = (({1'b0, DrawY} - (16*clear_row)) + 16*(11'h30)); // Code for 1 is x31
 		  
 		  		if(sprite_data[3'd7 - (((DrawX - (right_edge)) % 8))] == 1'b1)
 						begin
-						Red = 8'hff - fade;
-						Green = 8'hff - fade;
-						Blue = 8'hff - fade;
+						Red = 8'hff;
+						Green = 8'hff;
+						Blue = 8'hff;
 						end
 					else
 						begin
