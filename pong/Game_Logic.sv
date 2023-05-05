@@ -77,6 +77,7 @@ module Game_Logic (
 	logic [6:0] clear_counter, clear_counter_start;
 	logic [6:0] clear_row_counter, clear_row_counter_start;
 	
+	logic power_up;
 	
 	
 		always_ff @ (posedge Clk )
@@ -155,6 +156,8 @@ module Game_Logic (
 					
 					num_rows_to_clear <= 0;
 					
+					power_up <= 0;
+					
 		  end
 		  
 			score_to_add[0] <= 5'h0;
@@ -177,6 +180,17 @@ module Game_Logic (
 					end
 					clear_row_counter <= 0;
 					clear_counter <= clear_counter_start;
+					// power up code
+					power_up <= 1'b1;
+					blockY1 <= Pieces[1][0][0][13:7];
+					blockY2 <= Pieces[1][0][1][13:7];
+					blockY3 <= Pieces[1][0][2][13:7];
+					blockY4 <= Pieces[1][0][3][13:7];
+					blockX1 <= Pieces[1][0][0][6:0] + (board_width>>1); // divided by 2
+					blockX2 <= Pieces[1][0][1][6:0] + (board_width>>1);
+					blockX3 <= Pieces[1][0][2][6:0] + (board_width>>1);
+					blockX4 <= Pieces[1][0][3][6:0] + (board_width>>1);
+					// end power up code
 					state <= clear2;
 				end
 				clear2: begin
@@ -202,6 +216,17 @@ module Game_Logic (
 		  endcase
 			
 			
+			if (power_up) begin
+				if (color+1 < number_of_colors)
+						color <= color+1;
+				else 
+					color <= 0;
+			end
+			
+			blockYLanded[0] <= 7'b0;
+			blockYLanded[1] <= 7'b0;
+			blockYLanded[2] <= 7'b0;
+			blockYLanded[3] <= 7'b0;
 			
 			
 			if (frame_clk == 1'b0) begin
@@ -316,7 +341,7 @@ module Game_Logic (
 						 //
 						// rotate logic
 						// 
-						if ((frame_count_rotate >= frames_per_rotate) && (frame_count_move_Y != frames_per_move_Y)) begin: Rotate_Block // if not rotating on a move Y frame
+						if (~power_up && (frame_count_rotate >= frames_per_rotate) && (frame_count_move_Y != frames_per_move_Y)) begin: Rotate_Block // if not rotating on a move Y frame
 								frame_count_rotate <= 0;
 								W_pressed <= 1'b0;
 								if (W_pressed) begin
@@ -376,30 +401,49 @@ module Game_Logic (
 							frame_count_move_Y <= 0;
 							blockYMotion <= 1;
 							
-							
-							if (
-							Board[blockY1+blockYMotion][blockX1]==1'b1 || (blockY1+blockYMotion>board_height) ||
-							Board[blockY2+blockYMotion][blockX2]==1'b1 || (blockY2+blockYMotion>board_height) ||
-							Board[blockY3+blockYMotion][blockX3]==1'b1 || (blockY3+blockYMotion>board_height) ||
-							Board[blockY4+blockYMotion][blockX4]==1'b1 || (blockY4+blockYMotion>board_height)
-							) begin // collision with other block or bottom of screen
-								// new block generated
-								blockYPrevious[0] <= 7'b0;
-								blockYPrevious[1] <= 7'b0;
-								blockYPrevious[2] <= 7'b0;
-								blockYPrevious[3] <= 7'b0;
-								
-								blockYLanded[0] <= blockY1;
-								blockYLanded[1] <= blockY2;
-								blockYLanded[2] <= blockY3;
-								blockYLanded[3] <= blockY4;
-								
-								Board[blockY1][blockX1] <= 1'b1;
-								Board[blockY2][blockX2] <= 1'b1;
-								Board[blockY3][blockX3] <= 1'b1;
-								Board[blockY4][blockX4] <= 1'b1;
-								
-								if (piece_count != current_piece) begin
+							if (power_up) begin
+								if (Board[blockY1+blockYMotion][blockX1]==1'b1 || (blockY1+blockYMotion>board_height)) begin
+									Board[blockY1][blockX1] <= 1'b1; // this will continue to be entered until all blocks fall
+									blockYPrevious[0] <= 7'b0;
+								end
+								else
+									blockY1 <= blockY1 + blockYMotion;
+									
+								if (Board[blockY2+blockYMotion][blockX2]==1'b1 || (blockY2+blockYMotion>board_height)) begin
+									Board[blockY2][blockX2] <= 1'b1; // this will continue to be entered until all blocks fall
+									blockYPrevious[1] <= 7'b0;
+								end
+								else
+									blockY2 <= blockY2 + blockYMotion;
+									
+								if (Board[blockY3+blockYMotion][blockX3]==1'b1 || (blockY3+blockYMotion>board_height)) begin
+									Board[blockY3][blockX3] <= 1'b1; // this will continue to be entered until all blocks fall
+									blockYPrevious[2] <= 7'b0;
+								end
+								else
+									blockY3 <= blockY3 + blockYMotion;
+									
+								if (Board[blockY4+blockYMotion][blockX4]==1'b1 || (blockY4+blockYMotion>board_height)) begin
+									Board[blockY4][blockX4] <= 1'b1; // this will continue to be entered until all blocks fall
+									blockYPrevious[3] <= 7'b0;
+								end
+								else
+									blockY4 <= blockY4 + blockYMotion;
+									
+								if ((Board[blockY1+blockYMotion][blockX1]==1'b1 || (blockY1+blockYMotion>board_height)) &&
+									(Board[blockY2+blockYMotion][blockX2]==1'b1 || (blockY2+blockYMotion>board_height)) &&
+									(Board[blockY3+blockYMotion][blockX3]==1'b1 || (blockY3+blockYMotion>board_height)) &&
+									(Board[blockY4+blockYMotion][blockX4]==1'b1 || (blockY4+blockYMotion>board_height))) begin // if all the pieces fell
+									power_up <= 0;
+									
+									blockYPrevious[0] <= 7'b0;
+									blockYPrevious[1] <= 7'b0;
+									blockYPrevious[2] <= 7'b0;
+									blockYPrevious[3] <= 7'b0;
+									blockYLanded[0] <= blockY1;
+									blockYLanded[1] <= blockY2;
+									blockYLanded[2] <= blockY3;
+									blockYLanded[3] <= blockY4;
 									blockY1 <= Pieces[piece_count][0][0][13:7];
 									blockY2 <= Pieces[piece_count][0][1][13:7];
 									blockY3 <= Pieces[piece_count][0][2][13:7];
@@ -409,40 +453,76 @@ module Game_Logic (
 									blockX3 <= Pieces[piece_count][0][2][6:0] + (board_width>>1);
 									blockX4 <= Pieces[piece_count][0][3][6:0] + (board_width>>1);
 									current_piece <= piece_count;
+									
+									block_orientation <= 0;
+								end
+							end // end power up logic
+							else begin
+								if (Board[blockY1+blockYMotion][blockX1]==1'b1 || (blockY1+blockYMotion>board_height) ||
+								Board[blockY2+blockYMotion][blockX2]==1'b1 || (blockY2+blockYMotion>board_height) ||
+								Board[blockY3+blockYMotion][blockX3]==1'b1 || (blockY3+blockYMotion>board_height) ||
+								Board[blockY4+blockYMotion][blockX4]==1'b1 || (blockY4+blockYMotion>board_height)) begin // collision with other block or bottom of screen
+									// new block generated
+									blockYPrevious[0] <= 7'b0;
+									blockYPrevious[1] <= 7'b0;
+									blockYPrevious[2] <= 7'b0;
+									blockYPrevious[3] <= 7'b0;
+									
+									blockYLanded[0] <= blockY1;
+									blockYLanded[1] <= blockY2;
+									blockYLanded[2] <= blockY3;
+									blockYLanded[3] <= blockY4;
+									
+									Board[blockY1][blockX1] <= 1'b1;
+									Board[blockY2][blockX2] <= 1'b1;
+									Board[blockY3][blockX3] <= 1'b1;
+									Board[blockY4][blockX4] <= 1'b1;
+									
+									if (piece_count != current_piece) begin
+										blockY1 <= Pieces[piece_count][0][0][13:7];
+										blockY2 <= Pieces[piece_count][0][1][13:7];
+										blockY3 <= Pieces[piece_count][0][2][13:7];
+										blockY4 <= Pieces[piece_count][0][3][13:7];
+										blockX1 <= Pieces[piece_count][0][0][6:0] + (board_width>>1); // divided by 2
+										blockX2 <= Pieces[piece_count][0][1][6:0] + (board_width>>1);
+										blockX3 <= Pieces[piece_count][0][2][6:0] + (board_width>>1);
+										blockX4 <= Pieces[piece_count][0][3][6:0] + (board_width>>1);
+										current_piece <= piece_count;
+									end
+									else begin
+										blockY1 <= Pieces[(piece_count+1)%number_of_pieces][0][0][13:7];
+										blockY2 <= Pieces[(piece_count+1)%number_of_pieces][0][1][13:7];
+										blockY3 <= Pieces[(piece_count+1)%number_of_pieces][0][2][13:7];
+										blockY4 <= Pieces[(piece_count+1)%number_of_pieces][0][3][13:7];
+										blockX1 <= Pieces[(piece_count+1)%number_of_pieces][0][0][6:0] + (board_width>>1); // divided by 2
+										blockX2 <= Pieces[(piece_count+1)%number_of_pieces][0][1][6:0] + (board_width>>1);
+										blockX3 <= Pieces[(piece_count+1)%number_of_pieces][0][2][6:0] + (board_width>>1);
+										blockX4 <= Pieces[(piece_count+1)%number_of_pieces][0][3][6:0] + (board_width>>1);
+										current_piece <= (piece_count+1)%number_of_pieces;
+									end
+									
+									// Testing
+		//							clear_row <= 1'b1;
+		//							num_rows_to_clear <= 1;
+		//							row_to_clear <= 18;
+		//							Board[1:18] <= Board[0:17];
+									// end testing
+									
+									block_orientation <= 0;
+									
+									
+									if (color+1 < number_of_colors)
+										color <= color+1;
+									else 
+										color <= 0;
+										
 								end
 								else begin
-									blockY1 <= Pieces[(piece_count+1)%number_of_pieces][0][0][13:7];
-									blockY2 <= Pieces[(piece_count+1)%number_of_pieces][0][1][13:7];
-									blockY3 <= Pieces[(piece_count+1)%number_of_pieces][0][2][13:7];
-									blockY4 <= Pieces[(piece_count+1)%number_of_pieces][0][3][13:7];
-									blockX1 <= Pieces[(piece_count+1)%number_of_pieces][0][0][6:0] + (board_width>>1); // divided by 2
-									blockX2 <= Pieces[(piece_count+1)%number_of_pieces][0][1][6:0] + (board_width>>1);
-									blockX3 <= Pieces[(piece_count+1)%number_of_pieces][0][2][6:0] + (board_width>>1);
-									blockX4 <= Pieces[(piece_count+1)%number_of_pieces][0][3][6:0] + (board_width>>1);
-									current_piece <= (piece_count+1)%number_of_pieces;
+									blockY1 <= blockY1 + blockYMotion;
+									blockY2 <= blockY2 + blockYMotion;
+									blockY3 <= blockY3 + blockYMotion;
+									blockY4 <= blockY4 + blockYMotion;
 								end
-								
-								// Testing
-	//							clear_row <= 1'b1;
-	//							num_rows_to_clear <= 1;
-	//							row_to_clear <= 18;
-	//							Board[1:18] <= Board[0:17];
-								// end testing
-								
-								block_orientation <= 0;
-								
-								
-								if (color+1 < number_of_colors)
-									color <= color+1;
-								else 
-									color <= 0;
-									
-							end
-							else begin
-								blockY1 <= blockY1 + blockYMotion;
-								blockY2 <= blockY2 + blockYMotion;
-								blockY3 <= blockY3 + blockYMotion;
-								blockY4 <= blockY4 + blockYMotion;
 							end
 						 end
 						 else 
