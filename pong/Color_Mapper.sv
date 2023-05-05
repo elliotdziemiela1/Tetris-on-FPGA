@@ -45,6 +45,7 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 	 begin
 		if(reset)
 			cool_points <= A;
+			counter <= 5'b0;
 		else
 		begin
 			unique case(cool_points)
