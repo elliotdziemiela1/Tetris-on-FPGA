@@ -33,46 +33,78 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 	 assign the_matrix[0] = {7'b0, gameClock[0]} + 11'h30;
 	 
 	 logic display; // Display points added
+	 logic [4:0] score1;
+	 logic [4:0] score0;
+	 logic frame_clk_flag;
 	 
 	 // For indexing font rom 
 	 logic [10:0] sprite_addr;
 	 logic [7:0] sprite_data;
-	 logic [7:0] counter;
 	 
 	 font_rom font(.addr(sprite_addr), .data(sprite_data));
 	 
-always_ff @(posedge frame_clk or posedge reset)
+	 
+always_ff @(posedge Clk or posedge reset)
 begin
 if(reset)
 	begin
+	score1 <= 5'b0;
+	score0 <= 5'b0;
 	display <= 1'b0;
 	counter <= 8'b0;
+	frame_clk_flag <= 1'b0;
 	end
 else
 begin
-	if(score_to_add[0] > 0 || score_to_add[1] > 0)
+	if(score_to_add[0] > 0 || score_to_add[1] > 0) // Lock in score and set display
 		begin
+		score1 <= score_to_add[1];
+		score0 <= score_to_add[0];
 		display <= 1'b1;
-		counter <= 8'b0;
 		end
-	else
+	 if (frame_clk == 1'b0) 
 		begin
-		if(counter == 8'd60)
-			begin
-			counter <= 8'b0;
-			display <= 1'b0;
-			end
-		else
-			counter <= counter + 1'b1;
+			frame_clk_flag <= 1'b0;
+		end
+	 if (frame_clk == 1'b1 && frame_clk_flag == 1'b0) begin
+				frame_clk_flag <= 1'b1;
+				if(counter == 8'd60)
+					begin
+					score1 <= 5'b0;
+					score0 <= 5'b0;
+					counter <= 8'b0;
+					display <= 1'b0;
+					end
+			else
+				counter <= counter + 1'b1;
 		end
 end
 end
+	 
+//always_ff @(posedge frame_clk or posedge reset)
+//begin
+//if(reset)
+//	begin
+//	display <= 1'b0;
+//	counter <= 8'b0;
+//	end
+//else
+//begin
+//	if(score)
+//		begin
+//		display <= 1'b1;
+//		counter <= 8'b0;
+//	else
+//		begin
+//		
+//		end
+//end
 	 
 //	 // Logic for some cool points
 //	 enum logic [15:0] {A, B, C, D, E, F, G, H} cool_points;
 //	 logic [10:0] pointer;
 //	 logic [7:0] fade;
-
+	 logic [7:0] counter;
 //	 
 //	 always_ff @(posedge frame_clk or posedge reset)
 //	 begin
