@@ -216,18 +216,6 @@ module Game_Logic (
 		  endcase
 			
 			
-			if (power_up) begin
-				if (color+1 < number_of_colors)
-						color <= color+1;
-				else 
-					color <= 0;
-			end
-			
-			blockYLanded[0] <= 7'b0;
-			blockYLanded[1] <= 7'b0;
-			blockYLanded[2] <= 7'b0;
-			blockYLanded[3] <= 7'b0;
-			
 			
 			if (frame_clk == 1'b0) begin
 				frame_clk_flag <= 1'b0;
@@ -235,6 +223,8 @@ module Game_Logic (
 			end
 // THIS HAPPENS ONCE, ONE CYCLE AFTER POSITIVE EDGE OF FRAME CLOCK
 			if (frame_clk == 1'b1 && frame_clk_flag == 1'b0) begin
+					frame_clk_flag <= 1'b1;
+					
 					blockXPrevious[0] <= blockX1;
 					blockXPrevious[1] <= blockX2;
 					blockXPrevious[2] <= blockX3;
@@ -244,12 +234,17 @@ module Game_Logic (
 					blockYPrevious[2] <= blockY3;
 					blockYPrevious[3] <= blockY4;
 					
+					if (power_up) begin
+						if (color+1 < number_of_colors)
+								color <= color+1;
+						else 
+							color <= 0;
+					end
+					
 					if (piece_count == number_of_pieces-1)
 						piece_count <= 0;
 					else
 						piece_count <= piece_count + 1;
-					
-					frame_clk_flag <= 1'b1;
 					
 					// 
 					// clear row logic
