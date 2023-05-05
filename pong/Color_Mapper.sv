@@ -39,7 +39,7 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 	 enum logic [15:0] {A, B, C, D, E, F, G, H} cool_points;
 	 logic [10:0] pointer;
 	 logic [7:0] fade;
-	 logic [4:0] counter;
+	 logic [5:0] counter;
 	 
 	 always_ff @(posedge frame_clk)
 	 begin
@@ -54,92 +54,108 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 		begin
 			unique case(cool_points)
 			A: begin
-				if(counter[4])
-				begin
+				if(counter == 5'd60)
+					begin
 					counter <= 5'b0;
+					cool_points <= B;
+					end
+				else
+					begin
 					fade <= 8'b0;
 					pointer <= 11'b0;
-					cool_points <= B;
-				end
-				else
 					counter <= counter + 1'b1;
+					end
 				end
 			B: begin
-				if(counter[4])
+				if(counter == 5'd60)
 				begin
 					counter <= 5'b0;
-					fade <= fade + 8'h04;
-					pointer <= pointer + 1'b1;
 					cool_points <= C;
 				end
 				else
-					counter <= counter + 1'b1;
-				end
-			C: begin
-				if(counter[4])
-				begin
-					counter <= 5'b0;
+					begin
 					fade <= fade + 8'h04;
 					pointer <= pointer + 1'b1;
+					counter <= counter + 1'b1;
+					end
+				end
+			C: begin
+				if(counter == 5'd60)
+				begin
+					counter <= 5'b0;
 					cool_points <= D;
 				end
 				else
-					counter <= counter + 1'b1;
-				end
-			D: begin
-				if(counter[4])
-				begin
-					counter <= 5'b0;
+					begin
 					fade <= fade + 8'h04;
 					pointer <= pointer + 1'b1;
+					counter <= counter + 1'b1;
+					end
+				end
+			D: begin
+				if(counter == 5'd60)
+				begin
+					counter <= 5'b0;
 					cool_points <= E;
 				end
 				else
-					counter <= counter + 1'b1;
-				end
-			E:begin
-				if(counter[4])
-				begin
-					counter <= 5'b0;
+					begin
 					fade <= fade + 8'h04;
 					pointer <= pointer + 1'b1;
+					counter <= counter + 1'b1;
+					end
+				end
+			E:begin
+				if(counter == 5'd60)
+				begin
+					counter <= 5'b0;
 					cool_points <= F;
 				end
 				else
-					counter <= counter + 1'b1;
-				end
-			F: begin
-				if(counter[4])
-				begin
-					counter <= 5'b0;
+					begin
 					fade <= fade + 8'h04;
 					pointer <= pointer + 1'b1;
+					counter <= counter + 1'b1;
+					end
+				end
+			F: begin
+				if(counter == 5'd60)
+				begin
+					counter <= 5'b0;
 					cool_points <= G;
 				end
 				else
-					counter <= counter + 1'b1;
-				end
-			G: begin
-				if(counter[4])
-				begin
-					counter <= 5'b0;
+					begin
 					fade <= fade + 8'h04;
 					pointer <= pointer + 1'b1;
+					counter <= counter + 1'b1;
+					end
+				end
+			G: begin
+				if(counter == 5'd60)
+				begin
+					counter <= 5'b0;
 					cool_points <= H;
 				end
 				else
-					counter <= counter + 1'b1;
-				end
-			H: begin
-				if(counter[4])
-				begin
-					counter <= 5'b0;
+					begin
 					fade <= fade + 8'h04;
 					pointer <= pointer + 1'b1;
+					counter <= counter + 1'b1;
+					end
+				end
+			H: begin
+				if(counter == 5'd60)
+				begin
+					counter <= 5'b0;
 					cool_points <= A;
 				end
 				else
+					begin
+					fade <= fade + 8'h04;
+					pointer <= pointer + 1'b1;
 					counter <= counter + 1'b1;
+					end
 				end
 			endcase
 		end
