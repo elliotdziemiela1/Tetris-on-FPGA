@@ -70,14 +70,16 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 				if(counter == 6'd60)
 				begin
 					counter <= 6'b0;
-					fade <= fade + 8'h04;
-					pointer <= pointer + 1'b1;
 					cool_points <= A;
 				end
+				else if(counter == 6'b0)
+					begin
+					counter <= counter + 1'b1;
+					fade <= fade + 8'h04;
+					pointer <= pointer + 1'b1;
+					end
 				else
 					begin
-					fade <= 8'b0;
-				   pointer <= 11'b0;
 					counter <= counter + 1'b1;
 					end
 				end
