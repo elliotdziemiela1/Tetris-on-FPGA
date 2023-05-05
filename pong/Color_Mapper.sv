@@ -211,12 +211,19 @@ end
 					Green = 8'h00;
 					Blue = 8'h00;
 					end
-				else
+				else if (Row[(DrawX-(left_edge))/(squareSize)][11:4] > 0)
 					begin
 					Red = {Row[(DrawX-(left_edge))/(squareSize)][11:8], 4'b0} - (2*(DrawY - (DrawY%squareSize)));
 					Green = {Row[(DrawX-(left_edge))/(squareSize)][7:4], 4'b0} - (2*(DrawY - (DrawY%squareSize)));
 					Blue = {Row[(DrawX-(left_edge))/(squareSize)][3:0], 4'b0} - (2*(DrawY - (DrawY%squareSize)));
 					end
+				else
+					begin
+					Red = {Row[(DrawX-(left_edge))/(squareSize)][11:8], 4'b0};
+					Green = {Row[(DrawX-(left_edge))/(squareSize)][7:4], 4'b0};
+					Blue = {Row[(DrawX-(left_edge))/(squareSize)][3:0], 4'b0};
+					end
+					
         end
 		  // Code added by ya boi
 		  // In Game Score
@@ -303,9 +310,9 @@ end
 				end
 				else
 				begin
-            Red = 8'h06; 
-            Green = 8'h06;
-            Blue = 8'h06;
+            Red = 8'h0f; 
+            Green = 8'h0f;
+            Blue = 8'h0f;
 				end
         end   
     end 
