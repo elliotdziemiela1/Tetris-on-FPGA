@@ -157,10 +157,24 @@ module Game_Logic (
 					
 		  end
 		  
-		  // row clearing state machine. clear_counter_start should be the topmost row of the clear.
+			score_to_add[0] <= 5'h0;
+			score_to_add[1] <= 5'h0;
+			score_to_add[2] <= 5'h0;
+			score_to_add[3] <= 5'h0;
+	  // row clearing state machine. clear_counter_start should be the topmost row of the clear.
 		  unique case (state)
 				Wait: clear_counter <= 0;
 				clear1: begin
+					if (num_rows_to_clear == 1)
+						score_to_add[0] <= 5'h1;
+					else if (num_rows_to_clear == 2)
+						score_to_add[0] <= 5'h5;
+					else if (num_rows_to_clear == 3)
+						score_to_add[1] <= 5'h1;
+					else if (num_rows_to_clear == 4) begin
+						score_to_add[0] <= 5'h5;
+						score_to_add[1] <= 5'h2;
+					end
 					clear_row_counter <= 0;
 					clear_counter <= clear_counter_start;
 					state <= clear2;
@@ -205,12 +219,6 @@ module Game_Logic (
 					blockYPrevious[2] <= blockY3;
 					blockYPrevious[3] <= blockY4;
 					
-					score_to_add[0] <= 5'h0;
-				   score_to_add[1] <= 5'h0;
-				   score_to_add[2] <= 5'h0;
-				   score_to_add[3] <= 5'h0;
-					
-						
 					if (piece_count == number_of_pieces-1)
 						piece_count <= 0;
 					else
@@ -229,18 +237,13 @@ module Game_Logic (
 						num_rows_to_clear <= 1;
 						state <= clear1;
 						clear_counter_start <= blockYLanded[3];
-						score_to_add[0] <= 5'h1;
 						if (Board[blockYLanded[3]-1]==10'b1111111111) begin
 							num_rows_to_clear <= 2;
-							score_to_add[0] <= 5'h5;
 							clear_counter_start <= blockYLanded[3]-1;
 							if (blockYLanded[3] >= 2 && Board[blockYLanded[3]-2]==10'b1111111111) begin
-								score_to_add[1] <= 5'h1;
 								num_rows_to_clear <= 3;
 								clear_counter_start <= blockYLanded[3]-2;
 								if (blockYLanded[3] >= 3 && Board[blockYLanded[3]-3]==10'b1111111111) begin
-									score_to_add[0] <= 5'h5;
-									score_to_add[1] <= 5'h2;
 									num_rows_to_clear <= 4;
 									clear_counter_start <= blockYLanded[3]-3;
 								end
@@ -254,18 +257,14 @@ module Game_Logic (
 						num_rows_to_clear <= 1;
 						state <= clear1;
 						clear_counter <= blockYLanded[2];
-						score_to_add[0] <= 5'h1;
+						
 						if (Board[blockYLanded[2]-1]==10'b1111111111) begin
 							num_rows_to_clear <= 2;
-							score_to_add[0] <= 5'h5;
 							clear_counter_start <= blockYLanded[2]-1;
 							if (blockYLanded[2] >= 2 && Board[blockYLanded[2]-2]==10'b1111111111) begin
-								score_to_add[1] <= 5'h1;
 								num_rows_to_clear <= 3;
 								clear_counter_start <= blockYLanded[2]-2;
 								if (blockYLanded[2] >= 3 && Board[blockYLanded[2]-3]==10'b1111111111) begin
-									score_to_add[0] <= 5'h5;
-									score_to_add[1] <= 5'h2;
 									num_rows_to_clear <= 4;
 									clear_counter_start <= blockYLanded[2]-3;
 								end
@@ -279,18 +278,13 @@ module Game_Logic (
 						num_rows_to_clear <= 1;
 						state <= clear1;
 						clear_counter <= blockYLanded[1];
-						score_to_add[0] <= 5'h1;
 						if (Board[blockYLanded[1]-1]==10'b1111111111) begin
 							num_rows_to_clear <= 2;
-							score_to_add[0] <= 5'h5;
 							clear_counter_start <= blockYLanded[1]-1;
 							if (blockYLanded[1] >= 2 && Board[blockYLanded[1]-2]==10'b1111111111) begin
-								score_to_add[1] <= 5'h1;
 								num_rows_to_clear <= 3;
 								clear_counter_start <= blockYLanded[1]-2;
 								if (blockYLanded[1] >= 3 && Board[blockYLanded[1]-3]==10'b1111111111) begin
-									score_to_add[0] <= 5'h5;
-									score_to_add[1] <= 5'h2;
 									num_rows_to_clear <= 4;
 									clear_counter_start <= blockYLanded[1]-3;
 								end
@@ -304,18 +298,13 @@ module Game_Logic (
 						num_rows_to_clear <= 1;
 						state <= clear1;
 						clear_counter <= blockYLanded[0];
-						score_to_add[0] <= 5'h1;
 						if (Board[blockYLanded[0]-1]==10'b1111111111) begin
 							num_rows_to_clear <= 2;
-							score_to_add[0] <= 5'h5;
 							clear_counter_start <= blockYLanded[0]-1;
 							if (blockYLanded[0] >= 2 && Board[blockYLanded[0]-2]==10'b1111111111) begin
-								score_to_add[1] <= 5'h1;
 								num_rows_to_clear <= 3;
 								clear_counter_start <= blockYLanded[0]-2;
 								if (blockYLanded[0] >= 3 && Board[blockYLanded[0]-3]==10'b1111111111) begin
-									score_to_add[0] <= 5'h5;
-									score_to_add[1] <= 5'h2;
 									num_rows_to_clear <= 4;
 									clear_counter_start <= blockYLanded[0]-3;
 								end

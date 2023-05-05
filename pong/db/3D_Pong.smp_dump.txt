@@ -4,11 +4,6 @@ Name state.S1
 state.Wait 0 
 state.S1 1 
 
-State Machine - |lab62|color_mapper:colormap|cool_points
-Name cool_points.B 
-cool_points.A 0 
-cool_points.B 1 
-
 State Machine - |lab62|Game_Logic:game|state
 Name state.clear3 state.clear2 state.clear1 state.Wait state.clear4 
 state.Wait 0 0 0 0 0 
