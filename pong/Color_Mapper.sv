@@ -44,8 +44,12 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 	 always_ff @(posedge frame_clk)
 	 begin
 		if(reset)
+			begin
 			cool_points <= A;
 			counter <= 5'b0;
+			fade <= 8'b0;
+			pointer <= 11'b0;
+			end
 		else
 		begin
 			unique case(cool_points)
@@ -212,7 +216,7 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 						end
 				end
 		  // Pointer adder +5
-		  else if(DrawX >= (right_edge) && DrawX < ((right_edge)+8*3) && DrawY >= (16 + pointer) && DrawY < (16 + pointer + 8'h08))
+		  else if(DrawX >= (right_edge) && DrawX < ((right_edge)+8*3) && DrawY >= (16 + pointer) && DrawY < (16 + pointer + 8'h10))
 		  begin
 				if(DrawX < ((right_edge)+8*1))
 						sprite_addr = (({1'b0, DrawY} - (16 + pointer)) + 16*(11'h2b)); // Code for 0 is x30
