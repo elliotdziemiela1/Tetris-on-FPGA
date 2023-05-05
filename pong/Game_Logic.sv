@@ -199,13 +199,6 @@ module Game_Logic (
 						num_rows_to_clear <= 1;
 						state <= clear1;
 						clear_counter <= 18;
-						// Testing
-//							clear_row <= 1'b1;
-//							num_rows_to_clear <= 1;
-//							row_to_clear <= 18;
-//							Board[1:18] <= Board[0:17];
-						// end testing
-						
 //						if (Board[blockYLanded[3]-1]==10'b1111111111) begin
 //							num_rows_to_clear <= 2;
 //							if (blockYLanded[3] >= 2 && Board[blockYLanded[3]-2]==10'b1111111111) begin
