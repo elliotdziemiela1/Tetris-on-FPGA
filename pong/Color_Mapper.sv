@@ -4,7 +4,8 @@
 
 module  color_mapper (  input Clk, hs, reset, frame_clk,
 								input [6:0] clear_row,
-								input [4:0] score [4],
+								input [4:0] score_to_add [4],
+								input [4:0] digits [4],
 								input [3:0] gameClock [3], // From timer
 								input logic [15:0] Row [10],
 								input logic rowReady,
@@ -113,13 +114,13 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 			else if(DrawX >= (right_edge) && DrawX < ((right_edge)+8*4) && DrawY < 16) // Drawing IBM chars (8x16)
 				begin
 					if(DrawX < ((right_edge)+8*1))
-						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*({6'b0, score[3]} + 11'h30)); // Code for 0 is x30
+						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*({6'b0, digits[3]} + 11'h30)); // Code for 0 is x30
 					else if(DrawX < ((right_edge)+8*2))
-						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*({6'b0, score[2]} + 11'h30)); // Code for 1 is x31
+						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*({6'b0, digits[2]} + 11'h30)); // Code for 1 is x31
 					else if(DrawX < ((right_edge)+8*3))
-						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*({6'b0, score[1]} + 11'h30)); // Code for 2 is x32
+						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*({6'b0, digits[1]} + 11'h30)); // Code for 2 is x32
 					else
-						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*({6'b0, score[0]} + 11'h30)); // Code for 3 is x33
+						sprite_addr = (({1'b0, DrawY} - 11'b0) + 16*({6'b0, digits[0]} + 11'h30)); // Code for 3 is x33
 					
 					if(sprite_data[3'd7 - (((DrawX - (right_edge)) % 8))] == 1'b1)
 						begin
@@ -160,14 +161,14 @@ module  color_mapper (  input Clk, hs, reset, frame_clk,
 						end
 				end
 		  // Pointer adder +5
-		  else if(DrawX >= (right_edge) && DrawX < ((right_edge)+8*3) && DrawY >= (squareSize*clear_row) && DrawY < (squareSize*clear_row + 10'h10) && (score[1] + score[0] > 0))
+		  else if(DrawX >= (right_edge) && DrawX < ((right_edge)+8*3) && DrawY >= (squareSize*clear_row) && DrawY < (squareSize*clear_row + 10'h10) && (score_to_add[1] > 0 || score_to_add[0] > 0))
 		  begin
 				if(DrawX < ((right_edge)+8*1))
 						sprite_addr = (({1'b0, DrawY} - (squareSize*clear_row)) + 16*(11'h2b)); // Code for 0 is x30
 				else if(DrawX < ((right_edge)+8*2))
-						sprite_addr = (({1'b0, DrawY} - (squareSize*clear_row)) + 16*({6'b0, score[1]} + 11'h30)); // Code for 1 is x31
+						sprite_addr = (({1'b0, DrawY} - (squareSize*clear_row)) + 16*({6'b0, score_to_add[1]} + 11'h30)); // Code for 1 is x31
 				else
-						sprite_addr = (({1'b0, DrawY} - (squareSize*clear_row)) + 16*({6'b0, score[0]} + 11'h30)); // Code for 1 is x31
+						sprite_addr = (({1'b0, DrawY} - (squareSize*clear_row)) + 16*({6'b0, score_to_add[0]} + 11'h30)); // Code for 1 is x31
 		  
 		  		if(sprite_data[3'd7 - (((DrawX - (right_edge)) % 8))] == 1'b1)
 						begin
